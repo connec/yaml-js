@@ -1,0 +1,38 @@
+A (partial) direct port of PyYAML (http://pyyaml.org/)
+
+Currently only works with CommonJS (tested with NodeJS).
+
+Likely to be extremely buggy just now for any non-trivial documents, as it's
+only been tested with basic list/map structures.
+
+Depends on:
+  CoffeeScript (http://jashkenas.github.com/coffee-script/)
+  underscore (http://documentcloud.github.com/underscore/)
+
+Currently ported:
+  Loading of default YAML structures to Javascript objects
+
+Still to be ported:
+  Serializing Javascript objects to YAML
+  Loading serialized Javascript objects as a class instance, if available
+
+Usage:
+
+    yaml = require './src/yaml'
+    yaml.load '''
+              - just: write some
+              - yaml:
+                - [here, and]
+                - {it: updates, in: real-time}
+              '''
+    ###
+    [
+      { just: 'write some' },
+      {
+        yaml: [
+          [ 'here', 'and' ],
+          { it: 'updates', in: 'real-time' }
+        ]
+      }
+    ]
+    ###
