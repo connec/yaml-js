@@ -842,15 +842,15 @@ class module.exports
           or char in '-_'
         length++
         char = @peek length
-      throw new exports.ScannerError "while scanning an #{name}", start_mark,
-        "expected alphabetic or numeric character but found #{char}",
+      throw new exports.ScannerError "while scanning an #{name}", start_mark, \
+        "expected alphabetic or numeric character but found '#{char}'", \
         @get_mark() if length is 0
       
       value = @prefix length
       @forward length
       char = @peek()
-      throw new exports.ScannerError "while scanning an #{name}", start_mark,
-        "expected alphabetic or numeric character but found #{char}",
+      throw new exports.ScannerError "while scanning an #{name}", start_mark, \
+        "expected alphabetic or numeric character but found '#{char}'", \
         @get_mark() if char not in C_LB + C_WS + '\0' + '?:,]}%@`'
       
       return new TokenClass value, start_mark, @get_mark()
@@ -865,7 +865,7 @@ class module.exports
         handle = null
         @forward 2
         suffix = @scan_tag_uri 'tag', start_mark
-        throw new exports.ScannerError 'while parsing a tag', start_mark,
+        throw new exports.ScannerError 'while parsing a tag', start_mark, \
           "expected '>' but found #{@peek()}", @get_mark() if @peek() isnt '>'
         @forward()
       else if char in C_LB + C_WS + '\0'
