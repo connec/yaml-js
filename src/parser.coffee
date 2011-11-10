@@ -205,7 +205,8 @@ class module.exports
     parse_node: (block = false, indentless_sequence = false) ->
       if @check_token tokens.AliasToken
         token = @get_token()
-        event = AliasEvent token.value, token.start_mark, token.end_mark
+        event = new events.AliasEvent token.value, token.start_mark,
+          token.end_mark
         @state = @states.pop()
       else
         anchor = null
