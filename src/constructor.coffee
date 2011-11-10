@@ -8,13 +8,13 @@ class module.exports
   
   class @BaseConstructor
     
-    yaml_constructors: {}
+    yaml_constructors      : {}
     yaml_multi_constructors: {}
     
     constructor: ->
-      @constructed_objects = {}
-      @recursive_objects   = {}
-      @deep_construct      = false
+      @constructed_objects   = {}
+      @constructing_nodes    = []
+      @deferred_constructors = []
     
     ###
     Are there more documents available?
@@ -37,19 +37,19 @@ class module.exports
     
     construct_document: (node) ->
       data = @construct_object node
-      @constructed_objects = {}
-      @recursive_objects = {}
-      @deep_construct = false
+      while not _.isEmpty @deferred_constructors
+        @deferred_constructors.pop()()
       return data
     
-    construct_object: (node, deep = false) ->
-      node._id ?= _.uniqueId 'node_'
-      return @constructed_objects[node._id] if node._id of @constructed_objects
-      [old_deep, @deep_construct] = [@deep_construct, true] if deep
+    defer: (f) -> @deferred_constructors.push f
+    
+    construct_object: (node) ->
+      return @constructed_objects[node.unique_id] \
+        if node.unique_id of @constructed_objects
       throw new exports.ConstructorError null, null, \
         'found unconstructable recursive node', node.start_mark \
-        if node._id of @recursive_objects
-      @recursive_objects[node._id] = null
+        if node.unique_id in @constructing_nodes
+      @constructing_nodes.push node.unique_id
       
       constructor = null
       tag_suffix  = null
@@ -61,7 +61,7 @@ class module.exports
             tag_suffix = node.tag[tag_prefix.length...]
             constructor = @yaml_multi_constructors[tag_prefix]
             break
-        if constructor is null
+        if not constructor?
           if null of @yaml_multi_constructors
             tag_suffix = node.tag
             constructor = @yaml_multi_constructors[null]
@@ -73,15 +73,10 @@ class module.exports
             constructor = @construct_sequence
           else if node instanceof nodes.MappingNode
             constructor = @construct_mapping
-      if tag_suffix is null
-        data = constructor.call @, node
-      else
-        data = constructor.call @, tag_suffix, node
-      
-      @constructed_objects[node._id] = data
-      delete @recursive_objects[node._id]
-      @deep_construct = old_deep if deep
-      return data
+      object = constructor.call @, tag_suffix ? node, node
+      @constructed_objects[node.unique_id] = object
+      @constructing_nodes.pop()
+      return object
     
     construct_scalar: (node) ->
       throw new exports.ConstructorError null, null, \
@@ -89,34 +84,34 @@ class module.exports
         unless node instanceof nodes.ScalarNode
       node.value
     
-    construct_sequence: (node, deep = false) ->
+    construct_sequence: (node) ->
       throw new exports.ConstructorError null, null, \
         "expected a sequence node but found #{node.id}", node.start_mark \
         unless node instanceof nodes.SequenceNode
-      @construct_object child, deep for child in node.value
+      @construct_object child for child in node.value
     
-    construct_mapping: (node, deep) ->
+    construct_mapping: (node) ->
       throw new ConstructorError null, null, \
         "expected a mapping node but found #{node.id}", node.start_mark \
         unless node instanceof nodes.MappingNode
       mapping = {}
       for [key_node, value_node] in node.value
-        key = @construct_object key_node, deep
+        key = @construct_object key_node
         throw new exports.ConstructorError 'while constructing a mapping', \
           node.start_mark, 'found unhashable key', key_node.start_mark \
           if typeof key is 'object'
-        value = @construct_object value_node, deep
+        value = @construct_object value_node
         mapping[key] = value
       return mapping
     
-    construct_pairs: (node, deep) ->
+    construct_pairs: (node) ->
       throw new exports.ConstructorError null, null, \
         "expected a mapping node but found #{node.id}", node.start_mark \
         unless node instanceof nodes.MappingNode
       pairs = []
       for [key_node, value_node] in node.value
-        key = @construct_object key_node, deep
-        value = @construct_object value_node, deep
+        key = @construct_object key_node
+        value = @construct_object value_node
         pairs.push [key, value]
       return pairs
     
@@ -221,9 +216,9 @@ class module.exports
       if merge.length
         node.value = merge.concat node.value
     
-    construct_mapping: (node, deep) ->
+    construct_mapping: (node) ->
       @flatten_mapping node if node instanceof nodes.MappingNode
-      return super node, deep
+      return super node
     
     construct_yaml_null: (node) ->
       @construct_scalar node
@@ -323,39 +318,52 @@ class module.exports
         node.start_mark, "expected a sequence but found #{node.id}",
         node.start_mark unless node instanceof nodes.SequenceNode
       
-      for subnode in node.value
-        throw new exports.ConstructorError "while constructing #{type}",
-          node.start_mark,
-          "expected a mapping of length 1 but found #{subnode.id}",
-          subnode.start_mark unless subnode instanceof nodes.MappingNode
-        
-        throw new exports.ConstructorError "while constructing #{type}",
-          node.start_mark,
-          "expected a mapping of length 1 but found #{subnode.id}",
-          subnode.start_mark unless subnode.value.length is 1
-        
-        [key_node, value_node] = subnode.value[0]
-        key   = @construct_object key
-        value = @construct_object value
-        list.push [key, value]
+      @defer =>
+        for subnode in node.value
+          throw new exports.ConstructorError "while constructing #{type}",
+            node.start_mark,
+            "expected a mapping of length 1 but found #{subnode.id}",
+            subnode.start_mark unless subnode instanceof nodes.MappingNode
+          
+          throw new exports.ConstructorError "while constructing #{type}",
+            node.start_mark,
+            "expected a mapping of length 1 but found #{subnode.id}",
+            subnode.start_mark unless subnode.value.length is 1
+          
+          [key_node, value_node] = subnode.value[0]
+          key   = @construct_object key_node
+          value = @construct_object value_node
+          list.push [key, value]
       return list
     
     construct_yaml_omap: (node) ->
       @construct_yaml_pair_list 'an ordered map', node
     
-    construct_yaml_pairs: (node) -> @construct_yaml_pair_list 'pairs', node
+    construct_yaml_pairs: (node) ->
+      @construct_yaml_pair_list 'pairs', node
     
-    construct_yaml_set: (node) -> @construct_mapping node
+    construct_yaml_set: (node) ->
+      data = []
+      @defer => data.push item for item of @construct_mapping node
+      return data
     
-    construct_yaml_str: (node) -> @construct_scalar node
+    construct_yaml_str: (node) ->
+      @construct_scalar node
     
-    construct_yaml_seq: (node) -> @construct_sequence node
+    construct_yaml_seq: (node) ->
+      data = []
+      @defer => data.push item for item in @construct_sequence node
+      return data
     
-    construct_yaml_map: (node) -> @construct_mapping node
+    construct_yaml_map: (node) ->
+      data = {}
+      @defer => data[key] = value for key, value of @construct_mapping node
+      return data
     
     construct_yaml_object: (node, klass) ->
       data = new klass
-      _.extend data, @construct_mapping node, true
+      @defer => _.extend data, @construct_mapping node, true
+      return data
     
     construct_indefined: (node) ->
       throw new exports.ConstructorError null, null,
