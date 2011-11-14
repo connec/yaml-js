@@ -240,6 +240,8 @@ class module.exports
         return sign * parseInt value[2...], 2
       else if value.indexOf('0x') is 0
         return sign * parseInt value[2...], 16
+      else if value.indexOf('0o') is 0
+        return sign * parseInt value[2...], 8
       else if value[0] is '0'
         return sign * parseInt value, 8
       else if ':' in value
