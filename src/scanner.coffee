@@ -1,5 +1,6 @@
 class module.exports
   
+  _                 = require 'underscore'
   tokens            = require './tokens'
   {MarkedYAMLError} = require './errors'
   
@@ -888,10 +889,10 @@ class module.exports
           @forward()
         suffix = @scan_tag_uri 'tag', start_mark
       char = @peek()
-      throw new exports.ScannerError 'while scanning a tag', start_mark,
+      throw new exports.ScannerError 'while scanning a tag', start_mark, \
         "expected ' ' but found #{char}", @get_mark() \
         if char not in C_LB + '\0 '
-      return new tokens.TagToken [handle, suffix], start_mark, end_mark
+      return new tokens.TagToken [handle, suffix], start_mark, @get_mark()
     
     ###
     See the specification for details.
@@ -910,8 +911,8 @@ class module.exports
       # Determine the indentation level and go to the first non-empty line.
       min_indent = @indent + 1
       min_indent = 1 if min_indent < 1
-      if increment is null
-        [breaks, max_indent, end_mark] = @scan_block_scalar_indentation
+      if not increment?
+        [breaks, max_indent, end_mark] = @scan_block_scalar_indentation()
         indent = Math.max min_indent, max_indent
       else
         indent = min_indent + increment - 1
@@ -932,9 +933,9 @@ class module.exports
         if @column == indent and @peek() != '\0'
           # Unfortunately, folding rules are ambiguous.  This is the folding
           # according to the specification:
-          if folded and line_break is '\n' and leading_none_space \
+          if folded and line_break is '\n' and leading_non_space \
               and @peek() not in ' \t'
-            chunks.push ' ' if not breaks
+            chunks.push ' ' if _.isEmpty breaks
           else
             chunks.push line_break
           
@@ -971,16 +972,16 @@ class module.exports
         char = @peek()
         if char in C_NUMBERS
           increment = parseInt char
-          throw new exports.ScannerError 'while scanning a block scalar',
-            start_mark,
-            'expected indentation indicator in the range 1-9 but found 0',
+          throw new exports.ScannerError 'while scanning a block scalar', \
+            start_mark, \
+            'expected indentation indicator in the range 1-9 but found 0', \
             @get_mark() if increment is 0
           @forward()
       else if char in C_NUMBERS
         increment = parseInt char
-        throw new exports.ScannerError 'while scanning a block scalar',
-          start_mark,
-          'expected indentation indicator in the range 1-9 but found 0',
+        throw new exports.ScannerError 'while scanning a block scalar', \
+          start_mark, \
+          'expected indentation indicator in the range 1-9 but found 0', \
           @get_mark() if increment is 0
         @forward()
         char = @peek()
@@ -989,9 +990,9 @@ class module.exports
           @forward()
       
       char = @peek()
-      throw new exports.ScannerError 'while scanning a block scalar',
-        start_mark,
-        "expected chomping or indentation indicators, but found #{char}",
+      throw new exports.ScannerError 'while scanning a block scalar', \
+        start_mark,\ 
+        "expected chomping or indentation indicators, but found #{char}", \
         @get_mark() if char not in C_LB + '\0 '
       
       return [chomping, increment]
@@ -1004,8 +1005,8 @@ class module.exports
       if @peek() == '#'
         @forward() while @peek() not in C_LB + '\0'
       char = @peek()
-      throw new exports.ScannerError 'while scanning a block scalar',
-        start_mark, "expected a comment or a line break but found #{char}",
+      throw new exports.ScannerError 'while scanning a block scalar', \
+        start_mark, "expected a comment or a line break but found #{char}", \
         @get_mark() if char not in C_LB + '\0'
       @scan_line_break()
     
@@ -1116,7 +1117,7 @@ class module.exports
       whitespaces = @prefix length
       @forward length
       char = @peek()
-      throw new exports.ScannerError 'while scanning a quoted scalar',
+      throw new exports.ScannerError 'while scanning a quoted scalar', \
         start_mark, 'found unexpected end of stream', @get_mark() \
         if char is '\0'
       if char in C_LB
@@ -1241,8 +1242,8 @@ class module.exports
     ###
     scan_tag_handle: (name, start_mark) ->
       char = @peek()
-      throw new exports.ScannerError "while scanning a #{name}", start_mark,
-        "expected '!' but found #{char}", @get_mark() if char is '!'
+      throw new exports.ScannerError "while scanning a #{name}", start_mark, \
+        "expected '!' but found #{char}", @get_mark() if char isnt '!'
       length = 1
       char = @peek length
       if char isnt ' '
@@ -1281,7 +1282,7 @@ class module.exports
         chunks.push @prefix length
         @forward length
         length = 0
-      throw new exports.ScannerError "while parsing a #{name}", start_mark,
+      throw new exports.ScannerError "while parsing a #{name}", start_mark, \
         "expected URI but found #{char}", @get_mark() if chunks.length is 0
       return chunks.join('')
     

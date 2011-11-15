@@ -10,7 +10,7 @@ class module.exports
     
     DEFAULT_TAGS =
       '!' : '!',
-      '!!': 'tag:yaml.org,2002'
+      '!!': 'tag:yaml.org,2002:'
     
     constructor: ->
       @current_event = null
@@ -101,7 +101,7 @@ class module.exports
         start_mark = @peek_token().start_mark
         [version, tags] = @process_directives()
         throw new exports.ParserError \
-          "expected '<document start>', but found #{@peek_token().id}",
+          "expected '<document start>', but found #{@peek_token().id}", \
           @peek_token().start_mark unless @check_token tokens.DocumentStartToken
         token = @get_token()
         end_mark = token.end_mark
