@@ -21,18 +21,20 @@ The library currently depends on
 How Do I Use It!?
 ---
 
-    yaml = require './src/yaml'
-    console.log yaml.load '''
-      ---
-      phrase1:
-        - hello
-        - &world world
-      phrase2:
-        - goodbye
-        - *world
-      '''
-    # { phrase1: [ 'hello', 'world' ],
-    #   phrase2: [ 'goodbye', 'world' ] }
+```coffeescript
+yaml = require './src/yaml'
+console.log yaml.load '''
+  ---
+  phrase1:
+    - hello
+    - &world world
+  phrase2:
+    - goodbye
+    - *world
+  '''
+# { phrase1: [ 'hello', 'world' ],
+#   phrase2: [ 'goodbye', 'world' ] }
+```
 
 License
 ---
