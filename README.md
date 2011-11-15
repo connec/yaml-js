@@ -31,9 +31,13 @@ console.log yaml.load '''
   phrase2:
     - goodbye
     - *world
+  phrase3: >
+    What is up
+    in this place.
   '''
 # { phrase1: [ 'hello', 'world' ],
-#   phrase2: [ 'goodbye', 'world' ] }
+#   phrase2: [ 'goodbye', 'world' ],
+#   phrase3: 'What is up in this place.' }
 ```
 
 License
