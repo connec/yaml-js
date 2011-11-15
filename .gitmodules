@@ -1,3 +1,6 @@
 [submodule "node_modules/underscore"]
 	path = node_modules/underscore
 	url = https://github.com/documentcloud/underscore.git
+[submodule "test/yaml-spec"]
+	path = test/yaml-spec
+	url = https://connec@github.com/connec/yaml-spec.git
