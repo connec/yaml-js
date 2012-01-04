@@ -7,7 +7,7 @@
     "url": "http://github.com/connec/yaml-js.git"
   },
   "devDependencies": {
-    "squash": ">= 0.0.6"
+    "squash": ">= 0.0.8"
   },
   "license": "WTFPL"
 }
