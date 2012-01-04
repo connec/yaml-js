@@ -1,7 +1,7 @@
 {
   "name": "yaml-js",
   "version": "0.0.1",
-  "description": "Pure Javascript implementation of PyYAML",
+  "description": "Pure Javascript port of PyYAML",
   "repository": {
     "type": "git",
     "url": "http://github.com/connec/yaml-js.git"
