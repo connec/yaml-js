@@ -6,9 +6,6 @@
     "type": "git",
     "url": "http://github.com/connec/yaml-js.git"
   },
-  "dependencies": {
-    "underscore": ">= 1.2.1"
-  },
   "devDependencies": {
     "squash": ">= 0.0.6"
   },
