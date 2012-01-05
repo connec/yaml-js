@@ -37,8 +37,9 @@
             }
         }
     };
-    error = function(name, from) {
-        throw new Error("could not find module " + name);
+    error = function anonymous(name, from) {
+        var message = "Warn: could not find module " + name;
+        console.log(message);
     };
     register({
         "0": [ "./errors" ]
@@ -3015,7 +3016,7 @@
         "": [ "./lib/yaml" ]
     }, 0, function(global, module, exports, require, window) {
         ((function() {
-            var Loader;
+            var Loader, fs;
             Loader = require("./loader").Loader;
             this.scan = function(stream) {
                 var loader, _results;
@@ -3054,6 +3055,21 @@
                 loader = new Loader(stream);
                 return loader.get_single_data();
             };
+            this.load_all = function(stream) {
+                var loader, _results;
+                loader = new Loader(stream);
+                _results = [];
+                while (loader.check_data()) {
+                    _results.push(loader.get_data());
+                }
+                return _results;
+            };
+            if (typeof require !== "undefined" && require !== null && require.extensions) {
+                fs = require("fs");
+                require.extensions[".yml"] = require.extensions[".yaml"] = function(module, filename) {
+                    return module.exports = exports.load_all(fs.readFileSync(filename, "utf8"));
+                };
+            }
         })).call(this);
     });
     register({

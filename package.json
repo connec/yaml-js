@@ -1,13 +1,15 @@
 {
   "name": "yaml-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Pure Javascript port of PyYAML",
   "repository": {
     "type": "git",
     "url": "http://github.com/connec/yaml-js.git"
   },
   "devDependencies": {
-    "squash": ">= 0.0.8"
+    "coffee-script": ">= 1.2.0",
+    "squash": ">= 0.0.8",
+    "underscore": ">= 1.2.4"
   },
   "license": "WTFPL"
 }

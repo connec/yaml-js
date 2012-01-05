@@ -37,3 +37,19 @@ Javascript object.
 @load = (stream) ->
   loader = new Loader stream
   loader.get_single_data()
+
+###
+Parse all YAML documents in a stream and produce the corresponing Javascript
+object.
+###
+@load_all = (stream) ->
+  loader = new Loader stream
+  loader.get_data() while loader.check_data()
+
+###
+Register .yml and .yaml requires with yaml-js
+###
+if require? and require.extensions
+  fs = require 'fs'
+  require.extensions['.yml'] = require.extensions['.yaml'] = (module, filename) ->
+    module.exports = exports.load_all fs.readFileSync filename, 'utf8'
