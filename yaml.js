@@ -9,9 +9,10 @@
         }
     }
     modules = {};
-    require_from = function(from) {
+    require_from = function(parent, from) {
         return function(name) {
             if (modules[from] && modules[from][name]) {
+                modules[from][name].parent = parent;
                 if (modules[from][name].initialize) {
                     modules[from][name].initialize();
                 }
@@ -25,9 +26,10 @@
         var module = {
             exports: {},
             initialize: function() {
-                callback.call(module.exports, global, module, module.exports, require_from(directory), undefined);
+                callback.call(module.exports, global, module, module.exports, require_from(module, directory), undefined);
                 delete module.initialize;
-            }
+            },
+            parent: null
         };
         for (var from in names) {
             modules[from] = modules[from] || {};
@@ -113,7 +115,8 @@
             this.YAMLError = function() {
                 __extends(YAMLError, Error);
                 function YAMLError() {
-                    YAMLError.__super__.constructor.apply(this, arguments);
+                    YAMLError.__super__.constructor.call(this);
+                    this.stack = this.toString() + (new Error).stack.split("\n").slice(1).join("\n");
                 }
                 return YAMLError;
             }();
@@ -125,6 +128,7 @@
                     this.problem = problem;
                     this.problem_mark = problem_mark;
                     this.note = note;
+                    MarkedYAMLError.__super__.constructor.call(this);
                 }
                 MarkedYAMLError.prototype.toString = function() {
                     var lines;
@@ -172,6 +176,7 @@
                     this.position = position;
                     this.character = character;
                     this.reason = reason;
+                    ReaderError.__super__.constructor.call(this);
                 }
                 ReaderError.prototype.toString = function() {
                     return "unacceptable character " + this.character.charCodeAt() + ": " + this.reason + '\n  in "' + this.name + '", position ' + this.position;
@@ -2703,10 +2708,10 @@
                     while (index < node.value.length) {
                         _ref = node.value[index], key_node = _ref[0], value_node = _ref[1];
                         if (key_node.tag === "tag:yaml.org,2002:merge") {
-                            delete node.value[index];
+                            node.value.splice(index, 1);
                             if (value_node instanceof nodes.MappingNode) {
                                 this.flatten_mapping(value_node);
-                                merge = marge.concat(value_node.value);
+                                merge = merge.concat(value_node.value);
                             } else if (value_node instanceof nodes.SequenceNode) {
                                 submerge = [];
                                 _ref2 = value_node.value;
@@ -2833,13 +2838,13 @@
                     }
                 };
                 Constructor.prototype.construct_yaml_timestamp = function(node) {
-                    var data, day, delta, fraction, hour, index, key, match, millisecond, minute, month, second, value, values, year;
+                    var date, day, fraction, hour, index, key, match, millisecond, minute, month, second, tz_hour, tz_minute, tz_sign, value, values, year;
                     value = this.construct_scalar(node);
                     match = node.value.match(TIMESTAMP_REGEX);
                     values = {};
                     for (key in TIMESTAMP_PARTS) {
                         index = TIMESTAMP_PARTS[key];
-                        values[key] = value[index];
+                        values[key] = match[index];
                     }
                     year = parseInt(values.year);
                     month = parseInt(values.month);
@@ -2855,29 +2860,35 @@
                             fraction += "0";
                         }
                         fraction = parseInt(fraction);
-                        millisecond = Math.round(fraction * 1e3);
+                        millisecond = Math.round(fraction / 1e3);
                     }
-                    delta = null;
                     if (values.tz_sign) {
-                        hour += (tz_sign === "-" ? -1 : 1) * parseInt(values.tz_hour);
-                        minute += (tz_sign === "-" ? -1 : 1) * parseInt(values.tz_minute);
+                        tz_sign = values.tz_sign === "-" ? 1 : -1;
+                        if (tz_hour = parseInt(values.tz_hour)) hour += tz_sign * tz_hour;
+                        if (tz_minute = parseInt(values.tz_minute)) minute += tz_sign * tz_minute;
                     }
-                    data = new Date(year, month, day, hour, minute, second, millisecond);
-                    return data;
+                    date = new Date(year, month, day, hour, minute, second, millisecond);
+                    return date;
                 };
                 Constructor.prototype.construct_yaml_pair_list = function(type, node) {
                     var list;
                     var _this = this;
                     list = [];
-                    throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a sequence but found " + node.id, !(node instanceof nodes.SequenceNode) ? node.start_mark : void 0);
+                    if (!(node instanceof nodes.SequenceNode)) {
+                        throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a sequence but found " + node.id, node.start_mark);
+                    }
                     this.defer(function() {
                         var key, key_node, subnode, value, value_node, _i, _len, _ref, _ref2, _results;
                         _ref = node.value;
                         _results = [];
                         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                             subnode = _ref[_i];
-                            throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, !(subnode instanceof nodes.MappingNode) ? subnode.start_mark : void 0);
-                            throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.value.length !== 1 ? subnode.start_mark : void 0);
+                            if (!(subnode instanceof nodes.MappingNode)) {
+                                throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
+                            }
+                            if (subnode.value.length !== 1) {
+                                throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
+                            }
                             _ref2 = subnode.value[0], key_node = _ref2[0], value_node = _ref2[1];
                             key = _this.construct_object(key_node);
                             value = _this.construct_object(value_node);
@@ -3077,5 +3088,5 @@
     }, "", function(global, module, exports, require, window) {
         module.exports = require("./lib/yaml");
     });
-    root["yaml"] = require_from("")("yaml");
+    root["yaml"] = require_from(null, "")("yaml");
 })).call(this);

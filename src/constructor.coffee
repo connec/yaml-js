@@ -187,10 +187,11 @@ class @Constructor extends @BaseConstructor
     while index < node.value.length
       [key_node, value_node] = node.value[index]
       if key_node.tag == 'tag:yaml.org,2002:merge'
-        delete node.value[index]
+        node.value.splice index, 1
+        #delete node.value[index]
         if value_node instanceof nodes.MappingNode
           @flatten_mapping value_node
-          merge = marge.concat value_node.value
+          merge = merge.concat value_node.value
         else if value_node instanceof nodes.SequenceNode
           submerge = []
           for subnode in value_node.value
@@ -289,7 +290,7 @@ class @Constructor extends @BaseConstructor
     value  = @construct_scalar node
     match  = node.value.match TIMESTAMP_REGEX
     values = {}
-    values[key] = value[index] for key, index of TIMESTAMP_PARTS
+    values[key] = match[index] for key, index of TIMESTAMP_PARTS
     
     year  = parseInt values.year
     month = parseInt values.month
@@ -304,30 +305,30 @@ class @Constructor extends @BaseConstructor
       fraction = values.fraction[0...6]
       fraction += '0' while fraction.length < 6
       fraction = parseInt fraction
-      millisecond = Math.round fraction * 1000
-    delta = null
+      millisecond = Math.round fraction / 1000
     if values.tz_sign
-      hour   += (if tz_sign is '-' then -1 else 1) * parseInt values.tz_hour
-      minute += (if tz_sign is '-' then -1 else 1) * parseInt values.tz_minute
-    data = new Date year, month, day, hour, minute, second, millisecond
-    return data
+      tz_sign = if values.tz_sign is '-' then 1 else -1
+      hour   += tz_sign * tz_hour   if tz_hour   = parseInt values.tz_hour
+      minute += tz_sign * tz_minute if tz_minute = parseInt values.tz_minute
+    date = new Date year, month, day, hour, minute, second, millisecond
+    return date
   
   construct_yaml_pair_list: (type, node) ->
     list = []
-    throw new exports.ConstructorError "while constructing #{type}",
-      node.start_mark, "expected a sequence but found #{node.id}",
+    throw new exports.ConstructorError "while constructing #{type}", \
+      node.start_mark, "expected a sequence but found #{node.id}", \
       node.start_mark unless node instanceof nodes.SequenceNode
     
     @defer =>
       for subnode in node.value
-        throw new exports.ConstructorError "while constructing #{type}",
-          node.start_mark,
-          "expected a mapping of length 1 but found #{subnode.id}",
+        throw new exports.ConstructorError "while constructing #{type}", \
+          node.start_mark, \
+          "expected a mapping of length 1 but found #{subnode.id}", \
           subnode.start_mark unless subnode instanceof nodes.MappingNode
         
-        throw new exports.ConstructorError "while constructing #{type}",
-          node.start_mark,
-          "expected a mapping of length 1 but found #{subnode.id}",
+        throw new exports.ConstructorError "while constructing #{type}", \
+          node.start_mark, \
+          "expected a mapping of length 1 but found #{subnode.id}", \
           subnode.start_mark unless subnode.value.length is 1
         
         [key_node, value_node] = subnode.value[0]
