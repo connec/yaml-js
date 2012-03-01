@@ -116,7 +116,7 @@
                 __extends(YAMLError, Error);
                 function YAMLError() {
                     YAMLError.__super__.constructor.call(this);
-                    this.stack = this.toString() + (new Error).stack.split("\n").slice(1).join("\n");
+                    this.stack = this.toString() + "\n" + (new Error).stack.split("\n").slice(1).join("\n");
                 }
                 return YAMLError;
             }();
