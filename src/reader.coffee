@@ -2,6 +2,7 @@
 
 class @ReaderError extends YAMLError
   constructor: (@name, @position, @character, @reason) ->
+    super()
   
   toString: ->
     """
