@@ -367,7 +367,7 @@ class @Constructor extends @BaseConstructor
       data[key] = value for key, value of @construct_mapping node, true
     return data
   
-  construct_indefined: (node) ->
+  construct_undefined: (node) ->
     throw new exports.ConstructorError null, null,
       "could not determine a constructor for the tag #{node.tag}",
       node.start_mark
@@ -409,4 +409,4 @@ class @Constructor extends @BaseConstructor
   @Constructor::construct_yaml_map
 
 @Constructor.add_constructor null,
-  @Constructor::construct_yaml_undefined
+  @Constructor::construct_undefined

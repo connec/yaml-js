@@ -1048,7 +1048,7 @@
                     });
                     return data;
                 };
-                Constructor.prototype.construct_indefined = function(node) {
+                Constructor.prototype.construct_undefined = function(node) {
                     throw new exports.ConstructorError(null, null, "could not determine a constructor for the tag " + node.tag, node.start_mark);
                 };
                 return Constructor;
@@ -1065,7 +1065,7 @@
             this.Constructor.add_constructor("tag:yaml.org,2002:str", this.Constructor.prototype.construct_yaml_str);
             this.Constructor.add_constructor("tag:yaml.org,2002:seq", this.Constructor.prototype.construct_yaml_seq);
             this.Constructor.add_constructor("tag:yaml.org,2002:map", this.Constructor.prototype.construct_yaml_map);
-            this.Constructor.add_constructor(null, this.Constructor.prototype.construct_yaml_undefined);
+            this.Constructor.add_constructor(null, this.Constructor.prototype.construct_undefined);
         }).call(this);
     });
     register({
@@ -3061,7 +3061,7 @@
                 BaseResolver.prototype.yaml_path_resolvers = {};
                 BaseResolver.add_implicit_resolver = function(tag, regexp, first) {
                     var char, _base, _i, _len, _ref, _results;
-                    if (first === null) {
+                    if (first == null) {
                         first = [ null ];
                     }
                     _results = [];

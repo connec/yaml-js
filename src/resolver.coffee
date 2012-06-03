@@ -13,8 +13,7 @@ class @BaseResolver
   yaml_implicit_resolvers: {}
   yaml_path_resolvers    : {}
   
-  @add_implicit_resolver: (tag, regexp, first) ->
-    first = [null] if first is null
+  @add_implicit_resolver: (tag, regexp, first = [null]) ->
     for char in first
       (@::yaml_implicit_resolvers[char] ?= []).push [tag, regexp]
   
