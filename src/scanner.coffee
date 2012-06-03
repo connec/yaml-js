@@ -22,7 +22,7 @@ class @Scanner
   C_NUMBERS    = '0123456789'
   
   ESCAPE_REPLACEMENTS =
-    '0' : '\0'
+    '0' : '\x00'
     'a' : '\x07'
     'b' : '\x08'
     't' : '\x09'
@@ -151,7 +151,7 @@ class @Scanner
     char = @peek()
     
     # Is it the end of stream?
-    return @fetch_stream_end() if char is '\0'
+    return @fetch_stream_end() if char is '\x00'
     
     # Is it a directive?
     return @fetch_directive() if char is '%' and @check_directive()
@@ -600,7 +600,7 @@ class @Scanner
   ###
   check_document_start: ->
     return true if @column is 0 and @prefix(3) == '---' \
-      and @peek(3) in C_LB + C_WS + '\0'
+      and @peek(3) in C_LB + C_WS + '\x00'
     return false
   
   ###
@@ -608,14 +608,14 @@ class @Scanner
   ###
   check_document_end: ->
     return true if @column is 0 and @prefix(3) == '...' \
-      and @peek(3) in C_LB + C_WS + '\0'
+      and @peek(3) in C_LB + C_WS + '\x00'
     return false
   
   ###
   BLOCK-ENTRY: '-' (' '|'\n')
   ###
   check_block_entry: ->
-    return @peek(1) in C_LB + C_WS + '\0'
+    return @peek(1) in C_LB + C_WS + '\x00'
   
   ###
   KEY (flow context):  '?'
@@ -626,7 +626,7 @@ class @Scanner
     return true if @flow_level isnt 0
     
     # KEY (block context)
-    return @peek(1) in C_LB + C_WS + '\0'
+    return @peek(1) in C_LB + C_WS + '\x00'
   
   ###
   VALUE (flow context):  ':'
@@ -637,7 +637,7 @@ class @Scanner
     return true if @flow_level isnt 0
     
     # VALUE (block context)
-    return @peek(1) in C_LB + C_WS + '\0'
+    return @peek(1) in C_LB + C_WS + '\x00'
   
   ###
   A plain scalar may start with any non-space character except:
@@ -654,8 +654,8 @@ class @Scanner
   ###
   check_plain: ->
     char = @peek()
-    return char not in C_LB + C_WS + '\0-?:,[]{}#&*!|>\'"%@`' \
-      or (@peek(1) not in C_LB + C_WS + '\0' \
+    return char not in C_LB + C_WS + '\x00-?:,[]{}#&*!|>\'"%@`' \
+      or (@peek(1) not in C_LB + C_WS + '\x00' \
       and (char is '-' or (@flow_level is 0 and char in '?:')))
   
   # Scanners.
@@ -684,7 +684,7 @@ class @Scanner
       @forward() while @peek() == ' '
       
       if @peek() == '#'
-        @forward() while @peek() not in C_LB + '\0'
+        @forward() while @peek() not in C_LB + '\x00'
       
       if @scan_line_break()
         @allow_simple_key = yes if @flow_level is 0
@@ -707,7 +707,7 @@ class @Scanner
       end_mark = @get_mark()
     else
       end_mark = @get_mark()
-      @forward() while @peek() not in C_LB + '\0'
+      @forward() while @peek() not in C_LB + '\x00'
     @scan_directive_ignored_line start_mark
     return new tokens.DirectiveToken name, value, start_mark, end_mark
   
@@ -730,7 +730,7 @@ class @Scanner
     char = @peek()
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected alphanumeric or numeric character but found #{char}",
-      @get_mark() if char not in C_LB + '\0 '
+      @get_mark() if char not in C_LB + '\x00 '
     
     return value
   
@@ -748,7 +748,7 @@ class @Scanner
     minor = @scan_yaml_directive_number start_mark
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected a digit or ' ' but found #{@peek()}", @get_mark() \
-      if @peek() not in C_LB + '\0 '
+      if @peek() not in C_LB + '\x00 '
     
     return [major, minor]
   
@@ -798,7 +798,7 @@ class @Scanner
     char = @peek()
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected ' ' but found #{char}", @get_mark() \
-      if char not in C_LB + '\0 '
+      if char not in C_LB + '\x00 '
     return value
   
   ###
@@ -807,12 +807,12 @@ class @Scanner
   scan_directive_ignored_line: (start_mark) ->
     @forward() while @peek() == ' '
     if @peek() == '#'
-      @forward() while @peek() not in C_LB + '\0'
+      @forward() while @peek() not in C_LB + '\x00'
     
     char = @peek()
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected a comment or a line break but found #{char}", @get_mark() \
-      if char not in C_LB + '\0'
+      if char not in C_LB + '\x00'
     
     @scan_line_break()
   
@@ -850,7 +850,7 @@ class @Scanner
     char = @peek()
     throw new exports.ScannerError "while scanning an #{name}", start_mark, \
       "expected alphabetic or numeric character but found '#{char}'", \
-      @get_mark() if char not in C_LB + C_WS + '\0' + '?:,]}%@`'
+      @get_mark() if char not in C_LB + C_WS + '\x00' + '?:,]}%@`'
     
     return new TokenClass value, start_mark, @get_mark()
   
@@ -867,14 +867,14 @@ class @Scanner
       throw new exports.ScannerError 'while parsing a tag', start_mark, \
         "expected '>' but found #{@peek()}", @get_mark() if @peek() isnt '>'
       @forward()
-    else if char in C_LB + C_WS + '\0'
+    else if char in C_LB + C_WS + '\x00'
       handle = null
       suffix = '!'
       @forward()
     else
       length = 1
       use_handle = no
-      while char not in C_LB + '\0 '
+      while char not in C_LB + '\x00 '
         if char is '!'
           use_handle = yes
           break
@@ -889,7 +889,7 @@ class @Scanner
     char = @peek()
     throw new exports.ScannerError 'while scanning a tag', start_mark, \
       "expected ' ' but found #{char}", @get_mark() \
-      if char not in C_LB + '\0 '
+      if char not in C_LB + '\x00 '
     return new tokens.TagToken [handle, suffix], start_mark, @get_mark()
   
   ###
@@ -918,17 +918,17 @@ class @Scanner
     line_break = ''
     
     # Scan the inner part of the block scalar.
-    while @column == indent and @peek() != '\0'
+    while @column == indent and @peek() != '\x00'
       chunks = chunks.concat breaks
       leading_non_space = @peek() not in ' \t'
       length = 0
-      length++ while @peek(length) not in C_LB + '\0'
+      length++ while @peek(length) not in C_LB + '\x00'
       chunks.push @prefix length
       @forward length
       line_break = @scan_line_break()
       [breaks, end_mark] = @scan_block_scalar_breaks indent
       
-      if @column == indent and @peek() != '\0'
+      if @column == indent and @peek() != '\x00'
         # Unfortunately, folding rules are ambiguous.  This is the folding
         # according to the specification:
         if folded and line_break is '\n' and leading_non_space \
@@ -991,7 +991,7 @@ class @Scanner
     throw new exports.ScannerError 'while scanning a block scalar', \
       start_mark,\ 
       "expected chomping or indentation indicators, but found #{char}", \
-      @get_mark() if char not in C_LB + '\0 '
+      @get_mark() if char not in C_LB + '\x00 '
     
     return [chomping, increment]
   
@@ -1001,11 +1001,11 @@ class @Scanner
   scan_block_scalar_ignored_line: (start_mark) ->
     @forward() while @peek() == ' '
     if @peek() == '#'
-      @forward() while @peek() not in C_LB + '\0'
+      @forward() while @peek() not in C_LB + '\x00'
     char = @peek()
     throw new exports.ScannerError 'while scanning a block scalar', \
       start_mark, "expected a comment or a line break but found #{char}", \
-      @get_mark() if char not in C_LB + '\0'
+      @get_mark() if char not in C_LB + '\x00'
     @scan_line_break()
   
   ###
@@ -1066,7 +1066,7 @@ class @Scanner
     chunks = []
     while true
       length = 0
-      length++ while @peek(length) not in C_LB + C_WS + '\'"\\\0'
+      length++ while @peek(length) not in C_LB + C_WS + '\'"\\\x00'
       if length isnt 0
         chunks.push @prefix length
         @forward length
@@ -1117,7 +1117,7 @@ class @Scanner
     char = @peek()
     throw new exports.ScannerError 'while scanning a quoted scalar', \
       start_mark, 'found unexpected end of stream', @get_mark() \
-      if char is '\0'
+      if char is '\x00'
     if char in C_LB
       line_break = @scan_line_break()
       breaks = @scan_flow_scalar_breaks double, start_mark
@@ -1142,7 +1142,7 @@ class @Scanner
       throw new exports.ScannerError 'while scanning a quoted scalar',
         start_mark, 'found unexpected document separator', @get_mark() \
         if prefix is '---' or prefix is '...' \
-          and @peek 3 in C_LB + C_WS + '\0'
+          and @peek 3 in C_LB + C_WS + '\x00'
       @forward() while @peek() in C_WS
       if @peek() in C_LB
         chunks.push @scan_line_break()
@@ -1172,14 +1172,14 @@ class @Scanner
       while true
         char = @peek length
         break \
-          if char in C_LB + C_WS + '\0' or (@flow_level is 0 \
-            and char is ':' and @peek(length + 1) in C_LB + C_WS + '\0') \
+          if char in C_LB + C_WS + '\x00' or (@flow_level is 0 \
+            and char is ':' and @peek(length + 1) in C_LB + C_WS + '\x00') \
             or (@flow_level isnt 0 and char in ',:?[]{}')
         length++
       
       # It's not clear what we should do with ':' in the flow context.
       if @flow_level isnt 0 and char is ':' \
-          and @peek(length + 1) not in C_LB + C_WS + '\0,[]{}'
+          and @peek(length + 1) not in C_LB + C_WS + '\x00,[]{}'
         @forward length
         throw new exports.ScannerError 'while scanning a plain scalar',
           start_mark, 'found unexpected \':\'', @get_mark(),
@@ -1213,7 +1213,7 @@ class @Scanner
       @allow_simple_key = yes
       prefix = @prefix 3
       return if prefix is '---' or prefix is '...' \
-        and @peek 3 in C_LB + C_WS + '\0'
+        and @peek 3 in C_LB + C_WS + '\x00'
       breaks = []
       while @peek() in C_LB + ' '
         if @peek() == ' '
@@ -1222,7 +1222,7 @@ class @Scanner
           breaks.push @scan_line_break()
           prefix = @prefix 3
           return if prefix is '---' or prefix is '...' \
-            and @peek 3 in C_LB + C_WS + '\0'
+            and @peek 3 in C_LB + C_WS + '\x00'
       
       if line_break isnt '\n'
         chunks.push line_break

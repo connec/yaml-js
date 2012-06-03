@@ -4,7 +4,7 @@ class @Mark
   get_snippet: (indent = 4, max_length = 75) ->
     return null if not @buffer?
     
-    break_chars = '\0\r\n\x85\u2028\u2029'
+    break_chars = '\x00\r\n\x85\u2028\u2029'
     head = ''; start = @pointer
     while start > 0 and @buffer[start - 1] not in break_chars
       start--

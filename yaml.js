@@ -1,4 +1,4 @@
-((function() {
+(function() {
     var root = this, modules, require_from, register, error;
     if (typeof global == "undefined") {
         var global;
@@ -44,15 +44,167 @@
         console.log(message);
     };
     register({
+        "0": [ "./events" ]
+    }, 0, function(global, module, exports, require, window) {
+        (function() {
+            var __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+                for (var key in parent) {
+                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                }
+                function ctor() {
+                    this.constructor = child;
+                }
+                ctor.prototype = parent.prototype;
+                child.prototype = new ctor;
+                child.__super__ = parent.prototype;
+                return child;
+            };
+            this.Event = function() {
+                Event.name = "Event";
+                function Event(start_mark, end_mark) {
+                    this.start_mark = start_mark;
+                    this.end_mark = end_mark;
+                }
+                return Event;
+            }();
+            this.NodeEvent = function(_super) {
+                __extends(NodeEvent, _super);
+                NodeEvent.name = "NodeEvent";
+                function NodeEvent(anchor, start_mark, end_mark) {
+                    this.anchor = anchor;
+                    this.start_mark = start_mark;
+                    this.end_mark = end_mark;
+                }
+                return NodeEvent;
+            }(this.Event);
+            this.CollectionStartEvent = function(_super) {
+                __extends(CollectionStartEvent, _super);
+                CollectionStartEvent.name = "CollectionStartEvent";
+                function CollectionStartEvent(anchor, tag, implicit, start_mark, end_mark) {
+                    this.anchor = anchor;
+                    this.tag = tag;
+                    this.implicit = implicit;
+                    this.start_mark = start_mark;
+                    this.end_mark = end_mark;
+                }
+                return CollectionStartEvent;
+            }(this.NodeEvent);
+            this.CollectionEndEvent = function(_super) {
+                __extends(CollectionEndEvent, _super);
+                CollectionEndEvent.name = "CollectionEndEvent";
+                function CollectionEndEvent() {
+                    return CollectionEndEvent.__super__.constructor.apply(this, arguments);
+                }
+                return CollectionEndEvent;
+            }(this.Event);
+            this.StreamStartEvent = function(_super) {
+                __extends(StreamStartEvent, _super);
+                StreamStartEvent.name = "StreamStartEvent";
+                function StreamStartEvent(start_mark, end_mark, explicit, version, tags) {
+                    this.start_mark = start_mark;
+                    this.end_mark = end_mark;
+                    this.explicit = explicit;
+                    this.version = version;
+                    this.tags = tags;
+                }
+                return StreamStartEvent;
+            }(this.Event);
+            this.StreamEndEvent = function(_super) {
+                __extends(StreamEndEvent, _super);
+                StreamEndEvent.name = "StreamEndEvent";
+                function StreamEndEvent() {
+                    return StreamEndEvent.__super__.constructor.apply(this, arguments);
+                }
+                return StreamEndEvent;
+            }(this.Event);
+            this.DocumentStartEvent = function(_super) {
+                __extends(DocumentStartEvent, _super);
+                DocumentStartEvent.name = "DocumentStartEvent";
+                function DocumentStartEvent(start_mark, end_mark, explicit, version, tags) {
+                    this.start_mark = start_mark;
+                    this.end_mark = end_mark;
+                    this.explicit = explicit;
+                    this.version = version;
+                    this.tags = tags;
+                }
+                return DocumentStartEvent;
+            }(this.Event);
+            this.DocumentEndEvent = function(_super) {
+                __extends(DocumentEndEvent, _super);
+                DocumentEndEvent.name = "DocumentEndEvent";
+                function DocumentEndEvent(start_mark, end_mark, explicit) {
+                    this.start_mark = start_mark;
+                    this.end_mark = end_mark;
+                    this.explicit = explicit;
+                }
+                return DocumentEndEvent;
+            }(this.Event);
+            this.AliasEvent = function(_super) {
+                __extends(AliasEvent, _super);
+                AliasEvent.name = "AliasEvent";
+                function AliasEvent() {
+                    return AliasEvent.__super__.constructor.apply(this, arguments);
+                }
+                return AliasEvent;
+            }(this.NodeEvent);
+            this.ScalarEvent = function(_super) {
+                __extends(ScalarEvent, _super);
+                ScalarEvent.name = "ScalarEvent";
+                function ScalarEvent(anchor, tag, implicit, value, start_mark, end_mark, style) {
+                    this.anchor = anchor;
+                    this.tag = tag;
+                    this.implicit = implicit;
+                    this.value = value;
+                    this.start_mark = start_mark;
+                    this.end_mark = end_mark;
+                    this.style = style;
+                }
+                return ScalarEvent;
+            }(this.NodeEvent);
+            this.SequenceStartEvent = function(_super) {
+                __extends(SequenceStartEvent, _super);
+                SequenceStartEvent.name = "SequenceStartEvent";
+                function SequenceStartEvent() {
+                    return SequenceStartEvent.__super__.constructor.apply(this, arguments);
+                }
+                return SequenceStartEvent;
+            }(this.CollectionStartEvent);
+            this.SequenceEndEvent = function(_super) {
+                __extends(SequenceEndEvent, _super);
+                SequenceEndEvent.name = "SequenceEndEvent";
+                function SequenceEndEvent() {
+                    return SequenceEndEvent.__super__.constructor.apply(this, arguments);
+                }
+                return SequenceEndEvent;
+            }(this.CollectionEndEvent);
+            this.MappingStartEvent = function(_super) {
+                __extends(MappingStartEvent, _super);
+                MappingStartEvent.name = "MappingStartEvent";
+                function MappingStartEvent() {
+                    return MappingStartEvent.__super__.constructor.apply(this, arguments);
+                }
+                return MappingStartEvent;
+            }(this.CollectionStartEvent);
+            this.MappingEndEvent = function(_super) {
+                __extends(MappingEndEvent, _super);
+                MappingEndEvent.name = "MappingEndEvent";
+                function MappingEndEvent() {
+                    return MappingEndEvent.__super__.constructor.apply(this, arguments);
+                }
+                return MappingEndEvent;
+            }(this.CollectionEndEvent);
+        }).call(this);
+    });
+    register({
         "0": [ "./errors" ]
     }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var __hasProp = Object.prototype.hasOwnProperty, __indexOf = Array.prototype.indexOf || function(item) {
+        (function() {
+            var __indexOf = [].indexOf || function(item) {
                 for (var i = 0, l = this.length; i < l; i++) {
-                    if (__hasProp.call(this, i) && this[i] === item) return i;
+                    if (i in this && this[i] === item) return i;
                 }
                 return -1;
-            }, __extends = function(child, parent) {
+            }, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -65,6 +217,7 @@
                 return child;
             };
             this.Mark = function() {
+                Mark.name = "Mark";
                 function Mark(name, line, column, buffer, pointer) {
                     this.name = name;
                     this.line = line;
@@ -73,10 +226,16 @@
                     this.pointer = pointer;
                 }
                 Mark.prototype.get_snippet = function(indent, max_length) {
-                    var break_chars, end, head, start, tail, _ref, _ref2;
-                    if (indent == null) indent = 4;
-                    if (max_length == null) max_length = 75;
-                    if (!(this.buffer != null)) return null;
+                    var break_chars, end, head, start, tail, _ref, _ref1;
+                    if (indent == null) {
+                        indent = 4;
+                    }
+                    if (max_length == null) {
+                        max_length = 75;
+                    }
+                    if (!(this.buffer != null)) {
+                        return null;
+                    }
                     break_chars = "\0\r\n\u2028\u2029";
                     head = "";
                     start = this.pointer;
@@ -90,7 +249,7 @@
                     }
                     tail = "";
                     end = this.pointer;
-                    while (end < this.buffer.length && (_ref2 = this.buffer[end], __indexOf.call(break_chars, _ref2) < 0)) {
+                    while (end < this.buffer.length && (_ref1 = this.buffer[end], __indexOf.call(break_chars, _ref1) < 0)) {
                         end++;
                         if (end - this.pointer > max_length / 2 - 1) {
                             tail = " ... ";
@@ -112,16 +271,18 @@
                 };
                 return Mark;
             }();
-            this.YAMLError = function() {
-                __extends(YAMLError, Error);
+            this.YAMLError = function(_super) {
+                __extends(YAMLError, _super);
+                YAMLError.name = "YAMLError";
                 function YAMLError() {
                     YAMLError.__super__.constructor.call(this);
                     this.stack = this.toString() + "\n" + (new Error).stack.split("\n").slice(1).join("\n");
                 }
                 return YAMLError;
-            }();
-            this.MarkedYAMLError = function() {
-                __extends(MarkedYAMLError, this.YAMLError);
+            }(Error);
+            this.MarkedYAMLError = function(_super) {
+                __extends(MarkedYAMLError, _super);
+                MarkedYAMLError.name = "MarkedYAMLError";
                 function MarkedYAMLError(context, context_mark, problem, problem_mark, note) {
                     this.context = context;
                     this.context_mark = context_mark;
@@ -133,25 +294,32 @@
                 MarkedYAMLError.prototype.toString = function() {
                     var lines;
                     lines = [];
-                    if (this.context != null) lines.push(this.context);
+                    if (this.context != null) {
+                        lines.push(this.context);
+                    }
                     if (this.context_mark != null && (!(this.problem != null) || !(this.problem_mark != null) || this.context_mark.name !== this.problem_mark.name || this.context_mark.line !== this.problem_mark.line || this.context_mark.column !== this.problem_mark.column)) {
                         lines.push(this.context_mark.toString());
                     }
-                    if (this.problem != null) lines.push(this.problem);
-                    if (this.problem_mark != null) lines.push(this.problem_mark.toString());
-                    if (this.note != null) lines.push(this.note);
+                    if (this.problem != null) {
+                        lines.push(this.problem);
+                    }
+                    if (this.problem_mark != null) {
+                        lines.push(this.problem_mark.toString());
+                    }
+                    if (this.note != null) {
+                        lines.push(this.note);
+                    }
                     return lines.join("\n");
                 };
                 return MarkedYAMLError;
-            }.call(this);
-        })).call(this);
+            }(this.YAMLError);
+        }).call(this);
     });
     register({
-        "0": [ "./reader" ]
+        "0": [ "./nodes" ]
     }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var Mark, YAMLError, _ref;
-            var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
+        (function() {
+            var unique_id, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -162,15 +330,769 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            }, __indexOf = Array.prototype.indexOf || function(item) {
+            };
+            unique_id = 0;
+            this.Node = function() {
+                Node.name = "Node";
+                function Node(tag, value, start_mark, end_mark) {
+                    this.tag = tag;
+                    this.value = value;
+                    this.start_mark = start_mark;
+                    this.end_mark = end_mark;
+                    this.unique_id = "node_" + unique_id++;
+                }
+                return Node;
+            }();
+            this.ScalarNode = function(_super) {
+                __extends(ScalarNode, _super);
+                ScalarNode.name = "ScalarNode";
+                ScalarNode.prototype.id = "scalar";
+                function ScalarNode(tag, value, start_mark, end_mark, style) {
+                    this.tag = tag;
+                    this.value = value;
+                    this.start_mark = start_mark;
+                    this.end_mark = end_mark;
+                    this.style = style;
+                    ScalarNode.__super__.constructor.apply(this, arguments);
+                }
+                return ScalarNode;
+            }(this.Node);
+            this.CollectionNode = function(_super) {
+                __extends(CollectionNode, _super);
+                CollectionNode.name = "CollectionNode";
+                function CollectionNode(tag, value, start_mark, end_mark, flow_style) {
+                    this.tag = tag;
+                    this.value = value;
+                    this.start_mark = start_mark;
+                    this.end_mark = end_mark;
+                    this.flow_style = flow_style;
+                    CollectionNode.__super__.constructor.apply(this, arguments);
+                }
+                return CollectionNode;
+            }(this.Node);
+            this.SequenceNode = function(_super) {
+                __extends(SequenceNode, _super);
+                SequenceNode.name = "SequenceNode";
+                function SequenceNode() {
+                    return SequenceNode.__super__.constructor.apply(this, arguments);
+                }
+                SequenceNode.prototype.id = "sequence";
+                return SequenceNode;
+            }(this.CollectionNode);
+            this.MappingNode = function(_super) {
+                __extends(MappingNode, _super);
+                MappingNode.name = "MappingNode";
+                function MappingNode() {
+                    return MappingNode.__super__.constructor.apply(this, arguments);
+                }
+                MappingNode.prototype.id = "mapping";
+                return MappingNode;
+            }(this.CollectionNode);
+        }).call(this);
+    });
+    register({
+        "0": [ "./composer" ]
+    }, 0, function(global, module, exports, require, window) {
+        (function() {
+            var MarkedYAMLError, events, nodes, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+                for (var key in parent) {
+                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                }
+                function ctor() {
+                    this.constructor = child;
+                }
+                ctor.prototype = parent.prototype;
+                child.prototype = new ctor;
+                child.__super__ = parent.prototype;
+                return child;
+            };
+            events = require("./events");
+            MarkedYAMLError = require("./errors").MarkedYAMLError;
+            nodes = require("./nodes");
+            this.ComposerError = function(_super) {
+                __extends(ComposerError, _super);
+                ComposerError.name = "ComposerError";
+                function ComposerError() {
+                    return ComposerError.__super__.constructor.apply(this, arguments);
+                }
+                return ComposerError;
+            }(MarkedYAMLError);
+            this.Composer = function() {
+                Composer.name = "Composer";
+                function Composer() {
+                    this.anchors = {};
+                }
+                Composer.prototype.check_node = function() {
+                    if (this.check_event(events.StreamStartEvent)) {
+                        this.get_event();
+                    }
+                    return !this.check_event(events.StreamEndEvent);
+                };
+                Composer.prototype.get_node = function() {
+                    if (!this.check_event(events.StreamEndEvent)) {
+                        return this.compose_document();
+                    }
+                };
+                Composer.prototype.get_single_node = function() {
+                    var document, event;
+                    this.get_event();
+                    document = null;
+                    if (!this.check_event(events.StreamEndEvent)) {
+                        document = this.compose_document();
+                    }
+                    if (!this.check_event(events.StreamEndEvent)) {
+                        event = this.get_event();
+                        throw new exports.ComposerError("expected a single document in the stream", document.start_mark, "but found another document", event.start_mark);
+                    }
+                    this.get_event();
+                    return document;
+                };
+                Composer.prototype.compose_document = function() {
+                    var node;
+                    this.get_event();
+                    node = this.compose_node();
+                    this.get_event();
+                    this.anchors = {};
+                    return node;
+                };
+                Composer.prototype.compose_node = function(parent, index) {
+                    var anchor, event, node;
+                    if (this.check_event(events.AliasEvent)) {
+                        event = this.get_event();
+                        anchor = event.anchor;
+                        if (!(anchor in this.anchors)) {
+                            throw new exports.ComposerError(null, null, "found undefined alias " + anchor, event.start_mark);
+                        }
+                        return this.anchors[anchor];
+                    }
+                    event = this.peek_event();
+                    anchor = event.anchor;
+                    if (anchor !== null && anchor in this.anchors) {
+                        throw new exports.ComposerError("found duplicate anchor " + anchor + "; first occurence", this.anchors[anchor].start_mark, "second occurrence", event.start_mark);
+                    }
+                    this.descend_resolver(parent, index);
+                    if (this.check_event(events.ScalarEvent)) {
+                        node = this.compose_scalar_node(anchor);
+                    } else if (this.check_event(events.SequenceStartEvent)) {
+                        node = this.compose_sequence_node(anchor);
+                    } else if (this.check_event(events.MappingStartEvent)) {
+                        node = this.compose_mapping_node(anchor);
+                    }
+                    this.ascend_resolver();
+                    return node;
+                };
+                Composer.prototype.compose_scalar_node = function(anchor) {
+                    var event, node, tag;
+                    event = this.get_event();
+                    tag = event.tag;
+                    if (tag === null || tag === "!") {
+                        tag = this.resolve(nodes.ScalarNode, event.value, event.implicit);
+                    }
+                    node = new nodes.ScalarNode(tag, event.value, event.start_mark, event.end_mark, event.style);
+                    if (anchor !== null) {
+                        this.anchors[anchor] = node;
+                    }
+                    return node;
+                };
+                Composer.prototype.compose_sequence_node = function(anchor) {
+                    var end_event, index, node, start_event, tag;
+                    start_event = this.get_event();
+                    tag = start_event.tag;
+                    if (tag === null || tag === "!") {
+                        tag = this.resolve(nodes.SequenceNode, null, start_event.implicit);
+                    }
+                    node = new nodes.SequenceNode(tag, [], start_event.start_mark, null, start_event.flow_style);
+                    if (anchor !== null) {
+                        this.anchors[anchor] = node;
+                    }
+                    index = 0;
+                    while (!this.check_event(events.SequenceEndEvent)) {
+                        node.value.push(this.compose_node(node, index));
+                        index++;
+                    }
+                    end_event = this.get_event();
+                    node.end_mark = end_event.end_mark;
+                    return node;
+                };
+                Composer.prototype.compose_mapping_node = function(anchor) {
+                    var end_event, item_key, item_value, node, start_event, tag;
+                    start_event = this.get_event();
+                    tag = start_event.tag;
+                    if (tag === null || tag === "!") {
+                        tag = this.resolve(nodes.MappingNode, null, start_event.implicit);
+                    }
+                    node = new nodes.MappingNode(tag, [], start_event.start_mark, null, start_event.flow_style);
+                    if (anchor !== null) {
+                        this.anchors[anchor] = node;
+                    }
+                    while (!this.check_event(events.MappingEndEvent)) {
+                        item_key = this.compose_node(node);
+                        item_value = this.compose_node(node, item_key);
+                        node.value.push([ item_key, item_value ]);
+                    }
+                    end_event = this.get_event();
+                    node.end_mark = end_event.end_mark;
+                    return node;
+                };
+                return Composer;
+            }();
+        }).call(this);
+    });
+    register({
+        "0": [ "./util" ]
+    }, 0, function(global, module, exports, require, window) {
+        (function() {
+            var __hasProp = {}.hasOwnProperty;
+            this.is_empty = function(obj) {
+                var key;
+                if (Array.isArray(obj) || typeof obj === "string") {
+                    return obj.length === 0;
+                }
+                for (key in obj) {
+                    if (!__hasProp.call(obj, key)) continue;
+                    return false;
+                }
+                return true;
+            };
+        }).call(this);
+    });
+    register({
+        "0": [ "./constructor" ]
+    }, 0, function(global, module, exports, require, window) {
+        (function() {
+            var MarkedYAMLError, nodes, util, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+                for (var key in parent) {
+                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                }
+                function ctor() {
+                    this.constructor = child;
+                }
+                ctor.prototype = parent.prototype;
+                child.prototype = new ctor;
+                child.__super__ = parent.prototype;
+                return child;
+            }, __indexOf = [].indexOf || function(item) {
                 for (var i = 0, l = this.length; i < l; i++) {
-                    if (__hasProp.call(this, i) && this[i] === item) return i;
+                    if (i in this && this[i] === item) return i;
+                }
+                return -1;
+            };
+            MarkedYAMLError = require("./errors").MarkedYAMLError;
+            nodes = require("./nodes");
+            util = require("./util");
+            this.ConstructorError = function(_super) {
+                __extends(ConstructorError, _super);
+                ConstructorError.name = "ConstructorError";
+                function ConstructorError() {
+                    return ConstructorError.__super__.constructor.apply(this, arguments);
+                }
+                return ConstructorError;
+            }(MarkedYAMLError);
+            this.BaseConstructor = function() {
+                BaseConstructor.name = "BaseConstructor";
+                BaseConstructor.prototype.yaml_constructors = {};
+                BaseConstructor.prototype.yaml_multi_constructors = {};
+                function BaseConstructor() {
+                    this.constructed_objects = {};
+                    this.constructing_nodes = [];
+                    this.deferred_constructors = [];
+                }
+                BaseConstructor.prototype.check_data = function() {
+                    return this.check_node();
+                };
+                BaseConstructor.prototype.get_data = function() {
+                    if (this.check_node()) {
+                        return this.construct_document(this.get_node());
+                    }
+                };
+                BaseConstructor.prototype.get_single_data = function() {
+                    var node;
+                    node = this.get_single_node();
+                    if (node != null) {
+                        return this.construct_document(node);
+                    }
+                    return null;
+                };
+                BaseConstructor.prototype.construct_document = function(node) {
+                    var data;
+                    data = this.construct_object(node);
+                    while (!util.is_empty(this.deferred_constructors)) {
+                        this.deferred_constructors.pop()();
+                    }
+                    return data;
+                };
+                BaseConstructor.prototype.defer = function(f) {
+                    return this.deferred_constructors.push(f);
+                };
+                BaseConstructor.prototype.construct_object = function(node) {
+                    var constructor, object, tag_prefix, tag_suffix, _ref;
+                    if (node.unique_id in this.constructed_objects) {
+                        return this.constructed_objects[node.unique_id];
+                    }
+                    if (_ref = node.unique_id, __indexOf.call(this.constructing_nodes, _ref) >= 0) {
+                        throw new exports.ConstructorError(null, null, "found unconstructable recursive node", node.start_mark);
+                    }
+                    this.constructing_nodes.push(node.unique_id);
+                    constructor = null;
+                    tag_suffix = null;
+                    if (node.tag in this.yaml_constructors) {
+                        constructor = this.yaml_constructors[node.tag];
+                    } else {
+                        for (tag_prefix in this.yaml_multi_constructors) {
+                            if (node.tag.indexOf(tag_prefix === 0)) {
+                                tag_suffix = node.tag.slice(tag_prefix.length);
+                                constructor = this.yaml_multi_constructors[tag_prefix];
+                                break;
+                            }
+                        }
+                        if (!(constructor != null)) {
+                            if (null in this.yaml_multi_constructors) {
+                                tag_suffix = node.tag;
+                                constructor = this.yaml_multi_constructors[null];
+                            } else if (null in this.yaml_constructors) {
+                                constructor = this.yaml_constructors[null];
+                            } else if (node instanceof nodes.ScalarNode) {
+                                constructor = this.construct_scalar;
+                            } else if (node instanceof nodes.SequenceNode) {
+                                constructor = this.construct_sequence;
+                            } else if (node instanceof nodes.MappingNode) {
+                                constructor = this.construct_mapping;
+                            }
+                        }
+                    }
+                    object = constructor.call(this, tag_suffix != null ? tag_suffix : node, node);
+                    this.constructed_objects[node.unique_id] = object;
+                    this.constructing_nodes.pop();
+                    return object;
+                };
+                BaseConstructor.prototype.construct_scalar = function(node) {
+                    if (!(node instanceof nodes.ScalarNode)) {
+                        throw new exports.ConstructorError(null, null, "expected a scalar node but found " + node.id, node.start_mark);
+                    }
+                    return node.value;
+                };
+                BaseConstructor.prototype.construct_sequence = function(node) {
+                    var child, _i, _len, _ref, _results;
+                    if (!(node instanceof nodes.SequenceNode)) {
+                        throw new exports.ConstructorError(null, null, "expected a sequence node but found " + node.id, node.start_mark);
+                    }
+                    _ref = node.value;
+                    _results = [];
+                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                        child = _ref[_i];
+                        _results.push(this.construct_object(child));
+                    }
+                    return _results;
+                };
+                BaseConstructor.prototype.construct_mapping = function(node) {
+                    var key, key_node, mapping, value, value_node, _i, _len, _ref, _ref1;
+                    if (!(node instanceof nodes.MappingNode)) {
+                        throw new ConstructorError(null, null, "expected a mapping node but found " + node.id, node.start_mark);
+                    }
+                    mapping = {};
+                    _ref = node.value;
+                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                        _ref1 = _ref[_i], key_node = _ref1[0], value_node = _ref1[1];
+                        key = this.construct_object(key_node);
+                        if (typeof key === "object") {
+                            throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "found unhashable key", key_node.start_mark);
+                        }
+                        value = this.construct_object(value_node);
+                        mapping[key] = value;
+                    }
+                    return mapping;
+                };
+                BaseConstructor.prototype.construct_pairs = function(node) {
+                    var key, key_node, pairs, value, value_node, _i, _len, _ref, _ref1;
+                    if (!(node instanceof nodes.MappingNode)) {
+                        throw new exports.ConstructorError(null, null, "expected a mapping node but found " + node.id, node.start_mark);
+                    }
+                    pairs = [];
+                    _ref = node.value;
+                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                        _ref1 = _ref[_i], key_node = _ref1[0], value_node = _ref1[1];
+                        key = this.construct_object(key_node);
+                        value = this.construct_object(value_node);
+                        pairs.push([ key, value ]);
+                    }
+                    return pairs;
+                };
+                BaseConstructor.add_constructor = function(tag, constructor) {
+                    return this.prototype.yaml_constructors[tag] = constructor;
+                };
+                BaseConstructor.add_multi_constructor = function(tag_prefix, multi_constructor) {
+                    return this.prototype.yaml_multi_constructors[tag_prefix] = multi_constructor;
+                };
+                return BaseConstructor;
+            }();
+            this.Constructor = function(_super) {
+                var BOOL_VALUES, TIMESTAMP_PARTS, TIMESTAMP_REGEX;
+                __extends(Constructor, _super);
+                Constructor.name = "Constructor";
+                function Constructor() {
+                    return Constructor.__super__.constructor.apply(this, arguments);
+                }
+                BOOL_VALUES = {
+                    on: true,
+                    off: false,
+                    "true": true,
+                    "false": false,
+                    yes: true,
+                    no: false
+                };
+                TIMESTAMP_REGEX = /^([0-9][0-9][0-9][0-9])-([0-9][0-9]?)-([0-9][0-9]?)(?:(?:[Tt]|[\x20\t]+)([0-9][0-9]?):([0-9][0-9]):([0-9][0-9])(?:\.([0-9]*))?(?:[\x20\t]*(Z|([-+])([0-9][0-9]?)(?::([0-9][0-9]))?))?)?$/;
+                TIMESTAMP_PARTS = {
+                    year: 1,
+                    month: 2,
+                    day: 3,
+                    hour: 4,
+                    minute: 5,
+                    second: 6,
+                    fraction: 7,
+                    tz: 8,
+                    tz_sign: 9,
+                    tz_hour: 10,
+                    tz_minute: 11
+                };
+                Constructor.prototype.yaml_constructors = {};
+                Constructor.prototype.yaml_multi_constructors = {};
+                Constructor.prototype.construct_scalar = function(node) {
+                    var key_node, value_node, _i, _len, _ref, _ref1;
+                    if (node instanceof nodes.MappingNode) {
+                        _ref = node.value;
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            _ref1 = _ref[_i], key_node = _ref1[0], value_node = _ref1[1];
+                            if (key_node.tag === "tag:yaml.org,2002:value") {
+                                return this.construct_scalar(value_node);
+                            }
+                        }
+                    }
+                    return Constructor.__super__.construct_scalar.call(this, node);
+                };
+                Constructor.prototype.flatten_mapping = function(node) {
+                    var index, key_node, merge, submerge, subnode, value, value_node, _i, _j, _len, _len1, _ref, _ref1;
+                    merge = [];
+                    index = 0;
+                    while (index < node.value.length) {
+                        _ref = node.value[index], key_node = _ref[0], value_node = _ref[1];
+                        if (key_node.tag === "tag:yaml.org,2002:merge") {
+                            node.value.splice(index, 1);
+                            if (value_node instanceof nodes.MappingNode) {
+                                this.flatten_mapping(value_node);
+                                merge = merge.concat(value_node.value);
+                            } else if (value_node instanceof nodes.SequenceNode) {
+                                submerge = [];
+                                _ref1 = value_node.value;
+                                for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+                                    subnode = _ref1[_i];
+                                    if (!(subnode instanceof nodes.MappingNode)) {
+                                        throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping for merging, but found " + subnode.id, subnode.start_mark);
+                                    }
+                                    this.flatten_mapping(subnode);
+                                    submerge.push(subnode.value);
+                                }
+                                submerge.reverse();
+                                for (_j = 0, _len1 = submerge.length; _j < _len1; _j++) {
+                                    value = submerge[_j];
+                                    merge = merge.concat(value);
+                                }
+                            } else {
+                                throw new extend.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping or list of mappings for             merging but found " + value_node.id, value_node.start_mark);
+                            }
+                        } else if (key_node.tag === "tag:yaml.org,2002:value") {
+                            key_node.tag = "tag:yaml.org,2002:str";
+                            index++;
+                        } else {
+                            index++;
+                        }
+                    }
+                    if (merge.length) {
+                        return node.value = merge.concat(node.value);
+                    }
+                };
+                Constructor.prototype.construct_mapping = function(node) {
+                    if (node instanceof nodes.MappingNode) {
+                        this.flatten_mapping(node);
+                    }
+                    return Constructor.__super__.construct_mapping.call(this, node);
+                };
+                Constructor.prototype.construct_yaml_null = function(node) {
+                    this.construct_scalar(node);
+                    return null;
+                };
+                Constructor.prototype.construct_yaml_bool = function(node) {
+                    var value;
+                    value = this.construct_scalar(node);
+                    return BOOL_VALUES[value.toLowerCase()];
+                };
+                Constructor.prototype.construct_yaml_int = function(node) {
+                    var base, digit, digits, part, sign, value, _i, _len, _ref;
+                    value = this.construct_scalar(node);
+                    value = value.replace("_", "");
+                    sign = value[0] === "-" ? -1 : 1;
+                    if (_ref = value[0], __indexOf.call("+-", _ref) >= 0) {
+                        value = value.slice(1);
+                    }
+                    if (value === "0") {
+                        return 0;
+                    } else if (value.indexOf("0b") === 0) {
+                        return sign * parseInt(value.slice(2), 2);
+                    } else if (value.indexOf("0x") === 0) {
+                        return sign * parseInt(value.slice(2), 16);
+                    } else if (value.indexOf("0o") === 0) {
+                        return sign * parseInt(value.slice(2), 8);
+                    } else if (value[0] === "0") {
+                        return sign * parseInt(value, 8);
+                    } else if (__indexOf.call(value, ":") >= 0) {
+                        digits = function() {
+                            var _i, _len, _ref1, _results;
+                            _ref1 = value.split(/:/g);
+                            _results = [];
+                            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+                                part = _ref1[_i];
+                                _results.push(parseInt(part));
+                            }
+                            return _results;
+                        }();
+                        digits.reverse();
+                        base = 1;
+                        value = 0;
+                        for (_i = 0, _len = digits.length; _i < _len; _i++) {
+                            digit = digits[_i];
+                            value += digit * base;
+                            base *= 60;
+                        }
+                        return sign * value;
+                    } else {
+                        return sign * parseInt(value);
+                    }
+                };
+                Constructor.prototype.construct_yaml_float = function(node) {
+                    var base, digit, digits, part, sign, value, _i, _len, _ref;
+                    value = this.construct_scalar(node);
+                    value = value.replace("_", "").toLowerCase();
+                    sign = value[0] === "-" ? -1 : 1;
+                    if (_ref = value[0], __indexOf.call("+-", _ref) >= 0) {
+                        value = value.slice(1);
+                    }
+                    if (value === ".inf") {
+                        return sign * Infinity;
+                    } else if (value === ".nan") {
+                        return NaN;
+                    } else if (__indexOf.call(value, ":") >= 0) {
+                        digits = function() {
+                            var _i, _len, _ref1, _results;
+                            _ref1 = value.split(/:/g);
+                            _results = [];
+                            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+                                part = _ref1[_i];
+                                _results.push(parseFloat(part));
+                            }
+                            return _results;
+                        }();
+                        digits.reverse();
+                        base = 1;
+                        value = 0;
+                        for (_i = 0, _len = digits.length; _i < _len; _i++) {
+                            digit = digits[_i];
+                            value += digit * base;
+                            base *= 60;
+                        }
+                        return sign * value;
+                    } else {
+                        return sign * parseFloat(value);
+                    }
+                };
+                Constructor.prototype.construct_yaml_binary = function(node) {
+                    var value;
+                    value = this.construct_scalar(node);
+                    try {
+                        if (typeof window !== "undefined" && window !== null) {
+                            return atob(value);
+                        }
+                        return (new Buffer(value, "base64")).toString("ascii");
+                    } catch (error) {
+                        throw new exports.ConstructorError(null, null, "failed to decode base64 data: " + error, node.start_mark);
+                    }
+                };
+                Constructor.prototype.construct_yaml_timestamp = function(node) {
+                    var date, day, fraction, hour, index, key, match, millisecond, minute, month, second, tz_hour, tz_minute, tz_sign, value, values, year;
+                    value = this.construct_scalar(node);
+                    match = node.value.match(TIMESTAMP_REGEX);
+                    values = {};
+                    for (key in TIMESTAMP_PARTS) {
+                        index = TIMESTAMP_PARTS[key];
+                        values[key] = match[index];
+                    }
+                    year = parseInt(values.year);
+                    month = parseInt(values.month);
+                    day = parseInt(values.day);
+                    if (!values.hour) {
+                        return new Date(year, month, day);
+                    }
+                    hour = parseInt(values.hour);
+                    minute = parseInt(values.minute);
+                    second = parseInt(values.second);
+                    millisecond = 0;
+                    if (values.fraction) {
+                        fraction = values.fraction.slice(0, 6);
+                        while (fraction.length < 6) {
+                            fraction += "0";
+                        }
+                        fraction = parseInt(fraction);
+                        millisecond = Math.round(fraction / 1e3);
+                    }
+                    if (values.tz_sign) {
+                        tz_sign = values.tz_sign === "-" ? 1 : -1;
+                        if (tz_hour = parseInt(values.tz_hour)) {
+                            hour += tz_sign * tz_hour;
+                        }
+                        if (tz_minute = parseInt(values.tz_minute)) {
+                            minute += tz_sign * tz_minute;
+                        }
+                    }
+                    date = new Date(year, month, day, hour, minute, second, millisecond);
+                    return date;
+                };
+                Constructor.prototype.construct_yaml_pair_list = function(type, node) {
+                    var list, _this = this;
+                    list = [];
+                    if (!(node instanceof nodes.SequenceNode)) {
+                        throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a sequence but found " + node.id, node.start_mark);
+                    }
+                    this.defer(function() {
+                        var key, key_node, subnode, value, value_node, _i, _len, _ref, _ref1, _results;
+                        _ref = node.value;
+                        _results = [];
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            subnode = _ref[_i];
+                            if (!(subnode instanceof nodes.MappingNode)) {
+                                throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
+                            }
+                            if (subnode.value.length !== 1) {
+                                throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
+                            }
+                            _ref1 = subnode.value[0], key_node = _ref1[0], value_node = _ref1[1];
+                            key = _this.construct_object(key_node);
+                            value = _this.construct_object(value_node);
+                            _results.push(list.push([ key, value ]));
+                        }
+                        return _results;
+                    });
+                    return list;
+                };
+                Constructor.prototype.construct_yaml_omap = function(node) {
+                    return this.construct_yaml_pair_list("an ordered map", node);
+                };
+                Constructor.prototype.construct_yaml_pairs = function(node) {
+                    return this.construct_yaml_pair_list("pairs", node);
+                };
+                Constructor.prototype.construct_yaml_set = function(node) {
+                    var data, _this = this;
+                    data = [];
+                    this.defer(function() {
+                        var item, _results;
+                        _results = [];
+                        for (item in _this.construct_mapping(node)) {
+                            _results.push(data.push(item));
+                        }
+                        return _results;
+                    });
+                    return data;
+                };
+                Constructor.prototype.construct_yaml_str = function(node) {
+                    return this.construct_scalar(node);
+                };
+                Constructor.prototype.construct_yaml_seq = function(node) {
+                    var data, _this = this;
+                    data = [];
+                    this.defer(function() {
+                        var item, _i, _len, _ref, _results;
+                        _ref = _this.construct_sequence(node);
+                        _results = [];
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            item = _ref[_i];
+                            _results.push(data.push(item));
+                        }
+                        return _results;
+                    });
+                    return data;
+                };
+                Constructor.prototype.construct_yaml_map = function(node) {
+                    var data, _this = this;
+                    data = {};
+                    this.defer(function() {
+                        var key, value, _ref, _results;
+                        _ref = _this.construct_mapping(node);
+                        _results = [];
+                        for (key in _ref) {
+                            value = _ref[key];
+                            _results.push(data[key] = value);
+                        }
+                        return _results;
+                    });
+                    return data;
+                };
+                Constructor.prototype.construct_yaml_object = function(node, klass) {
+                    var data, _this = this;
+                    data = new klass;
+                    this.defer(function() {
+                        var key, value, _ref, _results;
+                        _ref = _this.construct_mapping(node, true);
+                        _results = [];
+                        for (key in _ref) {
+                            value = _ref[key];
+                            _results.push(data[key] = value);
+                        }
+                        return _results;
+                    });
+                    return data;
+                };
+                Constructor.prototype.construct_indefined = function(node) {
+                    throw new exports.ConstructorError(null, null, "could not determine a constructor for the tag " + node.tag, node.start_mark);
+                };
+                return Constructor;
+            }(this.BaseConstructor);
+            this.Constructor.add_constructor("tag:yaml.org,2002:null", this.Constructor.prototype.construct_yaml_null);
+            this.Constructor.add_constructor("tag:yaml.org,2002:bool", this.Constructor.prototype.construct_yaml_bool);
+            this.Constructor.add_constructor("tag:yaml.org,2002:int", this.Constructor.prototype.construct_yaml_int);
+            this.Constructor.add_constructor("tag:yaml.org,2002:float", this.Constructor.prototype.construct_yaml_float);
+            this.Constructor.add_constructor("tag:yaml.org,2002:binary", this.Constructor.prototype.construct_yaml_binary);
+            this.Constructor.add_constructor("tag:yaml.org,2002:timestamp", this.Constructor.prototype.construct_yaml_timestamp);
+            this.Constructor.add_constructor("tag:yaml.org,2002:omap", this.Constructor.prototype.construct_yaml_omap);
+            this.Constructor.add_constructor("tag:yaml.org,2002:pairs", this.Constructor.prototype.construct_yaml_pairs);
+            this.Constructor.add_constructor("tag:yaml.org,2002:set", this.Constructor.prototype.construct_yaml_set);
+            this.Constructor.add_constructor("tag:yaml.org,2002:str", this.Constructor.prototype.construct_yaml_str);
+            this.Constructor.add_constructor("tag:yaml.org,2002:seq", this.Constructor.prototype.construct_yaml_seq);
+            this.Constructor.add_constructor("tag:yaml.org,2002:map", this.Constructor.prototype.construct_yaml_map);
+            this.Constructor.add_constructor(null, this.Constructor.prototype.construct_yaml_undefined);
+        }).call(this);
+    });
+    register({
+        "0": [ "./reader" ]
+    }, 0, function(global, module, exports, require, window) {
+        (function() {
+            var Mark, YAMLError, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+                for (var key in parent) {
+                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                }
+                function ctor() {
+                    this.constructor = child;
+                }
+                ctor.prototype = parent.prototype;
+                child.prototype = new ctor;
+                child.__super__ = parent.prototype;
+                return child;
+            }, __indexOf = [].indexOf || function(item) {
+                for (var i = 0, l = this.length; i < l; i++) {
+                    if (i in this && this[i] === item) return i;
                 }
                 return -1;
             };
             _ref = require("./errors"), Mark = _ref.Mark, YAMLError = _ref.YAMLError;
-            this.ReaderError = function() {
-                __extends(ReaderError, YAMLError);
+            this.ReaderError = function(_super) {
+                __extends(ReaderError, _super);
+                ReaderError.name = "ReaderError";
                 function ReaderError(name, position, character, reason) {
                     this.name = name;
                     this.position = position;
@@ -182,9 +1104,10 @@
                     return "unacceptable character " + this.character.charCodeAt() + ": " + this.reason + '\n  in "' + this.name + '", position ' + this.position;
                 };
                 return ReaderError;
-            }();
+            }(YAMLError);
             this.Reader = function() {
                 var NON_PRINTABLE;
+                Reader.name = "Reader";
                 NON_PRINTABLE = /[^\x09\x0A\x0D\x20-\x7E\x85\xA0-\uD7FF\uE000-\uFFFD]/;
                 function Reader(string) {
                     this.string = string;
@@ -195,16 +1118,22 @@
                     this.string += "\0";
                 }
                 Reader.prototype.peek = function(index) {
-                    if (index == null) index = 0;
+                    if (index == null) {
+                        index = 0;
+                    }
                     return this.string[this.index + index];
                 };
                 Reader.prototype.prefix = function(length) {
-                    if (length == null) length = 1;
+                    if (length == null) {
+                        length = 1;
+                    }
                     return this.string.slice(this.index, this.index + length);
                 };
                 Reader.prototype.forward = function(length) {
                     var char, _results;
-                    if (length == null) length = 1;
+                    if (length == null) {
+                        length = 1;
+                    }
                     _results = [];
                     while (length) {
                         char = this.string[this.index];
@@ -233,13 +1162,13 @@
                 };
                 return Reader;
             }();
-        })).call(this);
+        }).call(this);
     });
     register({
         "0": [ "./tokens" ]
     }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
+        (function() {
+            var __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -252,14 +1181,16 @@
                 return child;
             };
             this.Token = function() {
+                Token.name = "Token";
                 function Token(start_mark, end_mark) {
                     this.start_mark = start_mark;
                     this.end_mark = end_mark;
                 }
                 return Token;
             }();
-            this.DirectiveToken = function() {
-                __extends(DirectiveToken, this.Token);
+            this.DirectiveToken = function(_super) {
+                __extends(DirectiveToken, _super);
+                DirectiveToken.name = "DirectiveToken";
                 DirectiveToken.prototype.id = "<directive>";
                 function DirectiveToken(name, value, start_mark, end_mark) {
                     this.name = name;
@@ -268,25 +1199,28 @@
                     this.end_mark = end_mark;
                 }
                 return DirectiveToken;
-            }.call(this);
-            this.DocumentStartToken = function() {
-                __extends(DocumentStartToken, this.Token);
+            }(this.Token);
+            this.DocumentStartToken = function(_super) {
+                __extends(DocumentStartToken, _super);
+                DocumentStartToken.name = "DocumentStartToken";
                 function DocumentStartToken() {
-                    DocumentStartToken.__super__.constructor.apply(this, arguments);
+                    return DocumentStartToken.__super__.constructor.apply(this, arguments);
                 }
                 DocumentStartToken.prototype.id = "<document start>";
                 return DocumentStartToken;
-            }.call(this);
-            this.DocumentEndToken = function() {
-                __extends(DocumentEndToken, this.Token);
+            }(this.Token);
+            this.DocumentEndToken = function(_super) {
+                __extends(DocumentEndToken, _super);
+                DocumentEndToken.name = "DocumentEndToken";
                 function DocumentEndToken() {
-                    DocumentEndToken.__super__.constructor.apply(this, arguments);
+                    return DocumentEndToken.__super__.constructor.apply(this, arguments);
                 }
                 DocumentEndToken.prototype.id = "<document end>";
                 return DocumentEndToken;
-            }.call(this);
-            this.StreamStartToken = function() {
-                __extends(StreamStartToken, this.Token);
+            }(this.Token);
+            this.StreamStartToken = function(_super) {
+                __extends(StreamStartToken, _super);
+                StreamStartToken.name = "StreamStartToken";
                 StreamStartToken.prototype.id = "<stream start>";
                 function StreamStartToken(start_mark, end_mark, encoding) {
                     this.start_mark = start_mark;
@@ -294,105 +1228,118 @@
                     this.encoding = encoding;
                 }
                 return StreamStartToken;
-            }.call(this);
-            this.StreamEndToken = function() {
-                __extends(StreamEndToken, this.Token);
+            }(this.Token);
+            this.StreamEndToken = function(_super) {
+                __extends(StreamEndToken, _super);
+                StreamEndToken.name = "StreamEndToken";
                 function StreamEndToken() {
-                    StreamEndToken.__super__.constructor.apply(this, arguments);
+                    return StreamEndToken.__super__.constructor.apply(this, arguments);
                 }
                 StreamEndToken.prototype.id = "<stream end>";
                 return StreamEndToken;
-            }.call(this);
-            this.BlockSequenceStartToken = function() {
-                __extends(BlockSequenceStartToken, this.Token);
+            }(this.Token);
+            this.BlockSequenceStartToken = function(_super) {
+                __extends(BlockSequenceStartToken, _super);
+                BlockSequenceStartToken.name = "BlockSequenceStartToken";
                 function BlockSequenceStartToken() {
-                    BlockSequenceStartToken.__super__.constructor.apply(this, arguments);
+                    return BlockSequenceStartToken.__super__.constructor.apply(this, arguments);
                 }
                 BlockSequenceStartToken.prototype.id = "<block sequence start>";
                 return BlockSequenceStartToken;
-            }.call(this);
-            this.BlockMappingStartToken = function() {
-                __extends(BlockMappingStartToken, this.Token);
+            }(this.Token);
+            this.BlockMappingStartToken = function(_super) {
+                __extends(BlockMappingStartToken, _super);
+                BlockMappingStartToken.name = "BlockMappingStartToken";
                 function BlockMappingStartToken() {
-                    BlockMappingStartToken.__super__.constructor.apply(this, arguments);
+                    return BlockMappingStartToken.__super__.constructor.apply(this, arguments);
                 }
                 BlockMappingStartToken.prototype.id = "<block mapping end>";
                 return BlockMappingStartToken;
-            }.call(this);
-            this.BlockEndToken = function() {
-                __extends(BlockEndToken, this.Token);
+            }(this.Token);
+            this.BlockEndToken = function(_super) {
+                __extends(BlockEndToken, _super);
+                BlockEndToken.name = "BlockEndToken";
                 function BlockEndToken() {
-                    BlockEndToken.__super__.constructor.apply(this, arguments);
+                    return BlockEndToken.__super__.constructor.apply(this, arguments);
                 }
                 BlockEndToken.prototype.id = "<block end>";
                 return BlockEndToken;
-            }.call(this);
-            this.FlowSequenceStartToken = function() {
-                __extends(FlowSequenceStartToken, this.Token);
+            }(this.Token);
+            this.FlowSequenceStartToken = function(_super) {
+                __extends(FlowSequenceStartToken, _super);
+                FlowSequenceStartToken.name = "FlowSequenceStartToken";
                 function FlowSequenceStartToken() {
-                    FlowSequenceStartToken.__super__.constructor.apply(this, arguments);
+                    return FlowSequenceStartToken.__super__.constructor.apply(this, arguments);
                 }
                 FlowSequenceStartToken.prototype.id = "[";
                 return FlowSequenceStartToken;
-            }.call(this);
-            this.FlowMappingStartToken = function() {
-                __extends(FlowMappingStartToken, this.Token);
+            }(this.Token);
+            this.FlowMappingStartToken = function(_super) {
+                __extends(FlowMappingStartToken, _super);
+                FlowMappingStartToken.name = "FlowMappingStartToken";
                 function FlowMappingStartToken() {
-                    FlowMappingStartToken.__super__.constructor.apply(this, arguments);
+                    return FlowMappingStartToken.__super__.constructor.apply(this, arguments);
                 }
                 FlowMappingStartToken.prototype.id = "{";
                 return FlowMappingStartToken;
-            }.call(this);
-            this.FlowSequenceEndToken = function() {
-                __extends(FlowSequenceEndToken, this.Token);
+            }(this.Token);
+            this.FlowSequenceEndToken = function(_super) {
+                __extends(FlowSequenceEndToken, _super);
+                FlowSequenceEndToken.name = "FlowSequenceEndToken";
                 function FlowSequenceEndToken() {
-                    FlowSequenceEndToken.__super__.constructor.apply(this, arguments);
+                    return FlowSequenceEndToken.__super__.constructor.apply(this, arguments);
                 }
                 FlowSequenceEndToken.prototype.id = "]";
                 return FlowSequenceEndToken;
-            }.call(this);
-            this.FlowMappingEndToken = function() {
-                __extends(FlowMappingEndToken, this.Token);
+            }(this.Token);
+            this.FlowMappingEndToken = function(_super) {
+                __extends(FlowMappingEndToken, _super);
+                FlowMappingEndToken.name = "FlowMappingEndToken";
                 function FlowMappingEndToken() {
-                    FlowMappingEndToken.__super__.constructor.apply(this, arguments);
+                    return FlowMappingEndToken.__super__.constructor.apply(this, arguments);
                 }
                 FlowMappingEndToken.prototype.id = "}";
                 return FlowMappingEndToken;
-            }.call(this);
-            this.KeyToken = function() {
-                __extends(KeyToken, this.Token);
+            }(this.Token);
+            this.KeyToken = function(_super) {
+                __extends(KeyToken, _super);
+                KeyToken.name = "KeyToken";
                 function KeyToken() {
-                    KeyToken.__super__.constructor.apply(this, arguments);
+                    return KeyToken.__super__.constructor.apply(this, arguments);
                 }
                 KeyToken.prototype.id = "?";
                 return KeyToken;
-            }.call(this);
-            this.ValueToken = function() {
-                __extends(ValueToken, this.Token);
+            }(this.Token);
+            this.ValueToken = function(_super) {
+                __extends(ValueToken, _super);
+                ValueToken.name = "ValueToken";
                 function ValueToken() {
-                    ValueToken.__super__.constructor.apply(this, arguments);
+                    return ValueToken.__super__.constructor.apply(this, arguments);
                 }
                 ValueToken.prototype.id = ":";
                 return ValueToken;
-            }.call(this);
-            this.BlockEntryToken = function() {
-                __extends(BlockEntryToken, this.Token);
+            }(this.Token);
+            this.BlockEntryToken = function(_super) {
+                __extends(BlockEntryToken, _super);
+                BlockEntryToken.name = "BlockEntryToken";
                 function BlockEntryToken() {
-                    BlockEntryToken.__super__.constructor.apply(this, arguments);
+                    return BlockEntryToken.__super__.constructor.apply(this, arguments);
                 }
                 BlockEntryToken.prototype.id = "-";
                 return BlockEntryToken;
-            }.call(this);
-            this.FlowEntryToken = function() {
-                __extends(FlowEntryToken, this.Token);
+            }(this.Token);
+            this.FlowEntryToken = function(_super) {
+                __extends(FlowEntryToken, _super);
+                FlowEntryToken.name = "FlowEntryToken";
                 function FlowEntryToken() {
-                    FlowEntryToken.__super__.constructor.apply(this, arguments);
+                    return FlowEntryToken.__super__.constructor.apply(this, arguments);
                 }
                 FlowEntryToken.prototype.id = ",";
                 return FlowEntryToken;
-            }.call(this);
-            this.AliasToken = function() {
-                __extends(AliasToken, this.Token);
+            }(this.Token);
+            this.AliasToken = function(_super) {
+                __extends(AliasToken, _super);
+                AliasToken.name = "AliasToken";
                 AliasToken.prototype.id = "<alias>";
                 function AliasToken(value, start_mark, end_mark) {
                     this.value = value;
@@ -400,9 +1347,10 @@
                     this.end_mark = end_mark;
                 }
                 return AliasToken;
-            }.call(this);
-            this.AnchorToken = function() {
-                __extends(AnchorToken, this.Token);
+            }(this.Token);
+            this.AnchorToken = function(_super) {
+                __extends(AnchorToken, _super);
+                AnchorToken.name = "AnchorToken";
                 AnchorToken.prototype.id = "<anchor>";
                 function AnchorToken(value, start_mark, end_mark) {
                     this.value = value;
@@ -410,9 +1358,10 @@
                     this.end_mark = end_mark;
                 }
                 return AnchorToken;
-            }.call(this);
-            this.TagToken = function() {
-                __extends(TagToken, this.Token);
+            }(this.Token);
+            this.TagToken = function(_super) {
+                __extends(TagToken, _super);
+                TagToken.name = "TagToken";
                 TagToken.prototype.id = "<tag>";
                 function TagToken(value, start_mark, end_mark) {
                     this.value = value;
@@ -420,9 +1369,10 @@
                     this.end_mark = end_mark;
                 }
                 return TagToken;
-            }.call(this);
-            this.ScalarToken = function() {
-                __extends(ScalarToken, this.Token);
+            }(this.Token);
+            this.ScalarToken = function(_super) {
+                __extends(ScalarToken, _super);
+                ScalarToken.name = "ScalarToken";
                 ScalarToken.prototype.id = "<scalar>";
                 function ScalarToken(value, plain, start_mark, end_mark, style) {
                     this.value = value;
@@ -432,31 +1382,14 @@
                     this.style = style;
                 }
                 return ScalarToken;
-            }.call(this);
-        })).call(this);
-    });
-    register({
-        "0": [ "./util" ]
-    }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var __hasProp = Object.prototype.hasOwnProperty;
-            this.is_empty = function(obj) {
-                var key;
-                if (Array.isArray(obj) || typeof obj === "string") return obj.length === 0;
-                for (key in obj) {
-                    if (!__hasProp.call(obj, key)) continue;
-                    return false;
-                }
-                return true;
-            };
-        })).call(this);
+            }(this.Token);
+        }).call(this);
     });
     register({
         "0": [ "./scanner" ]
     }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var MarkedYAMLError, SimpleKey, tokens, util;
-            var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
+        (function() {
+            var MarkedYAMLError, SimpleKey, tokens, util, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -467,23 +1400,25 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            }, __slice = Array.prototype.slice, __indexOf = Array.prototype.indexOf || function(item) {
+            }, __slice = [].slice, __indexOf = [].indexOf || function(item) {
                 for (var i = 0, l = this.length; i < l; i++) {
-                    if (__hasProp.call(this, i) && this[i] === item) return i;
+                    if (i in this && this[i] === item) return i;
                 }
                 return -1;
             };
             MarkedYAMLError = require("./errors").MarkedYAMLError;
             tokens = require("./tokens");
             util = require("./util");
-            this.ScannerError = function() {
-                __extends(ScannerError, MarkedYAMLError);
+            this.ScannerError = function(_super) {
+                __extends(ScannerError, _super);
+                ScannerError.name = "ScannerError";
                 function ScannerError() {
-                    ScannerError.__super__.constructor.apply(this, arguments);
+                    return ScannerError.__super__.constructor.apply(this, arguments);
                 }
                 return ScannerError;
-            }();
+            }(MarkedYAMLError);
             SimpleKey = function() {
+                SimpleKey.name = "SimpleKey";
                 function SimpleKey(token_number, required, index, line, column, mark) {
                     this.token_number = token_number;
                     this.required = required;
@@ -496,15 +1431,16 @@
             }();
             this.Scanner = function() {
                 var C_LB, C_NUMBERS, C_WS, ESCAPE_CODE, ESCAPE_REPLACEMENTS;
+                Scanner.name = "Scanner";
                 C_LB = "\r\n\u2028\u2029";
-                C_WS = "\t ";
+                C_WS = "	 ";
                 C_NUMBERS = "0123456789";
                 ESCAPE_REPLACEMENTS = {
                     "0": "\0",
                     a: "",
                     b: "\b",
-                    t: "\t",
-                    "\t": "\t",
+                    t: "	",
+                    "	": "	",
                     n: "\n",
                     v: "",
                     f: "\f",
@@ -541,10 +1477,14 @@
                         this.fetch_more_tokens();
                     }
                     if (this.tokens.length !== 0) {
-                        if (choices.length === 0) return true;
+                        if (choices.length === 0) {
+                            return true;
+                        }
                         for (_i = 0, _len = choices.length; _i < _len; _i++) {
                             choice = choices[_i];
-                            if (this.tokens[0] instanceof choice) return true;
+                            if (this.tokens[0] instanceof choice) {
+                                return true;
+                            }
                         }
                     }
                     return false;
@@ -553,7 +1493,9 @@
                     while (this.need_more_tokens()) {
                         this.fetch_more_tokens();
                     }
-                    if (this.tokens.length !== 0) return this.tokens[0];
+                    if (this.tokens.length !== 0) {
+                        return this.tokens[0];
+                    }
                 };
                 Scanner.prototype.get_token = function() {
                     while (this.need_more_tokens()) {
@@ -565,10 +1507,16 @@
                     }
                 };
                 Scanner.prototype.need_more_tokens = function() {
-                    if (this.done) return false;
-                    if (this.tokens.length === 0) return true;
+                    if (this.done) {
+                        return false;
+                    }
+                    if (this.tokens.length === 0) {
+                        return true;
+                    }
                     this.stale_possible_simple_keys();
-                    if (this.next_possible_simple_key() === this.tokens_taken) return true;
+                    if (this.next_possible_simple_key() === this.tokens_taken) {
+                        return true;
+                    }
                     return false;
                 };
                 Scanner.prototype.fetch_more_tokens = function() {
@@ -577,32 +1525,66 @@
                     this.stale_possible_simple_keys();
                     this.unwind_indent(this.column);
                     char = this.peek();
-                    if (char === "\0") return this.fetch_stream_end();
-                    if (char === "%" && this.check_directive()) return this.fetch_directive();
+                    if (char === "\0") {
+                        return this.fetch_stream_end();
+                    }
+                    if (char === "%" && this.check_directive()) {
+                        return this.fetch_directive();
+                    }
                     if (char === "-" && this.check_document_start()) {
                         return this.fetch_document_start();
                     }
                     if (char === "." && this.check_document_end()) {
                         return this.fetch_document_end();
                     }
-                    if (char === "[") return this.fetch_flow_sequence_start();
-                    if (char === "{") return this.fetch_flow_mapping_start();
-                    if (char === "]") return this.fetch_flow_sequence_end();
-                    if (char === "}") return this.fetch_flow_mapping_end();
-                    if (char === ",") return this.fetch_flow_entry();
+                    if (char === "[") {
+                        return this.fetch_flow_sequence_start();
+                    }
+                    if (char === "{") {
+                        return this.fetch_flow_mapping_start();
+                    }
+                    if (char === "]") {
+                        return this.fetch_flow_sequence_end();
+                    }
+                    if (char === "}") {
+                        return this.fetch_flow_mapping_end();
+                    }
+                    if (char === ",") {
+                        return this.fetch_flow_entry();
+                    }
                     if (char === "-" && this.check_block_entry()) {
                         return this.fetch_block_entry();
                     }
-                    if (char === "?" && this.check_key()) return this.fetch_key();
-                    if (char === ":" && this.check_value()) return this.fetch_value();
-                    if (char === "*") return this.fetch_alias();
-                    if (char === "&") return this.fetch_anchor();
-                    if (char === "!") return this.fetch_tag();
-                    if (char === "|" && this.flow_level === 0) return this.fetch_literal();
-                    if (char === ">" && this.flow_level === 0) return this.fetch_folded();
-                    if (char === "'") return this.fetch_single();
-                    if (char === '"') return this.fetch_double();
-                    if (this.check_plain()) return this.fetch_plain();
+                    if (char === "?" && this.check_key()) {
+                        return this.fetch_key();
+                    }
+                    if (char === ":" && this.check_value()) {
+                        return this.fetch_value();
+                    }
+                    if (char === "*") {
+                        return this.fetch_alias();
+                    }
+                    if (char === "&") {
+                        return this.fetch_anchor();
+                    }
+                    if (char === "!") {
+                        return this.fetch_tag();
+                    }
+                    if (char === "|" && this.flow_level === 0) {
+                        return this.fetch_literal();
+                    }
+                    if (char === ">" && this.flow_level === 0) {
+                        return this.fetch_folded();
+                    }
+                    if (char === "'") {
+                        return this.fetch_single();
+                    }
+                    if (char === '"') {
+                        return this.fetch_double();
+                    }
+                    if (this.check_plain()) {
+                        return this.fetch_plain();
+                    }
                     throw new exports.ScannerError("while scanning for the next token", null, "found character " + char + " that cannot start any token", this.get_mark());
                 };
                 Scanner.prototype.next_possible_simple_key = function() {
@@ -625,7 +1607,9 @@
                     for (level in _ref) {
                         if (!__hasProp.call(_ref, level)) continue;
                         key = _ref[level];
-                        if (key.line === this.line && this.index - key.index <= 1024) continue;
+                        if (key.line === this.line && this.index - key.index <= 1024) {
+                            continue;
+                        }
                         if (!key.required) {
                             _results.push(delete this.possible_simple_keys[level]);
                         } else {
@@ -637,15 +1621,21 @@
                 Scanner.prototype.save_possible_simple_key = function() {
                     var required, token_number;
                     required = this.flow_level === 0 && this.indent === this.column;
-                    if (required && !this.allow_simple_key) throw new Error("logic failure");
-                    if (!this.allow_simple_key) return;
+                    if (required && !this.allow_simple_key) {
+                        throw new Error("logic failure");
+                    }
+                    if (!this.allow_simple_key) {
+                        return;
+                    }
                     this.remove_possible_simple_key();
                     token_number = this.tokens_taken + this.tokens.length;
                     return this.possible_simple_keys[this.flow_level] = new SimpleKey(token_number, required, this.index, this.line, this.column, this.get_mark());
                 };
                 Scanner.prototype.remove_possible_simple_key = function() {
                     var key;
-                    if (!(key = this.possible_simple_keys[this.flow_level])) return;
+                    if (!(key = this.possible_simple_keys[this.flow_level])) {
+                        return;
+                    }
                     if (!key.required) {
                         return delete this.possible_simple_keys[this.flow_level];
                     } else {
@@ -654,7 +1644,9 @@
                 };
                 Scanner.prototype.unwind_indent = function(column) {
                     var mark, _results;
-                    if (this.flow_level !== 0) return;
+                    if (this.flow_level !== 0) {
+                        return;
+                    }
                     _results = [];
                     while (this.indent > column) {
                         mark = this.get_mark();
@@ -664,7 +1656,9 @@
                     return _results;
                 };
                 Scanner.prototype.add_indent = function(column) {
-                    if (!(column > this.indent)) return false;
+                    if (!(column > this.indent)) {
+                        return false;
+                    }
                     this.indents.push(this.indent);
                     this.indent = column;
                     return true;
@@ -848,7 +1842,9 @@
                     return this.tokens.push(this.scan_plain());
                 };
                 Scanner.prototype.check_directive = function() {
-                    if (this.column === 0) return true;
+                    if (this.column === 0) {
+                        return true;
+                    }
                     return false;
                 };
                 Scanner.prototype.check_document_start = function() {
@@ -871,12 +1867,16 @@
                 };
                 Scanner.prototype.check_key = function() {
                     var _ref;
-                    if (this.flow_level !== 0) return true;
+                    if (this.flow_level !== 0) {
+                        return true;
+                    }
                     return _ref = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref) >= 0;
                 };
                 Scanner.prototype.check_value = function() {
                     var _ref;
-                    if (this.flow_level !== 0) return true;
+                    if (this.flow_level !== 0) {
+                        return true;
+                    }
                     return _ref = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref) >= 0;
                 };
                 Scanner.prototype.check_plain = function() {
@@ -886,7 +1886,9 @@
                 };
                 Scanner.prototype.scan_to_next_token = function() {
                     var found, _ref, _results;
-                    if (this.index === 0 && this.peek() === "﻿") this.forward();
+                    if (this.index === 0 && this.peek() === "﻿") {
+                        this.forward();
+                    }
                     found = false;
                     _results = [];
                     while (!found) {
@@ -1079,7 +2081,7 @@
                     return new tokens.TagToken([ handle, suffix ], start_mark, this.get_mark());
                 };
                 Scanner.prototype.scan_block_scalar = function(style) {
-                    var breaks, chomping, chunks, end_mark, folded, increment, indent, leading_non_space, length, line_break, max_indent, min_indent, start_mark, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7;
+                    var breaks, chomping, chunks, end_mark, folded, increment, indent, leading_non_space, length, line_break, max_indent, min_indent, start_mark, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6;
                     folded = style === ">";
                     chunks = [];
                     start_mark = this.get_mark();
@@ -1087,29 +2089,33 @@
                     _ref = this.scan_block_scalar_indicators(start_mark), chomping = _ref[0], increment = _ref[1];
                     this.scan_block_scalar_ignored_line(start_mark);
                     min_indent = this.indent + 1;
-                    if (min_indent < 1) min_indent = 1;
+                    if (min_indent < 1) {
+                        min_indent = 1;
+                    }
                     if (!(increment != null)) {
-                        _ref2 = this.scan_block_scalar_indentation(), breaks = _ref2[0], max_indent = _ref2[1], end_mark = _ref2[2];
+                        _ref1 = this.scan_block_scalar_indentation(), breaks = _ref1[0], max_indent = _ref1[1], end_mark = _ref1[2];
                         indent = Math.max(min_indent, max_indent);
                     } else {
                         indent = min_indent + increment - 1;
-                        _ref3 = this.scan_block_scalar_breaks(indent), breaks = _ref3[0], end_mark = _ref3[1];
+                        _ref2 = this.scan_block_scalar_breaks(indent), breaks = _ref2[0], end_mark = _ref2[1];
                     }
                     line_break = "";
                     while (this.column === indent && this.peek() !== "\0") {
                         chunks = chunks.concat(breaks);
-                        leading_non_space = (_ref4 = this.peek(), __indexOf.call(" \t", _ref4) < 0);
+                        leading_non_space = (_ref3 = this.peek(), __indexOf.call(" 	", _ref3) < 0);
                         length = 0;
-                        while (_ref5 = this.peek(length), __indexOf.call(C_LB + "\0", _ref5) < 0) {
+                        while (_ref4 = this.peek(length), __indexOf.call(C_LB + "\0", _ref4) < 0) {
                             length++;
                         }
                         chunks.push(this.prefix(length));
                         this.forward(length);
                         line_break = this.scan_line_break();
-                        _ref6 = this.scan_block_scalar_breaks(indent), breaks = _ref6[0], end_mark = _ref6[1];
+                        _ref5 = this.scan_block_scalar_breaks(indent), breaks = _ref5[0], end_mark = _ref5[1];
                         if (this.column === indent && this.peek() !== "\0") {
-                            if (folded && line_break === "\n" && leading_non_space && (_ref7 = this.peek(), __indexOf.call(" \t", _ref7) < 0)) {
-                                if (util.is_empty(breaks)) chunks.push(" ");
+                            if (folded && line_break === "\n" && leading_non_space && (_ref6 = this.peek(), __indexOf.call(" 	", _ref6) < 0)) {
+                                if (util.is_empty(breaks)) {
+                                    chunks.push(" ");
+                                }
                             } else {
                                 chunks.push(line_break);
                             }
@@ -1117,8 +2123,12 @@
                             break;
                         }
                     }
-                    if (chomping !== false) chunks.push(line_break);
-                    if (chomping === true) chunks = chunks.concat(breaks);
+                    if (chomping !== false) {
+                        chunks.push(line_break);
+                    }
+                    if (chomping === true) {
+                        chunks = chunks.concat(breaks);
+                    }
                     return new tokens.ScalarToken(chunks.join(""), false, start_mark, end_mark, style);
                 };
                 Scanner.prototype.scan_block_scalar_indicators = function(start_mark) {
@@ -1182,7 +2192,9 @@
                             end_mark = this.get_mark();
                         } else {
                             this.forward();
-                            if (this.column > max_indent) max_indent = this.column;
+                            if (this.column > max_indent) {
+                                max_indent = this.column;
+                            }
                         }
                     }
                     return [ chunks, max_indent, end_mark ];
@@ -1219,9 +2231,8 @@
                     return new tokens.ScalarToken(chunks.join(""), false, start_mark, this.get_mark(), style);
                 };
                 Scanner.prototype.scan_flow_scalar_non_spaces = function(double, start_mark) {
-                    var char, chunks, code, k, length, _ref, _results;
+                    var char, chunks, code, k, length, _i, _ref;
                     chunks = [];
-                    _results = [];
                     while (true) {
                         length = 0;
                         while (_ref = this.peek(length), __indexOf.call(C_LB + C_WS + "'\"\\\0", _ref) < 0) {
@@ -1234,30 +2245,30 @@
                         char = this.peek();
                         if (!double && char === "'" && this.peek(1) === "'") {
                             chunks.push("'");
-                            _results.push(this.forward(2));
+                            this.forward(2);
                         } else if (double && char === "'" || !double && __indexOf.call('"\\', char) >= 0) {
                             chunks.push(char);
-                            _results.push(this.forward());
+                            this.forward();
                         } else if (double && char === "\\") {
                             this.forward();
                             char = this.peek();
                             if (__indexOf.call(ESCAPE_REPLACEMENTS, char) >= 0) {
                                 chunks.push(ESCAPE_REPLACEMENTS[char]);
-                                _results.push(this.forward());
+                                this.forward();
                             } else if (__indexOf.call(ESCAPE_CODES, char) >= 0) {
                                 length = ESCAPE_CODES[char];
                                 this.forward();
-                                for (k = 0; 0 <= length ? k < length : k > length; 0 <= length ? k++ : k--) {
+                                for (k = _i = 0; 0 <= length ? _i < length : _i > length; k = 0 <= length ? ++_i : --_i) {
                                     if (this.peek(__indexOf.call(C_NUMBERS + "ABCDEFabcdef", k) < 0)) {
                                         throw new exports.ScannerError("while scanning a double-quoted scalar", start_mark, "expected escape sequence of " + length + " hexadecimal numbers, but               found " + this.peek(k), this.get_mark());
                                     }
                                 }
                                 code = parseInt(this.prefix(length), 16);
                                 chunks.push(String.fromCharCode(code));
-                                _results.push(this.forward(length));
+                                this.forward(length);
                             } else if (__indexOf.call(C_LB, char) >= 0) {
                                 this.scan_line_break();
-                                _results.push(chunks = chunks.concat(this.scan_flow_scalar_breaks(double, start_mark)));
+                                chunks = chunks.concat(this.scan_flow_scalar_breaks(double, start_mark));
                             } else {
                                 throw new exports.ScannerError("while scanning a double-quoted scalar", start_mark, "found unknown escape character " + char, this.get_mark());
                             }
@@ -1265,7 +2276,6 @@
                             return chunks;
                         }
                     }
-                    return _results;
                 };
                 Scanner.prototype.scan_flow_scalar_spaces = function(double, start_mark) {
                     var breaks, char, chunks, length, line_break, whitespaces, _ref;
@@ -1295,32 +2305,32 @@
                     return chunks;
                 };
                 Scanner.prototype.scan_flow_scalar_breaks = function(double, start_mark) {
-                    var chunks, prefix, _ref, _ref2, _results;
+                    var chunks, prefix, _ref, _ref1;
                     chunks = [];
-                    _results = [];
                     while (true) {
                         prefix = this.prefix(3);
                         throw new exports.ScannerError("while scanning a quoted scalar", start_mark, "found unexpected document separator", prefix === "---" || prefix === "..." && this.peek(__indexOf.call(C_LB + C_WS + "\0", 3) >= 0) ? this.get_mark() : void 0);
                         while (_ref = this.peek(), __indexOf.call(C_WS, _ref) >= 0) {
                             this.forward();
                         }
-                        if (_ref2 = this.peek(), __indexOf.call(C_LB, _ref2) >= 0) {
-                            _results.push(chunks.push(this.scan_line_break()));
+                        if (_ref1 = this.peek(), __indexOf.call(C_LB, _ref1) >= 0) {
+                            chunks.push(this.scan_line_break());
                         } else {
                             return chunks;
                         }
                     }
-                    return _results;
                 };
                 Scanner.prototype.scan_plain = function() {
-                    var char, chunks, end_mark, indent, length, spaces, start_mark, _ref, _ref2;
+                    var char, chunks, end_mark, indent, length, spaces, start_mark, _ref, _ref1;
                     chunks = [];
                     start_mark = end_mark = this.get_mark();
                     indent = this.indent + 1;
                     spaces = [];
                     while (true) {
                         length = 0;
-                        if (this.peek() === "#") break;
+                        if (this.peek() === "#") {
+                            break;
+                        }
                         while (true) {
                             char = this.peek(length);
                             if (__indexOf.call(C_LB + C_WS + "\0", char) >= 0 || this.flow_level === 0 && char === ":" && (_ref = this.peek(length + 1), __indexOf.call(C_LB + C_WS + "\0", _ref) >= 0) || this.flow_level !== 0 && __indexOf.call(",:?[]{}", char) >= 0) {
@@ -1328,11 +2338,13 @@
                             }
                             length++;
                         }
-                        if (this.flow_level !== 0 && char === ":" && (_ref2 = this.peek(length + 1), __indexOf.call(C_LB + C_WS + "\0,[]{}", _ref2) < 0)) {
+                        if (this.flow_level !== 0 && char === ":" && (_ref1 = this.peek(length + 1), __indexOf.call(C_LB + C_WS + "\0,[]{}", _ref1) < 0)) {
                             this.forward(length);
                             throw new exports.ScannerError("while scanning a plain scalar", start_mark, "found unexpected ':'", this.get_mark(), "Please check http://pyyaml.org/wiki/YAMLColonInFlowContext");
                         }
-                        if (length === 0) break;
+                        if (length === 0) {
+                            break;
+                        }
                         this.allow_simple_key = false;
                         chunks = chunks.concat(spaces);
                         chunks.push(this.prefix(length));
@@ -1346,7 +2358,7 @@
                     return new tokens.ScalarToken(chunks.join(""), true, start_mark, end_mark);
                 };
                 Scanner.prototype.scan_plain_spaces = function(indent, start_mark) {
-                    var breaks, char, chunks, length, line_break, prefix, whitespaces, _ref, _ref2;
+                    var breaks, char, chunks, length, line_break, prefix, whitespaces, _ref, _ref1;
                     chunks = [];
                     length = 0;
                     while (_ref = this.peek(length), __indexOf.call(" ", _ref) >= 0) {
@@ -1363,7 +2375,7 @@
                             return;
                         }
                         breaks = [];
-                        while (_ref2 = this.peek(), __indexOf.call(C_LB + " ", _ref2) >= 0) {
+                        while (_ref1 = this.peek(), __indexOf.call(C_LB + " ", _ref1) >= 0) {
                             if (this.peek() === " ") {
                                 this.forward();
                             } else {
@@ -1435,12 +2447,12 @@
                     return chunks.join("");
                 };
                 Scanner.prototype.scan_uri_escapes = function(name, start_mark) {
-                    var bytes, k, mark;
+                    var bytes, k, mark, _i;
                     bytes = [];
                     mark = this.get_mark();
                     while (this.peek() === "%") {
                         this.forward();
-                        for (k = 0; k <= 2; k++) {
+                        for (k = _i = 0; _i <= 2; k = ++_i) {
                             throw new exports.ScannerError("while scanning a " + name, start_mark, "expected URI escape sequence of 2 hexadecimal numbers but found          " + this.peek(k), this.get_mark());
                         }
                         bytes.push(String.fromCharCode(parseInt(this.prefix(2), 16)));
@@ -1466,152 +2478,13 @@
                 };
                 return Scanner;
             }();
-        })).call(this);
-    });
-    register({
-        "0": [ "./events" ]
-    }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
-                for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
-                }
-                function ctor() {
-                    this.constructor = child;
-                }
-                ctor.prototype = parent.prototype;
-                child.prototype = new ctor;
-                child.__super__ = parent.prototype;
-                return child;
-            };
-            this.Event = function() {
-                function Event(start_mark, end_mark) {
-                    this.start_mark = start_mark;
-                    this.end_mark = end_mark;
-                }
-                return Event;
-            }();
-            this.NodeEvent = function() {
-                __extends(NodeEvent, this.Event);
-                function NodeEvent(anchor, start_mark, end_mark) {
-                    this.anchor = anchor;
-                    this.start_mark = start_mark;
-                    this.end_mark = end_mark;
-                }
-                return NodeEvent;
-            }.call(this);
-            this.CollectionStartEvent = function() {
-                __extends(CollectionStartEvent, this.NodeEvent);
-                function CollectionStartEvent(anchor, tag, implicit, start_mark, end_mark) {
-                    this.anchor = anchor;
-                    this.tag = tag;
-                    this.implicit = implicit;
-                    this.start_mark = start_mark;
-                    this.end_mark = end_mark;
-                }
-                return CollectionStartEvent;
-            }.call(this);
-            this.CollectionEndEvent = function() {
-                __extends(CollectionEndEvent, this.Event);
-                function CollectionEndEvent() {
-                    CollectionEndEvent.__super__.constructor.apply(this, arguments);
-                }
-                return CollectionEndEvent;
-            }.call(this);
-            this.StreamStartEvent = function() {
-                __extends(StreamStartEvent, this.Event);
-                function StreamStartEvent(start_mark, end_mark, explicit, version, tags) {
-                    this.start_mark = start_mark;
-                    this.end_mark = end_mark;
-                    this.explicit = explicit;
-                    this.version = version;
-                    this.tags = tags;
-                }
-                return StreamStartEvent;
-            }.call(this);
-            this.StreamEndEvent = function() {
-                __extends(StreamEndEvent, this.Event);
-                function StreamEndEvent() {
-                    StreamEndEvent.__super__.constructor.apply(this, arguments);
-                }
-                return StreamEndEvent;
-            }.call(this);
-            this.DocumentStartEvent = function() {
-                __extends(DocumentStartEvent, this.Event);
-                function DocumentStartEvent(start_mark, end_mark, explicit, version, tags) {
-                    this.start_mark = start_mark;
-                    this.end_mark = end_mark;
-                    this.explicit = explicit;
-                    this.version = version;
-                    this.tags = tags;
-                }
-                return DocumentStartEvent;
-            }.call(this);
-            this.DocumentEndEvent = function() {
-                __extends(DocumentEndEvent, this.Event);
-                function DocumentEndEvent(start_mark, end_mark, explicit) {
-                    this.start_mark = start_mark;
-                    this.end_mark = end_mark;
-                    this.explicit = explicit;
-                }
-                return DocumentEndEvent;
-            }.call(this);
-            this.AliasEvent = function() {
-                __extends(AliasEvent, this.NodeEvent);
-                function AliasEvent() {
-                    AliasEvent.__super__.constructor.apply(this, arguments);
-                }
-                return AliasEvent;
-            }.call(this);
-            this.ScalarEvent = function() {
-                __extends(ScalarEvent, this.NodeEvent);
-                function ScalarEvent(anchor, tag, implicit, value, start_mark, end_mark, style) {
-                    this.anchor = anchor;
-                    this.tag = tag;
-                    this.implicit = implicit;
-                    this.value = value;
-                    this.start_mark = start_mark;
-                    this.end_mark = end_mark;
-                    this.style = style;
-                }
-                return ScalarEvent;
-            }.call(this);
-            this.SequenceStartEvent = function() {
-                __extends(SequenceStartEvent, this.CollectionStartEvent);
-                function SequenceStartEvent() {
-                    SequenceStartEvent.__super__.constructor.apply(this, arguments);
-                }
-                return SequenceStartEvent;
-            }.call(this);
-            this.SequenceEndEvent = function() {
-                __extends(SequenceEndEvent, this.CollectionEndEvent);
-                function SequenceEndEvent() {
-                    SequenceEndEvent.__super__.constructor.apply(this, arguments);
-                }
-                return SequenceEndEvent;
-            }.call(this);
-            this.MappingStartEvent = function() {
-                __extends(MappingStartEvent, this.CollectionStartEvent);
-                function MappingStartEvent() {
-                    MappingStartEvent.__super__.constructor.apply(this, arguments);
-                }
-                return MappingStartEvent;
-            }.call(this);
-            this.MappingEndEvent = function() {
-                __extends(MappingEndEvent, this.CollectionEndEvent);
-                function MappingEndEvent() {
-                    MappingEndEvent.__super__.constructor.apply(this, arguments);
-                }
-                return MappingEndEvent;
-            }.call(this);
-        })).call(this);
+        }).call(this);
     });
     register({
         "0": [ "./parser" ]
     }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var MarkedYAMLError, events, tokens;
-            var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
+        (function() {
+            var MarkedYAMLError, events, tokens, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -1622,19 +2495,21 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            }, __slice = Array.prototype.slice;
+            }, __slice = [].slice;
             events = require("./events");
             MarkedYAMLError = require("./errors").MarkedYAMLError;
             tokens = require("./tokens");
-            this.ParserError = function() {
-                __extends(ParserError, MarkedYAMLError);
+            this.ParserError = function(_super) {
+                __extends(ParserError, _super);
+                ParserError.name = "ParserError";
                 function ParserError() {
-                    ParserError.__super__.constructor.apply(this, arguments);
+                    return ParserError.__super__.constructor.apply(this, arguments);
                 }
                 return ParserError;
-            }();
+            }(MarkedYAMLError);
             this.Parser = function() {
                 var DEFAULT_TAGS;
+                Parser.name = "Parser";
                 DEFAULT_TAGS = {
                     "!": "!",
                     "!!": "tag:yaml.org,2002:"
@@ -1655,13 +2530,19 @@
                     var choice, choices, _i, _len;
                     choices = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
                     if (this.current_event === null) {
-                        if (this.state != null) this.current_event = this[this.state]();
+                        if (this.state != null) {
+                            this.current_event = this[this.state]();
+                        }
                     }
                     if (this.current_event !== null) {
-                        if (choices.length === 0) return true;
+                        if (choices.length === 0) {
+                            return true;
+                        }
                         for (_i = 0, _len = choices.length; _i < _len; _i++) {
                             choice = choices[_i];
-                            if (this.current_event instanceof choice) return true;
+                            if (this.current_event instanceof choice) {
+                                return true;
+                            }
                         }
                     }
                     return false;
@@ -1756,7 +2637,7 @@
                     }
                 };
                 Parser.prototype.process_directives = function() {
-                    var handle, major, minor, prefix, tag_handles_copy, token, value, _ref, _ref2, _ref3;
+                    var handle, major, minor, prefix, tag_handles_copy, token, value, _ref, _ref1, _ref2;
                     this.yaml_version = null;
                     this.tag_handles = {};
                     while (this.check_token(tokens.DirectiveToken)) {
@@ -1771,7 +2652,7 @@
                             }
                             this.yaml_version = token.value;
                         } else if (token.name === "TAG") {
-                            _ref2 = this.tag_handles, handle = _ref2[0], prefix = _ref2[1];
+                            _ref1 = this.tag_handles, handle = _ref1[0], prefix = _ref1[1];
                             if (handle in this.tag_handles) {
                                 throw new exports.ParserError(null, null, "duplicate tag handle " + handle, token.start_mark);
                             }
@@ -1779,18 +2660,22 @@
                         }
                     }
                     tag_handles_copy = null;
-                    _ref3 = this.tag_handles;
-                    for (handle in _ref3) {
-                        if (!__hasProp.call(_ref3, handle)) continue;
-                        prefix = _ref3[handle];
-                        if (tag_handles_copy == null) tag_handles_copy = {};
+                    _ref2 = this.tag_handles;
+                    for (handle in _ref2) {
+                        if (!__hasProp.call(_ref2, handle)) continue;
+                        prefix = _ref2[handle];
+                        if (tag_handles_copy == null) {
+                            tag_handles_copy = {};
+                        }
                         tag_handles_copy[handle] = prefix;
                     }
                     value = [ this.yaml_version, tag_handles_copy ];
                     for (handle in DEFAULT_TAGS) {
                         if (!__hasProp.call(DEFAULT_TAGS, handle)) continue;
                         prefix = DEFAULT_TAGS[handle];
-                        if (!(prefix in this.tag_handles)) this.tag_handles[handle] = prefix;
+                        if (!(prefix in this.tag_handles)) {
+                            this.tag_handles[handle] = prefix;
+                        }
                     }
                     return value;
                 };
@@ -1805,8 +2690,12 @@
                 };
                 Parser.prototype.parse_node = function(block, indentless_sequence) {
                     var anchor, end_mark, event, handle, implicit, node, start_mark, suffix, tag, tag_mark, token;
-                    if (block == null) block = false;
-                    if (indentless_sequence == null) indentless_sequence = false;
+                    if (block == null) {
+                        block = false;
+                    }
+                    if (indentless_sequence == null) {
+                        indentless_sequence = false;
+                    }
                     if (this.check_token(tokens.AliasToken)) {
                         token = this.get_token();
                         event = new events.AliasEvent(token.value, token.start_mark, token.end_mark);
@@ -2000,7 +2889,9 @@
                 };
                 Parser.prototype.parse_flow_sequence_entry = function(first) {
                     var event, token;
-                    if (first == null) first = false;
+                    if (first == null) {
+                        first = false;
+                    }
                     if (!this.check_token(tokens.FlowSequenceEndToken)) {
                         if (!first) {
                             if (this.check_token(tokens.FlowEntryToken)) {
@@ -2068,7 +2959,9 @@
                 };
                 Parser.prototype.parse_flow_mapping_key = function(first) {
                     var event, token;
-                    if (first == null) first = false;
+                    if (first == null) {
+                        first = false;
+                    }
                     if (!this.check_token(tokens.FlowMappingEndToken)) {
                         if (!first) {
                             if (this.check_token(tokens.FlowEntryToken)) {
@@ -2124,222 +3017,13 @@
                 };
                 return Parser;
             }();
-        })).call(this);
-    });
-    register({
-        "0": [ "./nodes" ]
-    }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var unique_id;
-            var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
-                for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
-                }
-                function ctor() {
-                    this.constructor = child;
-                }
-                ctor.prototype = parent.prototype;
-                child.prototype = new ctor;
-                child.__super__ = parent.prototype;
-                return child;
-            };
-            unique_id = 0;
-            this.Node = function() {
-                function Node(tag, value, start_mark, end_mark) {
-                    this.tag = tag;
-                    this.value = value;
-                    this.start_mark = start_mark;
-                    this.end_mark = end_mark;
-                    this.unique_id = "node_" + unique_id++;
-                }
-                return Node;
-            }();
-            this.ScalarNode = function() {
-                __extends(ScalarNode, this.Node);
-                ScalarNode.prototype.id = "scalar";
-                function ScalarNode(tag, value, start_mark, end_mark, style) {
-                    this.tag = tag;
-                    this.value = value;
-                    this.start_mark = start_mark;
-                    this.end_mark = end_mark;
-                    this.style = style;
-                    ScalarNode.__super__.constructor.apply(this, arguments);
-                }
-                return ScalarNode;
-            }.call(this);
-            this.CollectionNode = function() {
-                __extends(CollectionNode, this.Node);
-                function CollectionNode(tag, value, start_mark, end_mark, flow_style) {
-                    this.tag = tag;
-                    this.value = value;
-                    this.start_mark = start_mark;
-                    this.end_mark = end_mark;
-                    this.flow_style = flow_style;
-                    CollectionNode.__super__.constructor.apply(this, arguments);
-                }
-                return CollectionNode;
-            }.call(this);
-            this.SequenceNode = function() {
-                __extends(SequenceNode, this.CollectionNode);
-                function SequenceNode() {
-                    SequenceNode.__super__.constructor.apply(this, arguments);
-                }
-                SequenceNode.prototype.id = "sequence";
-                return SequenceNode;
-            }.call(this);
-            this.MappingNode = function() {
-                __extends(MappingNode, this.CollectionNode);
-                function MappingNode() {
-                    MappingNode.__super__.constructor.apply(this, arguments);
-                }
-                MappingNode.prototype.id = "mapping";
-                return MappingNode;
-            }.call(this);
-        })).call(this);
-    });
-    register({
-        "0": [ "./composer" ]
-    }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var MarkedYAMLError, events, nodes;
-            var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
-                for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
-                }
-                function ctor() {
-                    this.constructor = child;
-                }
-                ctor.prototype = parent.prototype;
-                child.prototype = new ctor;
-                child.__super__ = parent.prototype;
-                return child;
-            };
-            events = require("./events");
-            MarkedYAMLError = require("./errors").MarkedYAMLError;
-            nodes = require("./nodes");
-            this.ComposerError = function() {
-                __extends(ComposerError, MarkedYAMLError);
-                function ComposerError() {
-                    ComposerError.__super__.constructor.apply(this, arguments);
-                }
-                return ComposerError;
-            }();
-            this.Composer = function() {
-                function Composer() {
-                    this.anchors = {};
-                }
-                Composer.prototype.check_node = function() {
-                    if (this.check_event(events.StreamStartEvent)) this.get_event();
-                    return !this.check_event(events.StreamEndEvent);
-                };
-                Composer.prototype.get_node = function() {
-                    if (!this.check_event(events.StreamEndEvent)) return this.compose_document();
-                };
-                Composer.prototype.get_single_node = function() {
-                    var document, event;
-                    this.get_event();
-                    document = null;
-                    if (!this.check_event(events.StreamEndEvent)) {
-                        document = this.compose_document();
-                    }
-                    if (!this.check_event(events.StreamEndEvent)) {
-                        event = this.get_event();
-                        throw new exports.ComposerError("expected a single document in the stream", document.start_mark, "but found another document", event.start_mark);
-                    }
-                    this.get_event();
-                    return document;
-                };
-                Composer.prototype.compose_document = function() {
-                    var node;
-                    this.get_event();
-                    node = this.compose_node();
-                    this.get_event();
-                    this.anchors = {};
-                    return node;
-                };
-                Composer.prototype.compose_node = function(parent, index) {
-                    var anchor, event, node;
-                    if (this.check_event(events.AliasEvent)) {
-                        event = this.get_event();
-                        anchor = event.anchor;
-                        if (!(anchor in this.anchors)) {
-                            throw new exports.ComposerError(null, null, "found undefined alias " + anchor, event.start_mark);
-                        }
-                        return this.anchors[anchor];
-                    }
-                    event = this.peek_event();
-                    anchor = event.anchor;
-                    if (anchor !== null && anchor in this.anchors) {
-                        throw new exports.ComposerError("found duplicate anchor " + anchor + "; first occurence", this.anchors[anchor].start_mark, "second occurrence", event.start_mark);
-                    }
-                    this.descend_resolver(parent, index);
-                    if (this.check_event(events.ScalarEvent)) {
-                        node = this.compose_scalar_node(anchor);
-                    } else if (this.check_event(events.SequenceStartEvent)) {
-                        node = this.compose_sequence_node(anchor);
-                    } else if (this.check_event(events.MappingStartEvent)) {
-                        node = this.compose_mapping_node(anchor);
-                    }
-                    this.ascend_resolver();
-                    return node;
-                };
-                Composer.prototype.compose_scalar_node = function(anchor) {
-                    var event, node, tag;
-                    event = this.get_event();
-                    tag = event.tag;
-                    if (tag === null || tag === "!") {
-                        tag = this.resolve(nodes.ScalarNode, event.value, event.implicit);
-                    }
-                    node = new nodes.ScalarNode(tag, event.value, event.start_mark, event.end_mark, event.style);
-                    if (anchor !== null) this.anchors[anchor] = node;
-                    return node;
-                };
-                Composer.prototype.compose_sequence_node = function(anchor) {
-                    var end_event, index, node, start_event, tag;
-                    start_event = this.get_event();
-                    tag = start_event.tag;
-                    if (tag === null || tag === "!") {
-                        tag = this.resolve(nodes.SequenceNode, null, start_event.implicit);
-                    }
-                    node = new nodes.SequenceNode(tag, [], start_event.start_mark, null, start_event.flow_style);
-                    if (anchor !== null) this.anchors[anchor] = node;
-                    index = 0;
-                    while (!this.check_event(events.SequenceEndEvent)) {
-                        node.value.push(this.compose_node(node, index));
-                        index++;
-                    }
-                    end_event = this.get_event();
-                    node.end_mark = end_event.end_mark;
-                    return node;
-                };
-                Composer.prototype.compose_mapping_node = function(anchor) {
-                    var end_event, item_key, item_value, node, start_event, tag;
-                    start_event = this.get_event();
-                    tag = start_event.tag;
-                    if (tag === null || tag === "!") {
-                        tag = this.resolve(nodes.MappingNode, null, start_event.implicit);
-                    }
-                    node = new nodes.MappingNode(tag, [], start_event.start_mark, null, start_event.flow_style);
-                    if (anchor !== null) this.anchors[anchor] = node;
-                    while (!this.check_event(events.MappingEndEvent)) {
-                        item_key = this.compose_node(node);
-                        item_value = this.compose_node(node, item_key);
-                        node.value.push([ item_key, item_value ]);
-                    }
-                    end_event = this.get_event();
-                    node.end_mark = end_event.end_mark;
-                    return node;
-                };
-                return Composer;
-            }();
-        })).call(this);
+        }).call(this);
     });
     register({
         "0": [ "./resolver" ]
     }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var YAMLError, nodes, util;
-            var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
+        (function() {
+            var YAMLError, nodes, util, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -2350,24 +3034,26 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            }, __indexOf = Array.prototype.indexOf || function(item) {
+            }, __indexOf = [].indexOf || function(item) {
                 for (var i = 0, l = this.length; i < l; i++) {
-                    if (__hasProp.call(this, i) && this[i] === item) return i;
+                    if (i in this && this[i] === item) return i;
                 }
                 return -1;
             };
             nodes = require("./nodes");
             util = require("./util");
             YAMLError = require("./errors").YAMLError;
-            this.ResolverError = function() {
-                __extends(ResolverError, YAMLError);
+            this.ResolverError = function(_super) {
+                __extends(ResolverError, _super);
+                ResolverError.name = "ResolverError";
                 function ResolverError() {
-                    ResolverError.__super__.constructor.apply(this, arguments);
+                    return ResolverError.__super__.constructor.apply(this, arguments);
                 }
                 return ResolverError;
-            }();
+            }(YAMLError);
             this.BaseResolver = function() {
                 var DEFAULT_MAPPING_TAG, DEFAULT_SCALAR_TAG, DEFAULT_SEQUENCE_TAG;
+                BaseResolver.name = "BaseResolver";
                 DEFAULT_SCALAR_TAG = "tag:yaml.org,2002:str";
                 DEFAULT_SEQUENCE_TAG = "tag:yaml.org,2002:seq";
                 DEFAULT_MAPPING_TAG = "tag:yaml.org,2002:map";
@@ -2375,7 +3061,9 @@
                 BaseResolver.prototype.yaml_path_resolvers = {};
                 BaseResolver.add_implicit_resolver = function(tag, regexp, first) {
                     var char, _base, _i, _len, _ref, _results;
-                    if (first === null) first = [ null ];
+                    if (first === null) {
+                        first = [ null ];
+                    }
                     _results = [];
                     for (_i = 0, _len = first.length; _i < _len; _i++) {
                         char = first[_i];
@@ -2388,15 +3076,17 @@
                     this.resolver_prefix_paths = [];
                 }
                 BaseResolver.prototype.descend_resolver = function(current_node, current_index) {
-                    var depth, exact_paths, kind, path, prefix_paths, _i, _j, _len, _len2, _ref, _ref2, _ref3, _ref4;
-                    if (util.is_empty(this.yaml_path_resolvers)) return;
+                    var depth, exact_paths, kind, path, prefix_paths, _i, _j, _len, _len1, _ref, _ref1, _ref2, _ref3;
+                    if (util.is_empty(this.yaml_path_resolvers)) {
+                        return;
+                    }
                     exact_paths = {};
                     prefix_paths = [];
                     if (current_node) {
                         depth = this.resolver_prefix_paths.length;
                         _ref = this.resolver_prefix_paths.slice(-1)[0];
                         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            _ref2 = _ref[_i], path = _ref2[0], kind = _ref2[1];
+                            _ref1 = _ref[_i], path = _ref1[0], kind = _ref1[1];
                             if (this.check_resolver_prefix(depth, path, kind, current_node, current_index)) {
                                 if (path.length > depth) {
                                     prefix_paths.push([ path, kind ]);
@@ -2406,9 +3096,9 @@
                             }
                         }
                     } else {
-                        _ref3 = this.yaml_path_resolvers;
-                        for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
-                            _ref4 = _ref3[_j], path = _ref4[0], kind = _ref4[1];
+                        _ref2 = this.yaml_path_resolvers;
+                        for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+                            _ref3 = _ref2[_j], path = _ref3[0], kind = _ref3[1];
                             if (!path) {
                                 exact_paths[kind] = this.yaml_path_resolvers[path][kind];
                             } else {
@@ -2420,7 +3110,9 @@
                     return this.resolver_prefix_paths.push(prefix_paths);
                 };
                 BaseResolver.prototype.ascend_resolver = function() {
-                    if (util.is_empty(this.yaml_path_resolvers)) return;
+                    if (util.is_empty(this.yaml_path_resolvers)) {
+                        return;
+                    }
                     this.resolver_exact_paths.pop();
                     return this.resolver_prefix_paths.pop();
                 };
@@ -2428,11 +3120,17 @@
                     var index_check, node_check, _ref;
                     _ref = path[depth - 1], node_check = _ref[0], index_check = _ref[1];
                     if (typeof node_check === "string") {
-                        if (current_node.tag !== node_check) return;
+                        if (current_node.tag !== node_check) {
+                            return;
+                        }
                     } else if (node_check !== null) {
-                        if (!(current_node instanceof node_check)) return;
+                        if (!(current_node instanceof node_check)) {
+                            return;
+                        }
                     }
-                    if (index_check === true && current_index !== null) return;
+                    if (index_check === true && current_index !== null) {
+                        return;
+                    }
                     if ((index_check === false || index_check === null) && current_index === null) {
                         return;
                     }
@@ -2441,49 +3139,66 @@
                             return;
                         }
                     } else if (typeof index_check === "number") {
-                        if (index_check !== current_index) return;
+                        if (index_check !== current_index) {
+                            return;
+                        }
                     }
                     return true;
                 };
                 BaseResolver.prototype.resolve = function(kind, value, implicit) {
-                    var empty, exact_paths, k, regexp, resolvers, tag, _i, _len, _ref, _ref2, _ref3, _ref4;
+                    var empty, exact_paths, k, regexp, resolvers, tag, _i, _len, _ref, _ref1, _ref2, _ref3;
                     if (kind === nodes.ScalarNode && implicit[0]) {
                         if (value === "") {
                             resolvers = (_ref = this.yaml_implicit_resolvers[""]) != null ? _ref : [];
                         } else {
-                            resolvers = (_ref2 = this.yaml_implicit_resolvers[value[0]]) != null ? _ref2 : [];
+                            resolvers = (_ref1 = this.yaml_implicit_resolvers[value[0]]) != null ? _ref1 : [];
                         }
-                        resolvers = resolvers.concat((_ref3 = this.yaml_implicit_resolvers[null]) != null ? _ref3 : []);
+                        resolvers = resolvers.concat((_ref2 = this.yaml_implicit_resolvers[null]) != null ? _ref2 : []);
                         for (_i = 0, _len = resolvers.length; _i < _len; _i++) {
-                            _ref4 = resolvers[_i], tag = _ref4[0], regexp = _ref4[1];
-                            if (value.match(regexp)) return tag;
+                            _ref3 = resolvers[_i], tag = _ref3[0], regexp = _ref3[1];
+                            if (value.match(regexp)) {
+                                return tag;
+                            }
                         }
                         implicit = implicit[1];
                     }
                     empty = true;
                     for (k in this.yaml_path_resolvers) {
-                        if ({}[k] == null) empty = false;
+                        if ({}[k] == null) {
+                            empty = false;
+                        }
                     }
                     if (!empty) {
                         exact_paths = this.resolver_exact_paths.slice(-1)[0];
-                        if (__indexOf.call(exact_paths, kind) >= 0) return exact_paths[kind];
-                        if (__indexOf.call(exact_paths, null) >= 0) return exact_paths[null];
+                        if (__indexOf.call(exact_paths, kind) >= 0) {
+                            return exact_paths[kind];
+                        }
+                        if (__indexOf.call(exact_paths, null) >= 0) {
+                            return exact_paths[null];
+                        }
                     }
-                    if (kind === nodes.ScalarNode) return DEFAULT_SCALAR_TAG;
-                    if (kind === nodes.SequenceNode) return DEFAULT_SEQUENCE_TAG;
-                    if (kind === nodes.MappingNode) return DEFAULT_MAPPING_TAG;
+                    if (kind === nodes.ScalarNode) {
+                        return DEFAULT_SCALAR_TAG;
+                    }
+                    if (kind === nodes.SequenceNode) {
+                        return DEFAULT_SEQUENCE_TAG;
+                    }
+                    if (kind === nodes.MappingNode) {
+                        return DEFAULT_MAPPING_TAG;
+                    }
                 };
                 return BaseResolver;
             }();
-            this.Resolver = function() {
-                __extends(Resolver, this.BaseResolver);
+            this.Resolver = function(_super) {
+                __extends(Resolver, _super);
+                Resolver.name = "Resolver";
                 function Resolver() {
-                    Resolver.__super__.constructor.apply(this, arguments);
+                    return Resolver.__super__.constructor.apply(this, arguments);
                 }
                 Resolver.prototype.yaml_implicit_resolvers = {};
                 Resolver.prototype.yaml_path_resolvers = {};
                 return Resolver;
-            }.call(this);
+            }(this.BaseResolver);
             this.Resolver.add_implicit_resolver("tag:yaml.org,2002:bool", /^(?:yes|Yes|YES|true|True|TRUE|on|On|ON|no|No|NO|false|False|FALSE|off|Off|OFF)$/, "yYnNtTfFoO");
             this.Resolver.add_implicit_resolver("tag:yaml.org,2002:float", /^(?:[-+]?(?:[0-9][0-9_]*)\.[0-9_]*(?:[eE][-+][0-9]+)?|\.[0-9_]+(?:[eE][-+][0-9]+)?|[-+]?[0-9][0-9_]*(?::[0-5]?[0-9])+\.[0-9_]*|[-+]?\.(?:inf|Inf|INF)|\.(?:nan|NaN|NAN))$/, "-+0123456789.");
             this.Resolver.add_implicit_resolver("tag:yaml.org,2002:int", /^(?:[-+]?0b[01_]+|[-+]?0[0-7_]+|[-+]?(?:0|[1-9][0-9_]*)|[-+]?0x[0-9a-fA-F_]+|[-+]?0o[0-7_]+|[-+]?[1-9][0-9_]*(?::[0-5]?[0-9])+)$/, "-+0123456789");
@@ -2492,507 +3207,12 @@
             this.Resolver.add_implicit_resolver("tag:yaml.org,2002:timestamp", /^(?:[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]|[0-9][0-9][0-9][0-9]-[0-9][0-9]?-[0-9][0-9]?(?:[Tt]|[\x20\t]+)[0-9][0-9]?:[0-9][0-9]:[0-9][0-9](?:\.[0-9]*)?(?:[\x20\t]*(?:Z|[-+][0-9][0-9]?(?::[0-9][0-9])?))?)$/, "0123456789");
             this.Resolver.add_implicit_resolver("tag:yaml.org,2002:value", /^(?:=)$/, "=");
             this.Resolver.add_implicit_resolver("tag:yaml.org,2002:yaml", /^(?:!|&|\*)$/, "!&*");
-        })).call(this);
-    });
-    register({
-        "0": [ "./constructor" ]
-    }, 0, function(global, module, exports, require, window) {
-        ((function() {
-            var MarkedYAMLError, nodes, util;
-            var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
-                for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
-                }
-                function ctor() {
-                    this.constructor = child;
-                }
-                ctor.prototype = parent.prototype;
-                child.prototype = new ctor;
-                child.__super__ = parent.prototype;
-                return child;
-            }, __indexOf = Array.prototype.indexOf || function(item) {
-                for (var i = 0, l = this.length; i < l; i++) {
-                    if (__hasProp.call(this, i) && this[i] === item) return i;
-                }
-                return -1;
-            };
-            MarkedYAMLError = require("./errors").MarkedYAMLError;
-            nodes = require("./nodes");
-            util = require("./util");
-            this.ConstructorError = function() {
-                __extends(ConstructorError, MarkedYAMLError);
-                function ConstructorError() {
-                    ConstructorError.__super__.constructor.apply(this, arguments);
-                }
-                return ConstructorError;
-            }();
-            this.BaseConstructor = function() {
-                BaseConstructor.prototype.yaml_constructors = {};
-                BaseConstructor.prototype.yaml_multi_constructors = {};
-                function BaseConstructor() {
-                    this.constructed_objects = {};
-                    this.constructing_nodes = [];
-                    this.deferred_constructors = [];
-                }
-                BaseConstructor.prototype.check_data = function() {
-                    return this.check_node();
-                };
-                BaseConstructor.prototype.get_data = function() {
-                    if (this.check_node()) return this.construct_document(this.get_node());
-                };
-                BaseConstructor.prototype.get_single_data = function() {
-                    var node;
-                    node = this.get_single_node();
-                    if (node != null) return this.construct_document(node);
-                    return null;
-                };
-                BaseConstructor.prototype.construct_document = function(node) {
-                    var data;
-                    data = this.construct_object(node);
-                    while (!util.is_empty(this.deferred_constructors)) {
-                        this.deferred_constructors.pop()();
-                    }
-                    return data;
-                };
-                BaseConstructor.prototype.defer = function(f) {
-                    return this.deferred_constructors.push(f);
-                };
-                BaseConstructor.prototype.construct_object = function(node) {
-                    var constructor, object, tag_prefix, tag_suffix, _ref;
-                    if (node.unique_id in this.constructed_objects) {
-                        return this.constructed_objects[node.unique_id];
-                    }
-                    if (_ref = node.unique_id, __indexOf.call(this.constructing_nodes, _ref) >= 0) {
-                        throw new exports.ConstructorError(null, null, "found unconstructable recursive node", node.start_mark);
-                    }
-                    this.constructing_nodes.push(node.unique_id);
-                    constructor = null;
-                    tag_suffix = null;
-                    if (node.tag in this.yaml_constructors) {
-                        constructor = this.yaml_constructors[node.tag];
-                    } else {
-                        for (tag_prefix in this.yaml_multi_constructors) {
-                            if (node.tag.indexOf(tag_prefix === 0)) {
-                                tag_suffix = node.tag.slice(tag_prefix.length);
-                                constructor = this.yaml_multi_constructors[tag_prefix];
-                                break;
-                            }
-                        }
-                        if (!(constructor != null)) {
-                            if (null in this.yaml_multi_constructors) {
-                                tag_suffix = node.tag;
-                                constructor = this.yaml_multi_constructors[null];
-                            } else if (null in this.yaml_constructors) {
-                                constructor = this.yaml_constructors[null];
-                            } else if (node instanceof nodes.ScalarNode) {
-                                constructor = this.construct_scalar;
-                            } else if (node instanceof nodes.SequenceNode) {
-                                constructor = this.construct_sequence;
-                            } else if (node instanceof nodes.MappingNode) {
-                                constructor = this.construct_mapping;
-                            }
-                        }
-                    }
-                    object = constructor.call(this, tag_suffix != null ? tag_suffix : node, node);
-                    this.constructed_objects[node.unique_id] = object;
-                    this.constructing_nodes.pop();
-                    return object;
-                };
-                BaseConstructor.prototype.construct_scalar = function(node) {
-                    if (!(node instanceof nodes.ScalarNode)) {
-                        throw new exports.ConstructorError(null, null, "expected a scalar node but found " + node.id, node.start_mark);
-                    }
-                    return node.value;
-                };
-                BaseConstructor.prototype.construct_sequence = function(node) {
-                    var child, _i, _len, _ref, _results;
-                    if (!(node instanceof nodes.SequenceNode)) {
-                        throw new exports.ConstructorError(null, null, "expected a sequence node but found " + node.id, node.start_mark);
-                    }
-                    _ref = node.value;
-                    _results = [];
-                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                        child = _ref[_i];
-                        _results.push(this.construct_object(child));
-                    }
-                    return _results;
-                };
-                BaseConstructor.prototype.construct_mapping = function(node) {
-                    var key, key_node, mapping, value, value_node, _i, _len, _ref, _ref2;
-                    if (!(node instanceof nodes.MappingNode)) {
-                        throw new ConstructorError(null, null, "expected a mapping node but found " + node.id, node.start_mark);
-                    }
-                    mapping = {};
-                    _ref = node.value;
-                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                        _ref2 = _ref[_i], key_node = _ref2[0], value_node = _ref2[1];
-                        key = this.construct_object(key_node);
-                        if (typeof key === "object") {
-                            throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "found unhashable key", key_node.start_mark);
-                        }
-                        value = this.construct_object(value_node);
-                        mapping[key] = value;
-                    }
-                    return mapping;
-                };
-                BaseConstructor.prototype.construct_pairs = function(node) {
-                    var key, key_node, pairs, value, value_node, _i, _len, _ref, _ref2;
-                    if (!(node instanceof nodes.MappingNode)) {
-                        throw new exports.ConstructorError(null, null, "expected a mapping node but found " + node.id, node.start_mark);
-                    }
-                    pairs = [];
-                    _ref = node.value;
-                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                        _ref2 = _ref[_i], key_node = _ref2[0], value_node = _ref2[1];
-                        key = this.construct_object(key_node);
-                        value = this.construct_object(value_node);
-                        pairs.push([ key, value ]);
-                    }
-                    return pairs;
-                };
-                BaseConstructor.add_constructor = function(tag, constructor) {
-                    return this.prototype.yaml_constructors[tag] = constructor;
-                };
-                BaseConstructor.add_multi_constructor = function(tag_prefix, multi_constructor) {
-                    return this.prototype.yaml_multi_constructors[tag_prefix] = multi_constructor;
-                };
-                return BaseConstructor;
-            }();
-            this.Constructor = function() {
-                var BOOL_VALUES, TIMESTAMP_PARTS, TIMESTAMP_REGEX;
-                __extends(Constructor, this.BaseConstructor);
-                function Constructor() {
-                    Constructor.__super__.constructor.apply(this, arguments);
-                }
-                BOOL_VALUES = {
-                    on: true,
-                    off: false,
-                    "true": true,
-                    "false": false,
-                    yes: true,
-                    no: false
-                };
-                TIMESTAMP_REGEX = /^([0-9][0-9][0-9][0-9])-([0-9][0-9]?)-([0-9][0-9]?)(?:(?:[Tt]|[\x20\t]+)([0-9][0-9]?):([0-9][0-9]):([0-9][0-9])(?:\.([0-9]*))?(?:[\x20\t]*(Z|([-+])([0-9][0-9]?)(?::([0-9][0-9]))?))?)?$/;
-                TIMESTAMP_PARTS = {
-                    year: 1,
-                    month: 2,
-                    day: 3,
-                    hour: 4,
-                    minute: 5,
-                    second: 6,
-                    fraction: 7,
-                    tz: 8,
-                    tz_sign: 9,
-                    tz_hour: 10,
-                    tz_minute: 11
-                };
-                Constructor.prototype.yaml_constructors = {};
-                Constructor.prototype.yaml_multi_constructors = {};
-                Constructor.prototype.construct_scalar = function(node) {
-                    var key_node, value_node, _i, _len, _ref, _ref2;
-                    if (node instanceof nodes.MappingNode) {
-                        _ref = node.value;
-                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            _ref2 = _ref[_i], key_node = _ref2[0], value_node = _ref2[1];
-                            if (key_node.tag === "tag:yaml.org,2002:value") {
-                                return this.construct_scalar(value_node);
-                            }
-                        }
-                    }
-                    return Constructor.__super__.construct_scalar.call(this, node);
-                };
-                Constructor.prototype.flatten_mapping = function(node) {
-                    var index, key_node, merge, submerge, subnode, value, value_node, _i, _j, _len, _len2, _ref, _ref2;
-                    merge = [];
-                    index = 0;
-                    while (index < node.value.length) {
-                        _ref = node.value[index], key_node = _ref[0], value_node = _ref[1];
-                        if (key_node.tag === "tag:yaml.org,2002:merge") {
-                            node.value.splice(index, 1);
-                            if (value_node instanceof nodes.MappingNode) {
-                                this.flatten_mapping(value_node);
-                                merge = merge.concat(value_node.value);
-                            } else if (value_node instanceof nodes.SequenceNode) {
-                                submerge = [];
-                                _ref2 = value_node.value;
-                                for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-                                    subnode = _ref2[_i];
-                                    if (!(subnode instanceof nodes.MappingNode)) {
-                                        throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping for merging, but found " + subnode.id, subnode.start_mark);
-                                    }
-                                    this.flatten_mapping(subnode);
-                                    submerge.push(subnode.value);
-                                }
-                                submerge.reverse();
-                                for (_j = 0, _len2 = submerge.length; _j < _len2; _j++) {
-                                    value = submerge[_j];
-                                    merge = merge.concat(value);
-                                }
-                            } else {
-                                throw new extend.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping or list of mappings for             merging but found " + value_node.id, value_node.start_mark);
-                            }
-                        } else if (key_node.tag === "tag:yaml.org,2002:value") {
-                            key_node.tag = "tag:yaml.org,2002:str";
-                            index++;
-                        } else {
-                            index++;
-                        }
-                    }
-                    if (merge.length) return node.value = merge.concat(node.value);
-                };
-                Constructor.prototype.construct_mapping = function(node) {
-                    if (node instanceof nodes.MappingNode) this.flatten_mapping(node);
-                    return Constructor.__super__.construct_mapping.call(this, node);
-                };
-                Constructor.prototype.construct_yaml_null = function(node) {
-                    this.construct_scalar(node);
-                    return null;
-                };
-                Constructor.prototype.construct_yaml_bool = function(node) {
-                    var value;
-                    value = this.construct_scalar(node);
-                    return BOOL_VALUES[value.toLowerCase()];
-                };
-                Constructor.prototype.construct_yaml_int = function(node) {
-                    var base, digit, digits, part, sign, value, _i, _len, _ref;
-                    value = this.construct_scalar(node);
-                    value = value.replace("_", "");
-                    sign = value[0] === "-" ? -1 : 1;
-                    if (_ref = value[0], __indexOf.call("+-", _ref) >= 0) value = value.slice(1);
-                    if (value === "0") {
-                        return 0;
-                    } else if (value.indexOf("0b") === 0) {
-                        return sign * parseInt(value.slice(2), 2);
-                    } else if (value.indexOf("0x") === 0) {
-                        return sign * parseInt(value.slice(2), 16);
-                    } else if (value.indexOf("0o") === 0) {
-                        return sign * parseInt(value.slice(2), 8);
-                    } else if (value[0] === "0") {
-                        return sign * parseInt(value, 8);
-                    } else if (__indexOf.call(value, ":") >= 0) {
-                        digits = function() {
-                            var _i, _len, _ref2, _results;
-                            _ref2 = value.split(/:/g);
-                            _results = [];
-                            for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-                                part = _ref2[_i];
-                                _results.push(parseInt(part));
-                            }
-                            return _results;
-                        }();
-                        digits.reverse();
-                        base = 1;
-                        value = 0;
-                        for (_i = 0, _len = digits.length; _i < _len; _i++) {
-                            digit = digits[_i];
-                            value += digit * base;
-                            base *= 60;
-                        }
-                        return sign * value;
-                    } else {
-                        return sign * parseInt(value);
-                    }
-                };
-                Constructor.prototype.construct_yaml_float = function(node) {
-                    var base, digit, digits, part, sign, value, _i, _len, _ref;
-                    value = this.construct_scalar(node);
-                    value = value.replace("_", "").toLowerCase();
-                    sign = value[0] === "-" ? -1 : 1;
-                    if (_ref = value[0], __indexOf.call("+-", _ref) >= 0) value = value.slice(1);
-                    if (value === ".inf") {
-                        return sign * Infinity;
-                    } else if (value === ".nan") {
-                        return NaN;
-                    } else if (__indexOf.call(value, ":") >= 0) {
-                        digits = function() {
-                            var _i, _len, _ref2, _results;
-                            _ref2 = value.split(/:/g);
-                            _results = [];
-                            for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-                                part = _ref2[_i];
-                                _results.push(parseFloat(part));
-                            }
-                            return _results;
-                        }();
-                        digits.reverse();
-                        base = 1;
-                        value = 0;
-                        for (_i = 0, _len = digits.length; _i < _len; _i++) {
-                            digit = digits[_i];
-                            value += digit * base;
-                            base *= 60;
-                        }
-                        return sign * value;
-                    } else {
-                        return sign * parseFloat(value);
-                    }
-                };
-                Constructor.prototype.construct_yaml_binary = function(node) {
-                    var value;
-                    value = this.construct_scalar(node);
-                    try {
-                        if (typeof window !== "undefined" && window !== null) return atob(value);
-                        return (new Buffer(value, "base64")).toString("ascii");
-                    } catch (error) {
-                        throw new exports.ConstructorError(null, null, "failed to decode base64 data: " + error, node.start_mark);
-                    }
-                };
-                Constructor.prototype.construct_yaml_timestamp = function(node) {
-                    var date, day, fraction, hour, index, key, match, millisecond, minute, month, second, tz_hour, tz_minute, tz_sign, value, values, year;
-                    value = this.construct_scalar(node);
-                    match = node.value.match(TIMESTAMP_REGEX);
-                    values = {};
-                    for (key in TIMESTAMP_PARTS) {
-                        index = TIMESTAMP_PARTS[key];
-                        values[key] = match[index];
-                    }
-                    year = parseInt(values.year);
-                    month = parseInt(values.month);
-                    day = parseInt(values.day);
-                    if (!values.hour) return new Date(year, month, day);
-                    hour = parseInt(values.hour);
-                    minute = parseInt(values.minute);
-                    second = parseInt(values.second);
-                    millisecond = 0;
-                    if (values.fraction) {
-                        fraction = values.fraction.slice(0, 6);
-                        while (fraction.length < 6) {
-                            fraction += "0";
-                        }
-                        fraction = parseInt(fraction);
-                        millisecond = Math.round(fraction / 1e3);
-                    }
-                    if (values.tz_sign) {
-                        tz_sign = values.tz_sign === "-" ? 1 : -1;
-                        if (tz_hour = parseInt(values.tz_hour)) hour += tz_sign * tz_hour;
-                        if (tz_minute = parseInt(values.tz_minute)) minute += tz_sign * tz_minute;
-                    }
-                    date = new Date(year, month, day, hour, minute, second, millisecond);
-                    return date;
-                };
-                Constructor.prototype.construct_yaml_pair_list = function(type, node) {
-                    var list;
-                    var _this = this;
-                    list = [];
-                    if (!(node instanceof nodes.SequenceNode)) {
-                        throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a sequence but found " + node.id, node.start_mark);
-                    }
-                    this.defer(function() {
-                        var key, key_node, subnode, value, value_node, _i, _len, _ref, _ref2, _results;
-                        _ref = node.value;
-                        _results = [];
-                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            subnode = _ref[_i];
-                            if (!(subnode instanceof nodes.MappingNode)) {
-                                throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
-                            }
-                            if (subnode.value.length !== 1) {
-                                throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
-                            }
-                            _ref2 = subnode.value[0], key_node = _ref2[0], value_node = _ref2[1];
-                            key = _this.construct_object(key_node);
-                            value = _this.construct_object(value_node);
-                            _results.push(list.push([ key, value ]));
-                        }
-                        return _results;
-                    });
-                    return list;
-                };
-                Constructor.prototype.construct_yaml_omap = function(node) {
-                    return this.construct_yaml_pair_list("an ordered map", node);
-                };
-                Constructor.prototype.construct_yaml_pairs = function(node) {
-                    return this.construct_yaml_pair_list("pairs", node);
-                };
-                Constructor.prototype.construct_yaml_set = function(node) {
-                    var data;
-                    var _this = this;
-                    data = [];
-                    this.defer(function() {
-                        var item, _results;
-                        _results = [];
-                        for (item in _this.construct_mapping(node)) {
-                            _results.push(data.push(item));
-                        }
-                        return _results;
-                    });
-                    return data;
-                };
-                Constructor.prototype.construct_yaml_str = function(node) {
-                    return this.construct_scalar(node);
-                };
-                Constructor.prototype.construct_yaml_seq = function(node) {
-                    var data;
-                    var _this = this;
-                    data = [];
-                    this.defer(function() {
-                        var item, _i, _len, _ref, _results;
-                        _ref = _this.construct_sequence(node);
-                        _results = [];
-                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            item = _ref[_i];
-                            _results.push(data.push(item));
-                        }
-                        return _results;
-                    });
-                    return data;
-                };
-                Constructor.prototype.construct_yaml_map = function(node) {
-                    var data;
-                    var _this = this;
-                    data = {};
-                    this.defer(function() {
-                        var key, value, _ref, _results;
-                        _ref = _this.construct_mapping(node);
-                        _results = [];
-                        for (key in _ref) {
-                            value = _ref[key];
-                            _results.push(data[key] = value);
-                        }
-                        return _results;
-                    });
-                    return data;
-                };
-                Constructor.prototype.construct_yaml_object = function(node, klass) {
-                    var data;
-                    var _this = this;
-                    data = new klass;
-                    this.defer(function() {
-                        var key, value, _ref, _results;
-                        _ref = _this.construct_mapping(node, true);
-                        _results = [];
-                        for (key in _ref) {
-                            value = _ref[key];
-                            _results.push(data[key] = value);
-                        }
-                        return _results;
-                    });
-                    return data;
-                };
-                Constructor.prototype.construct_indefined = function(node) {
-                    throw new exports.ConstructorError(null, null, "could not determine a constructor for the tag " + node.tag, node.start_mark);
-                };
-                return Constructor;
-            }.call(this);
-            this.Constructor.add_constructor("tag:yaml.org,2002:null", this.Constructor.prototype.construct_yaml_null);
-            this.Constructor.add_constructor("tag:yaml.org,2002:bool", this.Constructor.prototype.construct_yaml_bool);
-            this.Constructor.add_constructor("tag:yaml.org,2002:int", this.Constructor.prototype.construct_yaml_int);
-            this.Constructor.add_constructor("tag:yaml.org,2002:float", this.Constructor.prototype.construct_yaml_float);
-            this.Constructor.add_constructor("tag:yaml.org,2002:binary", this.Constructor.prototype.construct_yaml_binary);
-            this.Constructor.add_constructor("tag:yaml.org,2002:timestamp", this.Constructor.prototype.construct_yaml_timestamp);
-            this.Constructor.add_constructor("tag:yaml.org,2002:omap", this.Constructor.prototype.construct_yaml_omap);
-            this.Constructor.add_constructor("tag:yaml.org,2002:pairs", this.Constructor.prototype.construct_yaml_pairs);
-            this.Constructor.add_constructor("tag:yaml.org,2002:set", this.Constructor.prototype.construct_yaml_set);
-            this.Constructor.add_constructor("tag:yaml.org,2002:str", this.Constructor.prototype.construct_yaml_str);
-            this.Constructor.add_constructor("tag:yaml.org,2002:seq", this.Constructor.prototype.construct_yaml_seq);
-            this.Constructor.add_constructor("tag:yaml.org,2002:map", this.Constructor.prototype.construct_yaml_map);
-            this.Constructor.add_constructor(null, this.Constructor.prototype.construct_yaml_undefined);
-        })).call(this);
+        }).call(this);
     });
     register({
         "0": [ "./loader" ]
     }, 0, function(global, module, exports, require, window) {
-        ((function() {
+        (function() {
             var Composer, Constructor, Parser, Reader, Resolver, Scanner;
             Reader = require("./reader").Reader;
             Scanner = require("./scanner").Scanner;
@@ -3001,13 +3221,14 @@
             Resolver = require("./resolver").Resolver;
             Constructor = require("./constructor").Constructor;
             this.Loader = function() {
-                var key, klass, value, _i, _len, _ref, _ref2;
+                var key, klass, value, _i, _len, _ref, _ref1;
+                Loader.name = "Loader";
                 _ref = [ Reader, Scanner, Parser, Composer, Resolver, Constructor ];
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                     klass = _ref[_i];
-                    _ref2 = klass.prototype;
-                    for (key in _ref2) {
-                        value = _ref2[key];
+                    _ref1 = klass.prototype;
+                    for (key in _ref1) {
+                        value = _ref1[key];
                         Loader.prototype[key] = value;
                     }
                 }
@@ -3021,14 +3242,25 @@
                 }
                 return Loader;
             }();
-        })).call(this);
+        }).call(this);
     });
     register({
         "": [ "./lib/yaml" ]
     }, 0, function(global, module, exports, require, window) {
-        ((function() {
+        (function() {
             var Loader, fs;
-            Loader = require("./loader").Loader;
+            this.composer = require("./composer");
+            this.constructor = require("./constructor");
+            this.errors = require("./errors");
+            this.events = require("./events");
+            this.loader = require("./loader");
+            this.nodes = require("./nodes");
+            this.parser = require("./parser");
+            this.reader = require("./reader");
+            this.resolver = require("./resolver");
+            this.scanner = require("./scanner");
+            this.tokens = require("./tokens");
+            Loader = this.loader.Loader;
             this.scan = function(stream) {
                 var loader, _results;
                 loader = new Loader(stream);
@@ -3081,7 +3313,7 @@
                     return module.exports = exports.load_all(fs.readFileSync(filename, "utf8"));
                 };
             }
-        })).call(this);
+        }).call(this);
     });
     register({
         "": [ "yaml" ]
@@ -3089,4 +3321,4 @@
         module.exports = require("./lib/yaml");
     });
     root["yaml"] = require_from(null, "")("yaml");
-})).call(this);
+}).call(this);

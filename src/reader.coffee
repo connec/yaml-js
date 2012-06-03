@@ -13,7 +13,7 @@ class @ReaderError extends YAMLError
 ###
 Reader:
   checks if characters are within the allowed range
-  add '\0' to the end
+  add '\x00' to the end
 ###
 class @Reader
   NON_PRINTABLE = /[^\x09\x0A\x0D\x20-\x7E\x85\xA0-\uD7FF\uE000-\uFFFD]/
@@ -24,7 +24,7 @@ class @Reader
     @index = 0
     
     @check_printable()
-    @string += '\0'
+    @string += '\x00'
   
   peek: (index = 0) -> @string[@index + index]
   

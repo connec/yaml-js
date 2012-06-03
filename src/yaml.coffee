@@ -1,4 +1,17 @@
-{Loader} = require './loader'
+# Attach all the classes to the yaml-js object.
+@composer    = require './composer'
+@constructor = require './constructor'
+@errors      = require './errors'
+@events      = require './events'
+@loader      = require './loader'
+@nodes       = require './nodes'
+@parser      = require './parser'
+@reader      = require './reader'
+@resolver    = require './resolver'
+@scanner     = require './scanner'
+@tokens      = require './tokens'
+
+{Loader}     = @loader
 
 ###
 Scan a YAML stream and produce scanning tokens.
