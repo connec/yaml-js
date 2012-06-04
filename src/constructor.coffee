@@ -204,7 +204,7 @@ class @Constructor extends @BaseConstructor
           submerge.reverse()
           merge = merge.concat value for value in submerge
         else
-          throw new extend.ConstructorError 'while constructing a mapping',
+          throw new exports.ConstructorError 'while constructing a mapping',
             node.start_mark, "expected a mapping or list of mappings for 
             merging but found #{value_node.id}", value_node.start_mark
       else if key_node.tag == 'tag:yaml.org,2002:value'

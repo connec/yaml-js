@@ -797,7 +797,7 @@
                                     merge = merge.concat(value);
                                 }
                             } else {
-                                throw new extend.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping or list of mappings for             merging but found " + value_node.id, value_node.start_mark);
+                                throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping or list of mappings for             merging but found " + value_node.id, value_node.start_mark);
                             }
                         } else if (key_node.tag === "tag:yaml.org,2002:value") {
                             key_node.tag = "tag:yaml.org,2002:str";
