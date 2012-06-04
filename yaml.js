@@ -3232,35 +3232,38 @@
         "0": [ "./loader" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var Composer, Constructor, Parser, Reader, Resolver, Scanner;
+            var Composer, Constructor, Parser, Reader, Resolver, Scanner, util;
+            util = require("./util");
             Reader = require("./reader").Reader;
             Scanner = require("./scanner").Scanner;
             Parser = require("./parser").Parser;
             Composer = require("./composer").Composer;
             Resolver = require("./resolver").Resolver;
             Constructor = require("./constructor").Constructor;
-            this.Loader = function() {
-                var key, klass, value, _i, _len, _ref, _ref1;
-                Loader.name = "Loader";
-                _ref = [ Reader, Scanner, Parser, Composer, Resolver, Constructor ];
-                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                    klass = _ref[_i];
-                    _ref1 = klass.prototype;
-                    for (key in _ref1) {
-                        value = _ref1[key];
-                        Loader.prototype[key] = value;
+            this.make_loader = function(Reader, Scanner, Parser, Composer, Resolver, Constructor) {
+                return function() {
+                    var arg;
+                    util.extend.apply(util, [ _Class.prototype ].concat(function() {
+                        var _i, _len, _results;
+                        _results = [];
+                        for (_i = 0, _len = arguments.length; _i < _len; _i++) {
+                            arg = arguments[_i];
+                            _results.push(arg.prototype);
+                        }
+                        return _results;
+                    }.apply(this, arguments)));
+                    function _Class(stream) {
+                        Reader.call(this, stream);
+                        Scanner.call(this);
+                        Parser.call(this);
+                        Composer.call(this);
+                        Resolver.call(this);
+                        Constructor.call(this);
                     }
-                }
-                function Loader(string) {
-                    Reader.call(this, string);
-                    Scanner.call(this);
-                    Parser.call(this);
-                    Composer.call(this);
-                    Resolver.call(this);
-                    Constructor.call(this);
-                }
-                return Loader;
-            }();
+                    return _Class;
+                }.apply(this, arguments);
+            };
+            this.Loader = this.make_loader(Reader, Scanner, Parser, Composer, Resolver, Constructor);
         }).call(this);
     });
     register({

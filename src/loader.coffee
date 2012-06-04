@@ -1,3 +1,4 @@
+util          = require './util'
 {Reader}      = require './reader'
 {Scanner}     = require './scanner'
 {Parser}      = require './parser'
@@ -5,14 +6,15 @@
 {Resolver}    = require './resolver'
 {Constructor} = require './constructor'
 
-class @Loader
-  for klass in [Reader, Scanner, Parser, Composer, Resolver, Constructor]
-    @::[key] = value for key, value of klass::
+@make_loader = (Reader, Scanner, Parser, Composer, Resolver, Constructor) -> class
+  util.extend.apply util, [@::].concat (arg.prototype for arg in arguments)
   
-  constructor: (string) ->
-    Reader.call      @, string
+  constructor: (stream) ->
+    Reader.call      @, stream
     Scanner.call     @
     Parser.call      @
     Composer.call    @
     Resolver.call    @
     Constructor.call @
+
+@Loader = @make_loader Reader, Scanner, Parser, Composer, Resolver, Constructor
