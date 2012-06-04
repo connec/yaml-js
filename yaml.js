@@ -3232,45 +3232,65 @@
         "0": [ "./loader" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var Composer, Constructor, Parser, Reader, Resolver, Scanner, util;
+            var composer, constructor, parser, reader, resolver, scanner, util;
             util = require("./util");
-            Reader = require("./reader").Reader;
-            Scanner = require("./scanner").Scanner;
-            Parser = require("./parser").Parser;
-            Composer = require("./composer").Composer;
-            Resolver = require("./resolver").Resolver;
-            Constructor = require("./constructor").Constructor;
+            reader = require("./reader");
+            scanner = require("./scanner");
+            parser = require("./parser");
+            composer = require("./composer");
+            resolver = require("./resolver");
+            constructor = require("./constructor");
             this.make_loader = function(Reader, Scanner, Parser, Composer, Resolver, Constructor) {
+                if (Reader == null) {
+                    Reader = reader.Reader;
+                }
+                if (Scanner == null) {
+                    Scanner = scanner.Scanner;
+                }
+                if (Parser == null) {
+                    Parser = parser.Parser;
+                }
+                if (Composer == null) {
+                    Composer = composer.Composer;
+                }
+                if (Resolver == null) {
+                    Resolver = resolver.Resolver;
+                }
+                if (Constructor == null) {
+                    Constructor = constructor.Constructor;
+                }
                 return function() {
-                    var arg;
+                    var component, components;
+                    components = [ Reader, Scanner, Parser, Composer, Resolver, Constructor ];
                     util.extend.apply(util, [ _Class.prototype ].concat(function() {
                         var _i, _len, _results;
                         _results = [];
-                        for (_i = 0, _len = arguments.length; _i < _len; _i++) {
-                            arg = arguments[_i];
-                            _results.push(arg.prototype);
+                        for (_i = 0, _len = components.length; _i < _len; _i++) {
+                            component = components[_i];
+                            _results.push(component.prototype);
                         }
                         return _results;
-                    }.apply(this, arguments)));
+                    }()));
                     function _Class(stream) {
-                        Reader.call(this, stream);
-                        Scanner.call(this);
-                        Parser.call(this);
-                        Composer.call(this);
-                        Resolver.call(this);
-                        Constructor.call(this);
+                        var component, _i, _len, _ref;
+                        components[0].call(this, stream);
+                        _ref = components.slice(1);
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            component = _ref[_i];
+                            component.call(this);
+                        }
                     }
                     return _Class;
-                }.apply(this, arguments);
+                }();
             };
-            this.Loader = this.make_loader(Reader, Scanner, Parser, Composer, Resolver, Constructor);
+            this.Loader = this.make_loader();
         }).call(this);
     });
     register({
         "": [ "./lib/yaml" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var Loader, fs;
+            var fs;
             this.composer = require("./composer");
             this.constructor = require("./constructor");
             this.errors = require("./errors");
@@ -3282,9 +3302,11 @@
             this.resolver = require("./resolver");
             this.scanner = require("./scanner");
             this.tokens = require("./tokens");
-            Loader = this.loader.Loader;
-            this.scan = function(stream) {
+            this.scan = function(stream, Loader) {
                 var loader, _results;
+                if (Loader == null) {
+                    Loader = exports.loader.Loader;
+                }
                 loader = new Loader(stream);
                 _results = [];
                 while (loader.check_token()) {
@@ -3292,8 +3314,11 @@
                 }
                 return _results;
             };
-            this.parse = function(stream) {
+            this.parse = function(stream, Loader) {
                 var loader, _results;
+                if (Loader == null) {
+                    Loader = exports.loader.Loader;
+                }
                 loader = new Loader(stream);
                 _results = [];
                 while (loader.check_event()) {
@@ -3301,13 +3326,19 @@
                 }
                 return _results;
             };
-            this.compose = function(stream) {
+            this.compose = function(stream, Loader) {
                 var loader;
+                if (Loader == null) {
+                    Loader = exports.loader.Loader;
+                }
                 loader = new Loader(stream);
                 return loader.get_single_node();
             };
-            this.compose_all = function(stream) {
+            this.compose_all = function(stream, Loader) {
                 var loader, _results;
+                if (Loader == null) {
+                    Loader = exports.loader.Loader;
+                }
                 loader = new Loader(stream);
                 _results = [];
                 while (loader.check_node()) {
@@ -3315,13 +3346,19 @@
                 }
                 return _results;
             };
-            this.load = function(stream) {
+            this.load = function(stream, Loader) {
                 var loader;
+                if (Loader == null) {
+                    Loader = exports.loader.Loader;
+                }
                 loader = new Loader(stream);
                 return loader.get_single_data();
             };
-            this.load_all = function(stream) {
+            this.load_all = function(stream, Loader) {
                 var loader, _results;
+                if (Loader == null) {
+                    Loader = exports.loader.Loader;
+                }
                 loader = new Loader(stream);
                 _results = [];
                 while (loader.check_data()) {

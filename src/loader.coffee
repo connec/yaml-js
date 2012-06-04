@@ -1,20 +1,17 @@
-util          = require './util'
-{Reader}      = require './reader'
-{Scanner}     = require './scanner'
-{Parser}      = require './parser'
-{Composer}    = require './composer'
-{Resolver}    = require './resolver'
-{Constructor} = require './constructor'
+util        = require './util'
+reader      = require './reader'
+scanner     = require './scanner'
+parser      = require './parser'
+composer    = require './composer'
+resolver    = require './resolver'
+constructor = require './constructor'
 
-@make_loader = (Reader, Scanner, Parser, Composer, Resolver, Constructor) -> class
-  util.extend.apply util, [@::].concat (arg.prototype for arg in arguments)
+@make_loader = (Reader = reader.Reader, Scanner = scanner.Scanner, Parser = parser.Parser, Composer = composer.Composer, Resolver = resolver.Resolver, Constructor = constructor.Constructor) -> class
+  components = [Reader, Scanner, Parser, Composer, Resolver, Constructor]
+  util.extend.apply util, [@::].concat (component.prototype for component in components)
   
   constructor: (stream) ->
-    Reader.call      @, stream
-    Scanner.call     @
-    Parser.call      @
-    Composer.call    @
-    Resolver.call    @
-    Constructor.call @
+    components[0].call @, stream
+    component.call @ for component in components[1..]
 
-@Loader = @make_loader Reader, Scanner, Parser, Composer, Resolver, Constructor
+@Loader = @make_loader()

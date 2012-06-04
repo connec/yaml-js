@@ -11,19 +11,17 @@
 @scanner     = require './scanner'
 @tokens      = require './tokens'
 
-{Loader}     = @loader
-
 ###
 Scan a YAML stream and produce scanning tokens.
 ###
-@scan = (stream) ->
+@scan = (stream, Loader = exports.loader.Loader) ->
   loader = new Loader stream
   loader.get_token() while loader.check_token()
 
 ###
 Parse a YAML stream and produce parsing events.
 ###
-@parse = (stream) ->
+@parse = (stream, Loader = exports.loader.Loader) ->
   loader = new Loader stream
   loader.get_event() while loader.check_event()
 
@@ -31,7 +29,7 @@ Parse a YAML stream and produce parsing events.
 Parse the first YAML document in a stream and produce the corresponding
 representation tree.
 ###
-@compose = (stream) ->
+@compose = (stream, Loader = exports.loader.Loader) ->
   loader = new Loader stream
   return loader.get_single_node()
 
@@ -39,7 +37,7 @@ representation tree.
 Parse all YAML documents in a stream and produce corresponding representation
 trees.
 ###
-@compose_all = (stream) ->
+@compose_all = (stream, Loader = exports.loader.Loader) ->
   loader = new Loader stream
   loader.get_node() while loader.check_node()
 
@@ -47,7 +45,7 @@ trees.
 Parse the first YAML document in a stream and produce the corresponding
 Javascript object.
 ###
-@load = (stream) ->
+@load = (stream, Loader = exports.loader.Loader) ->
   loader = new Loader stream
   loader.get_single_data()
 
@@ -55,7 +53,7 @@ Javascript object.
 Parse all YAML documents in a stream and produce the corresponing Javascript
 object.
 ###
-@load_all = (stream) ->
+@load_all = (stream, Loader = exports.loader.Loader) ->
   loader = new Loader stream
   loader.get_data() while loader.check_data()
 
