@@ -542,7 +542,19 @@
         "0": [ "./util" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var __hasProp = {}.hasOwnProperty;
+            var __slice = [].slice, __hasProp = {}.hasOwnProperty;
+            this.extend = function() {
+                var destination, k, source, sources, v, _i, _len;
+                destination = arguments[0], sources = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+                for (_i = 0, _len = sources.length; _i < _len; _i++) {
+                    source = sources[_i];
+                    for (k in source) {
+                        v = source[k];
+                        destination[k] = v;
+                    }
+                }
+                return destination;
+            };
             this.is_empty = function(obj) {
                 var key;
                 if (Array.isArray(obj) || typeof obj === "string") {
@@ -592,6 +604,18 @@
                 BaseConstructor.name = "BaseConstructor";
                 BaseConstructor.prototype.yaml_constructors = {};
                 BaseConstructor.prototype.yaml_multi_constructors = {};
+                BaseConstructor.add_constructor = function(tag, constructor) {
+                    if (!this.prototype.hasOwnProperty("yaml_constructors")) {
+                        this.prototype.yaml_constructors = util.extend({}, this.prototype.yaml_constructors);
+                    }
+                    return this.prototype.yaml_constructors[tag] = constructor;
+                };
+                BaseConstructor.add_multi_constructor = function(tag_prefix, multi_constructor) {
+                    if (!this.prototype.hasOwnProperty("yaml_multi_constructors")) {
+                        this.prototype.yaml_multi_constructors = util.extend({}, this.prototype.yaml_multi_constructors);
+                    }
+                    return this.prototype.yaml_multi_constructors[tag_prefix] = multi_constructor;
+                };
                 function BaseConstructor() {
                     this.constructed_objects = {};
                     this.constructing_nodes = [];
@@ -716,12 +740,6 @@
                         pairs.push([ key, value ]);
                     }
                     return pairs;
-                };
-                BaseConstructor.add_constructor = function(tag, constructor) {
-                    return this.prototype.yaml_constructors[tag] = constructor;
-                };
-                BaseConstructor.add_multi_constructor = function(tag_prefix, multi_constructor) {
-                    return this.prototype.yaml_multi_constructors[tag_prefix] = multi_constructor;
                 };
                 return BaseConstructor;
             }();
@@ -3064,6 +3082,9 @@
                     if (first == null) {
                         first = [ null ];
                     }
+                    if (!this.prototype.hasOwnProperty("yaml_implicit_resolvers")) {
+                        this.prototype.yaml_implicit_resolvers = util.extend({}, this.prototype.yaml_implicit_resolvers);
+                    }
                     _results = [];
                     for (_i = 0, _len = first.length; _i < _len; _i++) {
                         char = first[_i];
@@ -3195,8 +3216,6 @@
                 function Resolver() {
                     return Resolver.__super__.constructor.apply(this, arguments);
                 }
-                Resolver.prototype.yaml_implicit_resolvers = {};
-                Resolver.prototype.yaml_path_resolvers = {};
                 return Resolver;
             }(this.BaseResolver);
             this.Resolver.add_implicit_resolver("tag:yaml.org,2002:bool", /^(?:yes|Yes|YES|true|True|TRUE|on|On|ON|no|No|NO|false|False|FALSE|off|Off|OFF)$/, "yYnNtTfFoO");

@@ -14,11 +14,13 @@ class @BaseResolver
   yaml_path_resolvers    : {}
   
   @add_implicit_resolver: (tag, regexp, first = [null]) ->
+    unless @::hasOwnProperty 'yaml_implicit_resolvers'
+      @::yaml_implicit_resolvers = util.extend {}, @::yaml_implicit_resolvers
     for char in first
       (@::yaml_implicit_resolvers[char] ?= []).push [tag, regexp]
   
   constructor: ->
-    @resolver_exact_paths =  []
+    @resolver_exact_paths  = []
     @resolver_prefix_paths = []
   
   descend_resolver: (current_node, current_index) ->
@@ -91,8 +93,6 @@ class @BaseResolver
     return DEFAULT_MAPPING_TAG  if kind == nodes.MappingNode
 
 class @Resolver extends @BaseResolver
-  yaml_implicit_resolvers: {}
-  yaml_path_resolvers    : {}
 
 @Resolver.add_implicit_resolver 'tag:yaml.org,2002:bool',
   ///

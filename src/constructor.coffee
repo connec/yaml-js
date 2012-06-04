@@ -9,6 +9,16 @@ class @BaseConstructor
   yaml_constructors      : {}
   yaml_multi_constructors: {}
   
+  @add_constructor: (tag, constructor) ->
+    unless @::hasOwnProperty 'yaml_constructors'
+      @::yaml_constructors = util.extend {}, @::yaml_constructors
+    @::yaml_constructors[tag] = constructor
+  
+  @add_multi_constructor: (tag_prefix, multi_constructor) ->
+    unless @::hasOwnProperty 'yaml_multi_constructors'
+      @::yaml_multi_constructors = util.extend {}, @::yaml_multi_constructors
+    @::yaml_multi_constructors[tag_prefix] = multi_constructor
+  
   constructor: ->
     @constructed_objects   = {}
     @constructing_nodes    = []
@@ -112,12 +122,6 @@ class @BaseConstructor
       value = @construct_object value_node
       pairs.push [key, value]
     return pairs
-  
-  @add_constructor: (tag, constructor) ->
-    @::yaml_constructors[tag] = constructor
-  
-  @add_multi_constructor: (tag_prefix, multi_constructor) ->
-    @::yaml_multi_constructors[tag_prefix] = multi_constructor
 
 class @Constructor extends @BaseConstructor
   
