@@ -1,6 +1,6 @@
 {
   "name": "yaml-js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Pure Javascript port of PyYAML",
   "repository": {
     "type": "git",
