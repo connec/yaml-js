@@ -17,10 +17,10 @@ class SimpleKey
 The Scanner class deals with converting a YAML stream into a token stream.
 ###
 class @Scanner
-  C_LB = '\r\n\x85\u2028\u2029'
-  C_WS = '\t '
-  C_NUMBERS    = '0123456789'
-  
+  C_LB      = '\r\n\x85\u2028\u2029'
+  C_WS      = '\t '
+  C_NUMBERS = '0123456789'
+
   ESCAPE_REPLACEMENTS =
     '0' : '\x00'
     'a' : '\x07'
@@ -39,37 +39,37 @@ class @Scanner
     '_' : '\xA0'
     'L' : '\u2028'
     'P' : '\u2029'
-  
-  ESCAPE_CODE =
+
+  ESCAPE_CODES =
     'x': 2
     'u': 4
     'U': 8
-  
+
   ###
   Initialise the Scanner
   ###
   constructor: ->
     # Have we reached the end of the stream?
     @done = no
-    
+
     # How many unclosed '{' or '[' have been seen. '0' implies block context.
     @flow_level = 0
-    
+
     # List of processed tokens not yet emitted.
     @tokens = []
-    
+
     # Add the STREAM-START token.
     @fetch_stream_start()
-    
+
     # Number of tokens emitted through the `get_token` method.
     @tokens_taken = 0
-    
+
     # Current indentation level. '-1' means no indentation has been seen.
     @indent = -1
-    
+
     # Previous indentation levels.
     @indents = []
-    
+
     # Simple Key Treatment
     #   A simple key is a key that is not denoted by the '?' indicator, e.g.
     #     block simple key: value
@@ -78,7 +78,7 @@ class @Scanner
     #   We emit the KEY token before all keys, so when we find a potential
     #   simple key, we try to locate the corresponding ':' indicator.  Simple
     #   keys should be limited to a single line and 1024 characters.
-    
+
     # Can a simple key start at the current position?  A simple key may
     # start
     #   at the beginning of the line, not counting indentation spaces
@@ -88,15 +88,15 @@ class @Scanner
     # In the block context, this flag also signifies if a block collection
     # may start at the current position.
     @allow_simple_key = yes
-    
+
     # Keep track of possible simple keys.  This is an object.  The key is
     # `flow_level`; there can be no more than one possible simple key for
     # each level.  The value is a SimpleKey object. A simple key may start
     # with ALIAS, ANCHOR, TAG, SCALAR (flow), '[' or '{' tokens.
     @possible_simple_keys = {}
-  
+
   # API methods.
-  
+
   ###
   Check if the next token is one of the given types.
   ###
@@ -107,14 +107,14 @@ class @Scanner
       for choice in choices
         return true if @tokens[0] instanceof choice
     return false
-  
+
   ###
   Return the next token, but do not delete it from the queue.
   ###
   peek_token: ->
     @fetch_more_tokens() while @need_more_tokens()
     return @tokens[0] if @tokens.length isnt 0
-  
+
   ###
   Return the next token, and remove it from the queue.
   ###
@@ -123,101 +123,101 @@ class @Scanner
     if @tokens.length isnt 0
       @tokens_taken++
       return @tokens.shift()
-  
+
   # Non-API methods.
-  
+
   need_more_tokens: ->
     return no  if @done
     return yes if @tokens.length is 0
-    
+
     # The current token may be a potential simple key, so we need to look
     # further.
     @stale_possible_simple_keys()
     return yes if @next_possible_simple_key() == @tokens_taken
     return no
-  
+
   fetch_more_tokens: ->
     # Eat whitespace and comments until we reach the next token.
     @scan_to_next_token()
-    
+
     # Remove obsolete possible simple keys
     @stale_possible_simple_keys()
-    
+
     # Compare the current indentation and column. It may add some tokens and
     # decrease the current indentation level.
     @unwind_indent @column
-    
+
     # Peek the next character.
     char = @peek()
-    
+
     # Is it the end of stream?
     return @fetch_stream_end() if char is '\x00'
-    
+
     # Is it a directive?
     return @fetch_directive() if char is '%' and @check_directive()
-    
+
     # Is it the document start?
     return @fetch_document_start() if char is '-' and @check_document_start()
-    
+
     # Is it the document end?
     return @fetch_document_end() if char is '.' and @check_document_end()
-    
+
     # TODO: support for BOM within a stream.
-    
+
     # Is it the flow sequence start indicator?
     return @fetch_flow_sequence_start() if char is '['
-    
+
     # Is it the flow mapping start indicator?
     return @fetch_flow_mapping_start() if char is '{'
-    
+
     # Is it the flow sequence end indicator?
     return @fetch_flow_sequence_end() if char is ']'
-    
+
     # Is it the flow mapping end indicator?
     return @fetch_flow_mapping_end() if char is '}'
-    
+
     # Is it the flow entry indicator?
     return @fetch_flow_entry() if char is ','
-    
+
     # Is it the block entry indicator?
     return @fetch_block_entry() if char is '-' and @check_block_entry()
-    
+
     # Is it the key indicator?
     return @fetch_key() if char is '?' and @check_key()
-    
+
     # Is it the value indicator?
     return @fetch_value() if char is ':' and @check_value()
-    
+
     # Is it an alias?
     return @fetch_alias() if char is '*'
-    
+
     # Is it an anchor?
     return @fetch_anchor() if char is '&'
-    
+
     # Is it a tag?
     return @fetch_tag() if char is '!'
-    
+
     # Is it a literal scalar?
     return @fetch_literal() if char is '|' and @flow_level is 0
-    
+
     # Is it a folded scalar?
     return @fetch_folded() if char is '>' and @flow_level is 0
-    
+
     # Is it a single quoted scalar?
     return @fetch_single() if char is '\''
-    
+
     # Is it a double quoted scalar?
     return @fetch_double() if char is '"'
-    
+
     # It must be a plain scalar then.
     return @fetch_plain() if @check_plain()
-    
+
     # No? It's an error.
     throw new exports.ScannerError 'while scanning for the next token', null,
       "found character #{char} that cannot start any token", @get_mark()
-  
+
   # Simple keys treatment.
-  
+
   ###
   Return the number of the nearest possible simple key.
   ###
@@ -227,7 +227,7 @@ class @Scanner
       min_token_number = key.token_number \
         if min_token_number is null or key.token_number < min_token_number
     return min_token_number
-  
+
   ###
   Remove entries that are no longer possible simple keys.  According to the
   YAML spec, simple keys:
@@ -244,7 +244,7 @@ class @Scanner
       else
         throw new exports.ScannerError 'while scanning a simple key',
           key.mark, 'could not find expected \':\'', @get_mark()
-  
+
   ###
   The next token may start a simple key.  We check if it's possible and save
   its position.  This function is called for ALIAS, ANCHOR, TAG,
@@ -253,21 +253,21 @@ class @Scanner
   save_possible_simple_key: ->
     # Check if a simple key is required at the current position.
     required = @flow_level is 0 and @indent == @column
-    
+
     # A simple key is required only if it is the first token in the current
     # line.  Therefore it is always allowed.
     throw new Error 'logic failure' if required and not @allow_simple_key
-    
+
     # If simple keys aren't allowed here we're done.
     return if not @allow_simple_key
-    
+
     # The next token might be a simple key.  Let's save its number and
     # position.
     @remove_possible_simple_key()
     token_number = @tokens_taken + @tokens.length
     @possible_simple_keys[@flow_level] = new SimpleKey \
       token_number, required, @index, @line, @column, @get_mark()
-  
+
   ###
   Remove the saved possible simple key at the current flow level.
   ###
@@ -277,9 +277,9 @@ class @Scanner
     else
       throw new exports.ScannerError 'while scanning a simple key', key.mark,
         'could not find expected \':\'', @get_mark()
-  
+
   # Indentation functions
-  
+
   ###
   In flow context, tokens should respect indentation.
   Actually the condition should be `self.indent >= column` according to
@@ -292,13 +292,13 @@ class @Scanner
     # In the flow context, indentation is ignored.  We make the scanner less
     # restrictive than the specification requires.
     return if @flow_level isnt 0
-    
+
     # In block context we may need to issue the BLOCK-END tokens.
     while @indent > column
       mark = @get_mark()
       @indent = @indents.pop()
       @tokens.push new tokens.BlockEndToken mark, mark
-  
+
   ###
   Check if we need to increase indentation.
   ###
@@ -307,113 +307,113 @@ class @Scanner
     @indents.push @indent
     @indent = column
     return true
-  
+
   # Fetchers.
-  
+
   fetch_stream_start: ->
     mark = @get_mark()
     @tokens.push new tokens.StreamStartToken mark, mark, @encoding
-  
+
   fetch_stream_end: ->
     # Set the current indentation to -1.
     @unwind_indent -1
-    
+
     # Reset simple keys.
     @remove_possible_simple_key()
     @allow_possible_simple_key = no
     @possible_simple_keys = {}
-    
+
     mark = @get_mark()
     @tokens.push new tokens.StreamEndToken mark, mark
-    
+
     # The stream is finished.
     @done = yes
-  
+
   fetch_directive: ->
     # Set the current indentation to -1.
     @unwind_indent -1
-    
+
     # Reset simple keys.
     @remove_possible_simple_key()
     @allow_simple_key = no
-    
+
     # Scan and add DIRECTIVE
     @tokens.push @scan_directive()
-  
+
   fetch_document_start: ->
     @fetch_document_indicator tokens.DocumentStartToken
-  
+
   fetch_document_end: ->
     @fetch_document_indicator tokens.DocumentEndToken
-  
+
   fetch_document_indicator: (TokenClass) ->
     # Set the current indentation to -1.
     @unwind_indent -1
-    
+
     # Reset simple keys.  Note that there would not be a block collection
     # after '---'.
     @remove_possible_simple_key()
     @allow_simple_key = no
-    
+
     # Add DOCUMENT-START or DOCUMENT-END.
     start_mark = @get_mark()
     @forward 3
     @tokens.push new TokenClass start_mark, @get_mark()
-  
+
   fetch_flow_sequence_start: ->
     @fetch_flow_collection_start tokens.FlowSequenceStartToken
-  
+
   fetch_flow_mapping_start: ->
     @fetch_flow_collection_start tokens.FlowMappingStartToken
-  
+
   fetch_flow_collection_start: (TokenClass) ->
     # '[' and '{' may start a simple key.
     @save_possible_simple_key()
-    
+
     # Increase flow level.
     @flow_level++
-    
+
     # Simple keys are allowed after '[' and '{'
     @allow_simple_key = yes
-    
+
     # Add FLOW-SEQUENCE-START or FLOW-MAPPING-START.
     start_mark = @get_mark()
     @forward()
     @tokens.push new TokenClass start_mark, @get_mark()
-  
+
   fetch_flow_sequence_end: ->
     @fetch_flow_collection_end tokens.FlowSequenceEndToken
-  
+
   fetch_flow_mapping_end: ->
     @fetch_flow_collection_end tokens.FlowMappingEndToken
-  
+
   fetch_flow_collection_end: (TokenClass) ->
     # Reset possible simple key on the current level.
     @remove_possible_simple_key()
-    
+
     # Decrease the flow level
     @flow_level--
-    
+
     # No simple keys after ']' or '}'
     @allow_simple_key = no
-    
+
     # Add FLOW-SEQUENCE-END or FLOW-MAPPING-END.
     start_mark = @get_mark()
     @forward()
     @tokens.push new TokenClass start_mark, @get_mark()
-  
+
   fetch_flow_entry: ->
     # Simple keys are allowed after ','.
     @allow_simple_key = yes
-    
+
     # Reset possible simple key on the current level.
     @remove_possible_simple_key()
-    
+
     # Add FLOW-ENTRY
     start_mark = @get_mark()
     @forward()
     @tokens.push new tokens.FlowEntryToken start_mark, @get_mark()
-  
+
   fetch_block_entry: ->
     # Block context needs additional checks
     if @flow_level is 0
@@ -421,26 +421,26 @@ class @Scanner
       unless @allow_simple_key
         throw new exports.ScannerError null, null,
           'sequence entries are not allowed here', @get_mark()
-      
+
       # We may need to add BLOCK-SEQUENCE-START
       if @add_indent @column
         mark = @get_mark()
         @tokens.push new tokens.BlockSequenceStartToken mark, mark
-    
+
     # It's an error for the block entry to occur in the flow context but we
     # let the parser detect this.
-    
+
     # Simple keys are allowed after '-'
     @allow_simple_key = yes
-    
+
     # Reset possible simple key on the current level.
     @remove_possible_simple_key()
-    
+
     # Add BLOCK-ENTRY
     start_mark = @get_mark()
     @forward()
     @tokens.push new tokens.BlockEntryToken start_mark, @get_mark()
-  
+
   fetch_key: ->
     # Block context needs additional checks.
     if @flow_level is 0
@@ -448,23 +448,23 @@ class @Scanner
       unless @allow_simple_key
         throw new exports.ScannerError null, null,
           'mapping keys are not allowed here', @get_mark()
-      
+
       # We may need to add BLOCK-MAPPING-START.
       if @add_indent @column
         mark = @get_mark()
         @tokens.push new tokens.BlockMappingStartToken mark, mark
-    
+
     # Simple keys are allowed after '?' in the flow context.
     @allow_simple_key = not @flow_level
-    
+
     # Reset possible simple key on the current level.
     @remove_possible_simple_key()
-    
+
     # Add KEY.
     start_mark = @get_mark()
     @forward()
     @tokens.push new tokens.KeyToken start_mark, @get_mark()
-  
+
   fetch_value: ->
     # Do we determine a simple key?
     if key = @possible_simple_keys[@flow_level]
@@ -472,17 +472,17 @@ class @Scanner
       delete @possible_simple_keys[@flow_level]
       @tokens.splice key.token_number - @tokens_taken, 0,
         new tokens.KeyToken key.mark, key.mark
-      
+
       # If this key starts a new block mapping we need to add
       # BLOCK-MAPPING-START.
       if @flow_level is 0
         if @add_indent key.column
           @tokens.splice key.token_number - @tokens_taken, 0,
             new tokens.BlockMappingStartToken key.mark, key.mark
-      
+
       # There cannot be two simple keys one after the other.
       @allow_simple_key = no
-    
+
     # It must be part of a complex key.
     else
       # Block context needs additional checks.
@@ -493,100 +493,100 @@ class @Scanner
         unless @allow_simple_key
           throw new exports.ScannerError null, null,
             'mapping values are not allowed here', @get_mark()
-      
+
         # If this value starts a new block mapping we need to add
         # BLOCK-MAPPING-START.  It will be detected as an error later by the
         # parser.
         if @add_indent @column
           mark = @get_mark()
           @tokens.push new tokens.BlockMappingStartToken mark, mark
-      
+
       # Simple keys are allowed after ':' in the block context.
       @allow_simple_key = not @flow_level
-      
+
       # Reset possible simple key on the current level.
       @remove_possible_simple_key()
-    
+
     # Add VALUE.
     start_mark = @get_mark()
     @forward()
     @tokens.push new tokens.ValueToken start_mark, @get_mark()
-  
+
   fetch_alias: ->
     # ALIAS could be a simple key.
     @save_possible_simple_key()
-    
+
     # No simple keys after ALIAS.
     @allow_simple_key = no
-    
+
     # Scan and add ALIAS.
     @tokens.push @scan_anchor tokens.AliasToken
-  
+
   fetch_anchor: ->
     # ANCHOR could start a simple key.
     @save_possible_simple_key()
-    
+
     # No simple keys allowed after ANCHOR.
     @allow_simple_key = no
-    
+
     # Scan and add ANCHOR.
     @tokens.push @scan_anchor tokens.AnchorToken
-  
+
   fetch_tag: ->
     # TAG could start a simple key
     @save_possible_simple_key()
-    
+
     # No simple keys after TAG.
     @allow_simple_key = no
-    
+
     # Scan and add TAG.
     @tokens.push @scan_tag()
-  
+
   fetch_literal: ->
     @fetch_block_scalar '|'
-  
+
   fetch_folded: ->
     @fetch_block_scalar '>'
-  
+
   fetch_block_scalar: (style) ->
     # A simple key may follow a block sclar.
     @allow_simple_key = yes
-    
+
     # Reset possible simple key on the current level.
     @remove_possible_simple_key()
-    
+
     # Scan and add SCALAR.
     @tokens.push @scan_block_scalar style
-  
+
   fetch_single: ->
     @fetch_flow_scalar '\''
-  
+
   fetch_double: ->
     @fetch_flow_scalar '"'
-  
+
   fetch_flow_scalar: (style) ->
     # A flow scalar could be a simple key.
     @save_possible_simple_key()
-    
+
     # No simple keys after flow scalars.
     @allow_simple_key = no
-    
+
     # Scan and add SCALAR.
     @tokens.push @scan_flow_scalar style
-  
+
   fetch_plain: ->
     # A plain scalar could be a simple key.
     @save_possible_simple_key()
-    
+
     # No simple keys after plain scalars.  But note that `scan_plain` will
     # change this flag if the scan is finished at the beginning of the line.
     @allow_simple_key = no
-    
+
     # Scan and add SCALAR.  May change `allow_simple_key`.
     @tokens.push @scan_plain()
-  
+
   # Checkers.
-  
+
   ###
   DIRECTIVE: ^ '%'
   ###
@@ -594,7 +594,7 @@ class @Scanner
     # The % indicator has already been checked.
     return true if @column is 0
     return false
-  
+
   ###
   DOCUMENT-START: ^ '---' (' '|'\n')
   ###
@@ -602,7 +602,7 @@ class @Scanner
     return true if @column is 0 and @prefix(3) == '---' \
       and @peek(3) in C_LB + C_WS + '\x00'
     return false
-  
+
   ###
   DOCUMENT-END: ^ '...' (' '|'\n')
   ###
@@ -610,13 +610,13 @@ class @Scanner
     return true if @column is 0 and @prefix(3) == '...' \
       and @peek(3) in C_LB + C_WS + '\x00'
     return false
-  
+
   ###
   BLOCK-ENTRY: '-' (' '|'\n')
   ###
   check_block_entry: ->
     return @peek(1) in C_LB + C_WS + '\x00'
-  
+
   ###
   KEY (flow context):  '?'
   KEY (block context): '?' (' '|'\n')
@@ -624,10 +624,10 @@ class @Scanner
   check_key: ->
     # KEY (flow context)
     return true if @flow_level isnt 0
-    
+
     # KEY (block context)
     return @peek(1) in C_LB + C_WS + '\x00'
-  
+
   ###
   VALUE (flow context):  ':'
   VALUE (block context): ':' (' '|'\n')
@@ -635,20 +635,20 @@ class @Scanner
   check_value: ->
     # VALUE (flow context)
     return true if @flow_level isnt 0
-    
+
     # VALUE (block context)
     return @peek(1) in C_LB + C_WS + '\x00'
-  
+
   ###
   A plain scalar may start with any non-space character except:
     '-', '?', ':', ',', '[', ']', '{', '}',
     '#', '&', '*', '!', '|', '>', '\'', '"',
     '%', '@', '`'.
-  
+
   It may also start with
     '-', '?', ':'
   if it is followed by a non-space character.
-  
+
   Note that we limit the last rule to the block context (except the '-'
   character) because we want the flow context to be space independent.
   ###
@@ -657,9 +657,9 @@ class @Scanner
     return char not in C_LB + C_WS + '\x00-?:,[]{}#&*!|>\'"%@`' \
       or (@peek(1) not in C_LB + C_WS + '\x00' \
       and (char is '-' or (@flow_level is 0 and char in '?:')))
-  
+
   # Scanners.
-  
+
   ###
   We ignore spaces, line breaks and comments.
   If we find a line break in the block context, we set the flag
@@ -667,7 +667,7 @@ class @Scanner
   The byte order mark is stripped if it's the first character in the stream.
   We do not yet support BOM inside the stream as the specification requires.
   Any such mark will be considered as a part of the document.
-  
+
   TODO: We need to make tab handling rules more sane.  A good rule is
     Tabs cannot precede tokens BLOCK-SEQUENCE-START, BLOCK-MAPPING-START,
     BLOCK-END, KEY (block context), VALUE (block context), BLOCK-ENTRY
@@ -682,15 +682,15 @@ class @Scanner
     found = no
     while not found
       @forward() while @peek() == ' '
-      
+
       if @peek() == '#'
         @forward() while @peek() not in C_LB + '\x00'
-      
+
       if @scan_line_break()
         @allow_simple_key = yes if @flow_level is 0
       else
         found = yes
-  
+
   ###
   See the specification for details.
   ###
@@ -710,7 +710,7 @@ class @Scanner
       @forward() while @peek() not in C_LB + '\x00'
     @scan_directive_ignored_line start_mark
     return new tokens.DirectiveToken name, value, start_mark, end_mark
-  
+
   ###
   See the specification for details.
   ###
@@ -724,16 +724,16 @@ class @Scanner
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected alphanumeric or numeric character but found #{char}",
       @get_mark() if length is 0
-    
+
     value = @prefix length
     @forward length
     char = @peek()
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected alphanumeric or numeric character but found #{char}",
       @get_mark() if char not in C_LB + '\x00 '
-    
+
     return value
-  
+
   ###
   See the specification for details.
   ###
@@ -743,15 +743,15 @@ class @Scanner
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected a digit or '.' but found #{@peek()}", @get_mark() \
       if @peek() != '.'
-    
+
     @forward()
     minor = @scan_yaml_directive_number start_mark
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected a digit or ' ' but found #{@peek()}", @get_mark() \
       if @peek() not in C_LB + '\x00 '
-    
+
     return [major, minor]
-  
+
   ###
   See the specification for details.
   ###
@@ -760,26 +760,26 @@ class @Scanner
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected a digit but found #{char}", @get_mark() \
       unless '0' <= char <= '9'
-    
+
     length = 0
     length++ while '0' <= @peek(length) <= '9'
     value = parseInt @prefix length
     @forward length
-    
+
     return value
-  
+
   ###
   See the specification for details.
   ###
   scan_tag_directive_value: (start_mark) ->
     @forward() while @peek() == ' '
     handle = @scan_tag_directive_handle start_mark
-    
+
     @forward() while @peek() == ' '
     prefix = @scan_tag_directive_prefix start_mark
-    
+
     return [handle, prefix]
-  
+
   ###
   See the specification for details.
   ###
@@ -789,7 +789,7 @@ class @Scanner
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected ' ' but found #{char}", @get_mark() if char isnt ' '
     return value
-  
+
   ###
   See the specification for details.
   ###
@@ -800,7 +800,7 @@ class @Scanner
       "expected ' ' but found #{char}", @get_mark() \
       if char not in C_LB + '\x00 '
     return value
-  
+
   ###
   See the specification for details.
   ###
@@ -808,14 +808,14 @@ class @Scanner
     @forward() while @peek() == ' '
     if @peek() == '#'
       @forward() while @peek() not in C_LB + '\x00'
-    
+
     char = @peek()
     throw new exports.ScannerError 'while scanning a directive', start_mark,
       "expected a comment or a line break but found #{char}", @get_mark() \
       if char not in C_LB + '\x00'
-    
+
     @scan_line_break()
-  
+
   ###
   The specification does not restrict characters for anchors and aliases.
   This may lead to problems, for instance, the document:
@@ -833,7 +833,7 @@ class @Scanner
       name = 'alias'
     else
       name = 'anchor'
-    
+
     @forward()
     length = 0
     char = @peek length
@@ -844,16 +844,16 @@ class @Scanner
     throw new exports.ScannerError "while scanning an #{name}", start_mark, \
       "expected alphabetic or numeric character but found '#{char}'", \
       @get_mark() if length is 0
-    
+
     value = @prefix length
     @forward length
     char = @peek()
     throw new exports.ScannerError "while scanning an #{name}", start_mark, \
       "expected alphabetic or numeric character but found '#{char}'", \
       @get_mark() if char not in C_LB + C_WS + '\x00' + '?:,]}%@`'
-    
+
     return new TokenClass value, start_mark, @get_mark()
-  
+
   ###
   See the specification for details.
   ###
@@ -891,21 +891,21 @@ class @Scanner
       "expected ' ' but found #{char}", @get_mark() \
       if char not in C_LB + '\x00 '
     return new tokens.TagToken [handle, suffix], start_mark, @get_mark()
-  
+
   ###
   See the specification for details.
   ###
   scan_block_scalar: (style) ->
     folded = style is '>'
-    
+
     chunks = []
     start_mark = @get_mark()
-    
+
     # Scan the header.
     @forward()
     [chomping, increment] = @scan_block_scalar_indicators start_mark
     @scan_block_scalar_ignored_line start_mark
-    
+
     # Determine the indentation level and go to the first non-empty line.
     min_indent = @indent + 1
     min_indent = 1 if min_indent < 1
@@ -916,7 +916,7 @@ class @Scanner
       indent = min_indent + increment - 1
       [breaks, end_mark] = @scan_block_scalar_breaks indent
     line_break = ''
-    
+
     # Scan the inner part of the block scalar.
     while @column == indent and @peek() != '\x00'
       chunks = chunks.concat breaks
@@ -927,7 +927,7 @@ class @Scanner
       @forward length
       line_break = @scan_line_break()
       [breaks, end_mark] = @scan_block_scalar_breaks indent
-      
+
       if @column == indent and @peek() != '\x00'
         # Unfortunately, folding rules are ambiguous.  This is the folding
         # according to the specification:
@@ -936,7 +936,7 @@ class @Scanner
           chunks.push ' ' if util.is_empty breaks
         else
           chunks.push line_break
-        
+
         # This is Clark Evan's interpretation (also in the spec examples):
         # if folded and line_break is '\n'
         #   if not breaks
@@ -948,15 +948,15 @@ class @Scanner
         #   chunks.push line_break
       else
         break
-    
+
     # Chomp the tail
     chunks.push line_break if chomping isnt false
     chunks = chunks.concat breaks if chomping is true
-    
+
     # And we're done.
     return new tokens.ScalarToken chunks.join(''), false, start_mark,
       end_mark, style
-  
+
   ###
   See the specification for details.
   ###
@@ -986,15 +986,15 @@ class @Scanner
       if char in '+-'
         chomping = char is '+'
         @forward()
-    
+
     char = @peek()
     throw new exports.ScannerError 'while scanning a block scalar', \
-      start_mark,\ 
+      start_mark,\
       "expected chomping or indentation indicators, but found #{char}", \
       @get_mark() if char not in C_LB + '\x00 '
-    
+
     return [chomping, increment]
-  
+
   ###
   See the specification for details.
   ###
@@ -1007,7 +1007,7 @@ class @Scanner
       start_mark, "expected a comment or a line break but found #{char}", \
       @get_mark() if char not in C_LB + '\x00'
     @scan_line_break()
-  
+
   ###
   See the specification for details.
   ###
@@ -1023,7 +1023,7 @@ class @Scanner
         @forward()
         max_indent = @column if @column > max_indent
     return [chunks, max_indent, end_mark]
-  
+
   ###
   See the specification for details.
   ###
@@ -1036,7 +1036,7 @@ class @Scanner
       end_mark = @get_mark()
       @forward() while @column < indent and @peek() == ' '
     return [chunks, end_mark]
-  
+
   ###
   See the specification for details.
   Note that we loose indentation rules for quoted scalars. Quoted scalars
@@ -1058,7 +1058,7 @@ class @Scanner
     @forward()
     return new tokens.ScalarToken chunks.join(''), false, start_mark,
       @get_mark(), style
-  
+
   ###
   See the specification for details.
   ###
@@ -1080,16 +1080,16 @@ class @Scanner
       else if double and char is '\\'
         @forward()
         char = @peek()
-        if char in ESCAPE_REPLACEMENTS
+        if char of ESCAPE_REPLACEMENTS
           chunks.push ESCAPE_REPLACEMENTS[char]
           @forward()
-        else if char in ESCAPE_CODES
+        else if char of ESCAPE_CODES
           length = ESCAPE_CODES[char]
           @forward()
           for k in [0...length]
             throw new exports.ScannerError \
               'while scanning a double-quoted scalar', start_mark,
-              "expected escape sequence of #{length} hexadecimal numbers, but 
+              "expected escape sequence of #{length} hexadecimal numbers, but
               found #{@peek k}", @get_mark() \
               if @peek k not in C_NUMBERS + 'ABCDEFabcdef'
           code = parseInt @prefix(length), 16
@@ -1104,7 +1104,7 @@ class @Scanner
             "found unknown escape character #{char}", @get_mark()
       else
         return chunks
-  
+
   ###
   See the specification for details.
   ###
@@ -1128,9 +1128,9 @@ class @Scanner
       chunks = chunks.concat breaks
     else
       chunks.push whitespaces
-    
+
     return chunks
-  
+
   ###
   See the specification for details.
   ###
@@ -1148,7 +1148,7 @@ class @Scanner
         chunks.push @scan_line_break()
       else
         return chunks
-  
+
   ###
   See the specification for details.
   We add an additional restriction for the flow context:
@@ -1160,7 +1160,7 @@ class @Scanner
     chunks = []
     start_mark = end_mark = @get_mark()
     indent = @indent + 1
-    
+
     # We allow zero indentation for scalars, but then we need to check for
     # document separators at the beginning of the line.
     # indent = 1 if indent is 0
@@ -1168,7 +1168,7 @@ class @Scanner
     while true
       length = 0
       break if @peek() == '#'
-      
+
       while true
         char = @peek length
         break \
@@ -1176,7 +1176,7 @@ class @Scanner
             and char is ':' and @peek(length + 1) in C_LB + C_WS + '\x00') \
             or (@flow_level isnt 0 and char in ',:?[]{}')
         length++
-      
+
       # It's not clear what we should do with ':' in the flow context.
       if @flow_level isnt 0 and char is ':' \
           and @peek(length + 1) not in C_LB + C_WS + '\x00,[]{}'
@@ -1185,7 +1185,7 @@ class @Scanner
           start_mark, 'found unexpected \':\'', @get_mark(),
           'Please check http://pyyaml.org/wiki/YAMLColonInFlowContext'
       break if length is 0
-      
+
       @allow_simple_key = no
       chunks = chunks.concat spaces
       chunks.push @prefix length
@@ -1195,7 +1195,7 @@ class @Scanner
       break if not spaces? or spaces.length is 0 or @peek() == '#' \
         or (@flow_level is 0 and @column < indent)
     return new tokens.ScalarToken chunks.join(''), true, start_mark, end_mark
-  
+
   ###
   See the specification for details.
   The specification is really confusing about tabs in plain scalars.
@@ -1223,7 +1223,7 @@ class @Scanner
           prefix = @prefix 3
           return if prefix is '---' or prefix is '...' \
             and @peek 3 in C_LB + C_WS + '\x00'
-      
+
       if line_break isnt '\n'
         chunks.push line_break
       else if breaks.length is 0
@@ -1232,7 +1232,7 @@ class @Scanner
     else if whitespaces
       chunks.push whitespaces
     return chunks
-  
+
   ###
   See the specification for details.
   For some strange reasons, the specification does not allow '_' in tag
@@ -1257,7 +1257,7 @@ class @Scanner
     value = @prefix length
     @forward length
     return value
-  
+
   ###
   See the specification for details.
   Note: we do not check if URI is well-formed.
@@ -1283,7 +1283,7 @@ class @Scanner
     throw new exports.ScannerError "while parsing a #{name}", start_mark, \
       "expected URI but found #{char}", @get_mark() if chunks.length is 0
     return chunks.join('')
-  
+
   ###
   See the specification for details.
   ###
@@ -1299,7 +1299,7 @@ class @Scanner
       bytes.push String.fromCharCode parseInt @prefix(2), 16
       @forward 2
     return bytes.join('')
-  
+
   ###
   Transforms:
     '\r\n'      :   '\n'
