@@ -60,7 +60,6 @@
                 return child;
             };
             this.Event = function() {
-                Event.name = "Event";
                 function Event(start_mark, end_mark) {
                     this.start_mark = start_mark;
                     this.end_mark = end_mark;
@@ -69,7 +68,6 @@
             }();
             this.NodeEvent = function(_super) {
                 __extends(NodeEvent, _super);
-                NodeEvent.name = "NodeEvent";
                 function NodeEvent(anchor, start_mark, end_mark) {
                     this.anchor = anchor;
                     this.start_mark = start_mark;
@@ -79,7 +77,6 @@
             }(this.Event);
             this.CollectionStartEvent = function(_super) {
                 __extends(CollectionStartEvent, _super);
-                CollectionStartEvent.name = "CollectionStartEvent";
                 function CollectionStartEvent(anchor, tag, implicit, start_mark, end_mark) {
                     this.anchor = anchor;
                     this.tag = tag;
@@ -91,7 +88,6 @@
             }(this.NodeEvent);
             this.CollectionEndEvent = function(_super) {
                 __extends(CollectionEndEvent, _super);
-                CollectionEndEvent.name = "CollectionEndEvent";
                 function CollectionEndEvent() {
                     return CollectionEndEvent.__super__.constructor.apply(this, arguments);
                 }
@@ -99,7 +95,6 @@
             }(this.Event);
             this.StreamStartEvent = function(_super) {
                 __extends(StreamStartEvent, _super);
-                StreamStartEvent.name = "StreamStartEvent";
                 function StreamStartEvent(start_mark, end_mark, explicit, version, tags) {
                     this.start_mark = start_mark;
                     this.end_mark = end_mark;
@@ -111,7 +106,6 @@
             }(this.Event);
             this.StreamEndEvent = function(_super) {
                 __extends(StreamEndEvent, _super);
-                StreamEndEvent.name = "StreamEndEvent";
                 function StreamEndEvent() {
                     return StreamEndEvent.__super__.constructor.apply(this, arguments);
                 }
@@ -119,7 +113,6 @@
             }(this.Event);
             this.DocumentStartEvent = function(_super) {
                 __extends(DocumentStartEvent, _super);
-                DocumentStartEvent.name = "DocumentStartEvent";
                 function DocumentStartEvent(start_mark, end_mark, explicit, version, tags) {
                     this.start_mark = start_mark;
                     this.end_mark = end_mark;
@@ -131,7 +124,6 @@
             }(this.Event);
             this.DocumentEndEvent = function(_super) {
                 __extends(DocumentEndEvent, _super);
-                DocumentEndEvent.name = "DocumentEndEvent";
                 function DocumentEndEvent(start_mark, end_mark, explicit) {
                     this.start_mark = start_mark;
                     this.end_mark = end_mark;
@@ -141,7 +133,6 @@
             }(this.Event);
             this.AliasEvent = function(_super) {
                 __extends(AliasEvent, _super);
-                AliasEvent.name = "AliasEvent";
                 function AliasEvent() {
                     return AliasEvent.__super__.constructor.apply(this, arguments);
                 }
@@ -149,7 +140,6 @@
             }(this.NodeEvent);
             this.ScalarEvent = function(_super) {
                 __extends(ScalarEvent, _super);
-                ScalarEvent.name = "ScalarEvent";
                 function ScalarEvent(anchor, tag, implicit, value, start_mark, end_mark, style) {
                     this.anchor = anchor;
                     this.tag = tag;
@@ -163,7 +153,6 @@
             }(this.NodeEvent);
             this.SequenceStartEvent = function(_super) {
                 __extends(SequenceStartEvent, _super);
-                SequenceStartEvent.name = "SequenceStartEvent";
                 function SequenceStartEvent() {
                     return SequenceStartEvent.__super__.constructor.apply(this, arguments);
                 }
@@ -171,7 +160,6 @@
             }(this.CollectionStartEvent);
             this.SequenceEndEvent = function(_super) {
                 __extends(SequenceEndEvent, _super);
-                SequenceEndEvent.name = "SequenceEndEvent";
                 function SequenceEndEvent() {
                     return SequenceEndEvent.__super__.constructor.apply(this, arguments);
                 }
@@ -179,7 +167,6 @@
             }(this.CollectionEndEvent);
             this.MappingStartEvent = function(_super) {
                 __extends(MappingStartEvent, _super);
-                MappingStartEvent.name = "MappingStartEvent";
                 function MappingStartEvent() {
                     return MappingStartEvent.__super__.constructor.apply(this, arguments);
                 }
@@ -187,7 +174,6 @@
             }(this.CollectionStartEvent);
             this.MappingEndEvent = function(_super) {
                 __extends(MappingEndEvent, _super);
-                MappingEndEvent.name = "MappingEndEvent";
                 function MappingEndEvent() {
                     return MappingEndEvent.__super__.constructor.apply(this, arguments);
                 }
@@ -217,7 +203,6 @@
                 return child;
             };
             this.Mark = function() {
-                Mark.name = "Mark";
                 function Mark(name, line, column, buffer, pointer) {
                     this.name = name;
                     this.line = line;
@@ -273,7 +258,6 @@
             }();
             this.YAMLError = function(_super) {
                 __extends(YAMLError, _super);
-                YAMLError.name = "YAMLError";
                 function YAMLError() {
                     YAMLError.__super__.constructor.call(this);
                     this.stack = this.toString() + "\n" + (new Error).stack.split("\n").slice(1).join("\n");
@@ -282,7 +266,6 @@
             }(Error);
             this.MarkedYAMLError = function(_super) {
                 __extends(MarkedYAMLError, _super);
-                MarkedYAMLError.name = "MarkedYAMLError";
                 function MarkedYAMLError(context, context_mark, problem, problem_mark, note) {
                     this.context = context;
                     this.context_mark = context_mark;
@@ -333,7 +316,6 @@
             };
             unique_id = 0;
             this.Node = function() {
-                Node.name = "Node";
                 function Node(tag, value, start_mark, end_mark) {
                     this.tag = tag;
                     this.value = value;
@@ -345,7 +327,6 @@
             }();
             this.ScalarNode = function(_super) {
                 __extends(ScalarNode, _super);
-                ScalarNode.name = "ScalarNode";
                 ScalarNode.prototype.id = "scalar";
                 function ScalarNode(tag, value, start_mark, end_mark, style) {
                     this.tag = tag;
@@ -359,7 +340,6 @@
             }(this.Node);
             this.CollectionNode = function(_super) {
                 __extends(CollectionNode, _super);
-                CollectionNode.name = "CollectionNode";
                 function CollectionNode(tag, value, start_mark, end_mark, flow_style) {
                     this.tag = tag;
                     this.value = value;
@@ -372,7 +352,6 @@
             }(this.Node);
             this.SequenceNode = function(_super) {
                 __extends(SequenceNode, _super);
-                SequenceNode.name = "SequenceNode";
                 function SequenceNode() {
                     return SequenceNode.__super__.constructor.apply(this, arguments);
                 }
@@ -381,7 +360,6 @@
             }(this.CollectionNode);
             this.MappingNode = function(_super) {
                 __extends(MappingNode, _super);
-                MappingNode.name = "MappingNode";
                 function MappingNode() {
                     return MappingNode.__super__.constructor.apply(this, arguments);
                 }
@@ -411,14 +389,12 @@
             nodes = require("./nodes");
             this.ComposerError = function(_super) {
                 __extends(ComposerError, _super);
-                ComposerError.name = "ComposerError";
                 function ComposerError() {
                     return ComposerError.__super__.constructor.apply(this, arguments);
                 }
                 return ComposerError;
             }(MarkedYAMLError);
             this.Composer = function() {
-                Composer.name = "Composer";
                 function Composer() {
                     this.anchors = {};
                 }
@@ -594,14 +570,12 @@
             util = require("./util");
             this.ConstructorError = function(_super) {
                 __extends(ConstructorError, _super);
-                ConstructorError.name = "ConstructorError";
                 function ConstructorError() {
                     return ConstructorError.__super__.constructor.apply(this, arguments);
                 }
                 return ConstructorError;
             }(MarkedYAMLError);
             this.BaseConstructor = function() {
-                BaseConstructor.name = "BaseConstructor";
                 BaseConstructor.prototype.yaml_constructors = {};
                 BaseConstructor.prototype.yaml_multi_constructors = {};
                 BaseConstructor.add_constructor = function(tag, constructor) {
@@ -746,7 +720,6 @@
             this.Constructor = function(_super) {
                 var BOOL_VALUES, TIMESTAMP_PARTS, TIMESTAMP_REGEX;
                 __extends(Constructor, _super);
-                Constructor.name = "Constructor";
                 function Constructor() {
                     return Constructor.__super__.constructor.apply(this, arguments);
                 }
@@ -1110,7 +1083,6 @@
             _ref = require("./errors"), Mark = _ref.Mark, YAMLError = _ref.YAMLError;
             this.ReaderError = function(_super) {
                 __extends(ReaderError, _super);
-                ReaderError.name = "ReaderError";
                 function ReaderError(name, position, character, reason) {
                     this.name = name;
                     this.position = position;
@@ -1125,7 +1097,6 @@
             }(YAMLError);
             this.Reader = function() {
                 var NON_PRINTABLE;
-                Reader.name = "Reader";
                 NON_PRINTABLE = /[^\x09\x0A\x0D\x20-\x7E\x85\xA0-\uD7FF\uE000-\uFFFD]/;
                 function Reader(string) {
                     this.string = string;
@@ -1199,7 +1170,6 @@
                 return child;
             };
             this.Token = function() {
-                Token.name = "Token";
                 function Token(start_mark, end_mark) {
                     this.start_mark = start_mark;
                     this.end_mark = end_mark;
@@ -1208,7 +1178,6 @@
             }();
             this.DirectiveToken = function(_super) {
                 __extends(DirectiveToken, _super);
-                DirectiveToken.name = "DirectiveToken";
                 DirectiveToken.prototype.id = "<directive>";
                 function DirectiveToken(name, value, start_mark, end_mark) {
                     this.name = name;
@@ -1220,7 +1189,6 @@
             }(this.Token);
             this.DocumentStartToken = function(_super) {
                 __extends(DocumentStartToken, _super);
-                DocumentStartToken.name = "DocumentStartToken";
                 function DocumentStartToken() {
                     return DocumentStartToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1229,7 +1197,6 @@
             }(this.Token);
             this.DocumentEndToken = function(_super) {
                 __extends(DocumentEndToken, _super);
-                DocumentEndToken.name = "DocumentEndToken";
                 function DocumentEndToken() {
                     return DocumentEndToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1238,7 +1205,6 @@
             }(this.Token);
             this.StreamStartToken = function(_super) {
                 __extends(StreamStartToken, _super);
-                StreamStartToken.name = "StreamStartToken";
                 StreamStartToken.prototype.id = "<stream start>";
                 function StreamStartToken(start_mark, end_mark, encoding) {
                     this.start_mark = start_mark;
@@ -1249,7 +1215,6 @@
             }(this.Token);
             this.StreamEndToken = function(_super) {
                 __extends(StreamEndToken, _super);
-                StreamEndToken.name = "StreamEndToken";
                 function StreamEndToken() {
                     return StreamEndToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1258,7 +1223,6 @@
             }(this.Token);
             this.BlockSequenceStartToken = function(_super) {
                 __extends(BlockSequenceStartToken, _super);
-                BlockSequenceStartToken.name = "BlockSequenceStartToken";
                 function BlockSequenceStartToken() {
                     return BlockSequenceStartToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1267,7 +1231,6 @@
             }(this.Token);
             this.BlockMappingStartToken = function(_super) {
                 __extends(BlockMappingStartToken, _super);
-                BlockMappingStartToken.name = "BlockMappingStartToken";
                 function BlockMappingStartToken() {
                     return BlockMappingStartToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1276,7 +1239,6 @@
             }(this.Token);
             this.BlockEndToken = function(_super) {
                 __extends(BlockEndToken, _super);
-                BlockEndToken.name = "BlockEndToken";
                 function BlockEndToken() {
                     return BlockEndToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1285,7 +1247,6 @@
             }(this.Token);
             this.FlowSequenceStartToken = function(_super) {
                 __extends(FlowSequenceStartToken, _super);
-                FlowSequenceStartToken.name = "FlowSequenceStartToken";
                 function FlowSequenceStartToken() {
                     return FlowSequenceStartToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1294,7 +1255,6 @@
             }(this.Token);
             this.FlowMappingStartToken = function(_super) {
                 __extends(FlowMappingStartToken, _super);
-                FlowMappingStartToken.name = "FlowMappingStartToken";
                 function FlowMappingStartToken() {
                     return FlowMappingStartToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1303,7 +1263,6 @@
             }(this.Token);
             this.FlowSequenceEndToken = function(_super) {
                 __extends(FlowSequenceEndToken, _super);
-                FlowSequenceEndToken.name = "FlowSequenceEndToken";
                 function FlowSequenceEndToken() {
                     return FlowSequenceEndToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1312,7 +1271,6 @@
             }(this.Token);
             this.FlowMappingEndToken = function(_super) {
                 __extends(FlowMappingEndToken, _super);
-                FlowMappingEndToken.name = "FlowMappingEndToken";
                 function FlowMappingEndToken() {
                     return FlowMappingEndToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1321,7 +1279,6 @@
             }(this.Token);
             this.KeyToken = function(_super) {
                 __extends(KeyToken, _super);
-                KeyToken.name = "KeyToken";
                 function KeyToken() {
                     return KeyToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1330,7 +1287,6 @@
             }(this.Token);
             this.ValueToken = function(_super) {
                 __extends(ValueToken, _super);
-                ValueToken.name = "ValueToken";
                 function ValueToken() {
                     return ValueToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1339,7 +1295,6 @@
             }(this.Token);
             this.BlockEntryToken = function(_super) {
                 __extends(BlockEntryToken, _super);
-                BlockEntryToken.name = "BlockEntryToken";
                 function BlockEntryToken() {
                     return BlockEntryToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1348,7 +1303,6 @@
             }(this.Token);
             this.FlowEntryToken = function(_super) {
                 __extends(FlowEntryToken, _super);
-                FlowEntryToken.name = "FlowEntryToken";
                 function FlowEntryToken() {
                     return FlowEntryToken.__super__.constructor.apply(this, arguments);
                 }
@@ -1357,7 +1311,6 @@
             }(this.Token);
             this.AliasToken = function(_super) {
                 __extends(AliasToken, _super);
-                AliasToken.name = "AliasToken";
                 AliasToken.prototype.id = "<alias>";
                 function AliasToken(value, start_mark, end_mark) {
                     this.value = value;
@@ -1368,7 +1321,6 @@
             }(this.Token);
             this.AnchorToken = function(_super) {
                 __extends(AnchorToken, _super);
-                AnchorToken.name = "AnchorToken";
                 AnchorToken.prototype.id = "<anchor>";
                 function AnchorToken(value, start_mark, end_mark) {
                     this.value = value;
@@ -1379,7 +1331,6 @@
             }(this.Token);
             this.TagToken = function(_super) {
                 __extends(TagToken, _super);
-                TagToken.name = "TagToken";
                 TagToken.prototype.id = "<tag>";
                 function TagToken(value, start_mark, end_mark) {
                     this.value = value;
@@ -1390,7 +1341,6 @@
             }(this.Token);
             this.ScalarToken = function(_super) {
                 __extends(ScalarToken, _super);
-                ScalarToken.name = "ScalarToken";
                 ScalarToken.prototype.id = "<scalar>";
                 function ScalarToken(value, plain, start_mark, end_mark, style) {
                     this.value = value;
@@ -1429,14 +1379,12 @@
             util = require("./util");
             this.ScannerError = function(_super) {
                 __extends(ScannerError, _super);
-                ScannerError.name = "ScannerError";
                 function ScannerError() {
                     return ScannerError.__super__.constructor.apply(this, arguments);
                 }
                 return ScannerError;
             }(MarkedYAMLError);
             SimpleKey = function() {
-                SimpleKey.name = "SimpleKey";
                 function SimpleKey(token_number, required, index, line, column, mark) {
                     this.token_number = token_number;
                     this.required = required;
@@ -1448,8 +1396,7 @@
                 return SimpleKey;
             }();
             this.Scanner = function() {
-                var C_LB, C_NUMBERS, C_WS, ESCAPE_CODE, ESCAPE_REPLACEMENTS;
-                Scanner.name = "Scanner";
+                var C_LB, C_NUMBERS, C_WS, ESCAPE_CODES, ESCAPE_REPLACEMENTS;
                 C_LB = "\r\n\u2028\u2029";
                 C_WS = "	 ";
                 C_NUMBERS = "0123456789";
@@ -1472,7 +1419,7 @@
                     L: "\u2028",
                     P: "\u2029"
                 };
-                ESCAPE_CODE = {
+                ESCAPE_CODES = {
                     x: 2,
                     u: 4,
                     U: 8
@@ -2270,15 +2217,15 @@
                         } else if (double && char === "\\") {
                             this.forward();
                             char = this.peek();
-                            if (__indexOf.call(ESCAPE_REPLACEMENTS, char) >= 0) {
+                            if (char in ESCAPE_REPLACEMENTS) {
                                 chunks.push(ESCAPE_REPLACEMENTS[char]);
                                 this.forward();
-                            } else if (__indexOf.call(ESCAPE_CODES, char) >= 0) {
+                            } else if (char in ESCAPE_CODES) {
                                 length = ESCAPE_CODES[char];
                                 this.forward();
                                 for (k = _i = 0; 0 <= length ? _i < length : _i > length; k = 0 <= length ? ++_i : --_i) {
                                     if (this.peek(__indexOf.call(C_NUMBERS + "ABCDEFabcdef", k) < 0)) {
-                                        throw new exports.ScannerError("while scanning a double-quoted scalar", start_mark, "expected escape sequence of " + length + " hexadecimal numbers, but               found " + this.peek(k), this.get_mark());
+                                        throw new exports.ScannerError("while scanning a double-quoted scalar", start_mark, "expected escape sequence of " + length + " hexadecimal numbers, but              found " + this.peek(k), this.get_mark());
                                     }
                                 }
                                 code = parseInt(this.prefix(length), 16);
@@ -2519,7 +2466,6 @@
             tokens = require("./tokens");
             this.ParserError = function(_super) {
                 __extends(ParserError, _super);
-                ParserError.name = "ParserError";
                 function ParserError() {
                     return ParserError.__super__.constructor.apply(this, arguments);
                 }
@@ -2527,7 +2473,6 @@
             }(MarkedYAMLError);
             this.Parser = function() {
                 var DEFAULT_TAGS;
-                Parser.name = "Parser";
                 DEFAULT_TAGS = {
                     "!": "!",
                     "!!": "tag:yaml.org,2002:"
@@ -3063,7 +3008,6 @@
             YAMLError = require("./errors").YAMLError;
             this.ResolverError = function(_super) {
                 __extends(ResolverError, _super);
-                ResolverError.name = "ResolverError";
                 function ResolverError() {
                     return ResolverError.__super__.constructor.apply(this, arguments);
                 }
@@ -3071,7 +3015,6 @@
             }(YAMLError);
             this.BaseResolver = function() {
                 var DEFAULT_MAPPING_TAG, DEFAULT_SCALAR_TAG, DEFAULT_SEQUENCE_TAG;
-                BaseResolver.name = "BaseResolver";
                 DEFAULT_SCALAR_TAG = "tag:yaml.org,2002:str";
                 DEFAULT_SEQUENCE_TAG = "tag:yaml.org,2002:seq";
                 DEFAULT_MAPPING_TAG = "tag:yaml.org,2002:map";
@@ -3212,7 +3155,6 @@
             }();
             this.Resolver = function(_super) {
                 __extends(Resolver, _super);
-                Resolver.name = "Resolver";
                 function Resolver() {
                     return Resolver.__super__.constructor.apply(this, arguments);
                 }
@@ -3272,7 +3214,7 @@
                         return _results;
                     }()));
                     function _Class(stream) {
-                        var component, _i, _len, _ref;
+                        var _i, _len, _ref;
                         components[0].call(this, stream);
                         _ref = components.slice(1);
                         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
