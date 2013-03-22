@@ -297,7 +297,7 @@ class @Constructor extends @BaseConstructor
     values[key] = match[index] for key, index of TIMESTAMP_PARTS
     
     year  = parseInt values.year
-    month = parseInt values.month
+    month = parseInt values.month - 1
     day   = parseInt values.day
     return new Date year, month, day unless values.hour
     
