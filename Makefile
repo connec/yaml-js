@@ -1,13 +1,22 @@
+COFFEE := node_modules/.bin/coffee
+SQUASH := node_modules/.bin/squash
+
+ifeq ($(OS),Windows_NT)
+	# Change path separators on Windows as it does not like forward-slashes in binary paths
+	COFFEE := $(subst /,\,$(COFFEE))
+	SQUASH := $(subst /,\,$(SQUASH))
+endif
+
 build: build-node build-browser
 
 build-node:
-	coffee -o lib -c src
+	$(COFFEE) -o lib -c src
 
 build-browser:
-	node node_modules/squash/bin/cli.js --coffee -f yaml.js -o -r ./=yaml
-	node node_modules/squash/bin/cli.js --coffee -c -f yaml.min.js -o -r ./=yaml
+	$(SQUASH) --coffee -f yaml.js -o -r ./=yaml
+	$(SQUASH) --coffee -c -f yaml.min.js -o -r ./=yaml
 
 test: build
-	coffee test/test.coffee
+	$(COFFEE) test/test.coffee
 
 .PHONY: build build-node build-browser test
