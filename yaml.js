@@ -47,7 +47,7 @@
         "0": [ "./events" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -89,7 +89,8 @@
             this.CollectionEndEvent = function(_super) {
                 __extends(CollectionEndEvent, _super);
                 function CollectionEndEvent() {
-                    return CollectionEndEvent.__super__.constructor.apply(this, arguments);
+                    _ref = CollectionEndEvent.__super__.constructor.apply(this, arguments);
+                    return _ref;
                 }
                 return CollectionEndEvent;
             }(this.Event);
@@ -107,7 +108,8 @@
             this.StreamEndEvent = function(_super) {
                 __extends(StreamEndEvent, _super);
                 function StreamEndEvent() {
-                    return StreamEndEvent.__super__.constructor.apply(this, arguments);
+                    _ref1 = StreamEndEvent.__super__.constructor.apply(this, arguments);
+                    return _ref1;
                 }
                 return StreamEndEvent;
             }(this.Event);
@@ -134,7 +136,8 @@
             this.AliasEvent = function(_super) {
                 __extends(AliasEvent, _super);
                 function AliasEvent() {
-                    return AliasEvent.__super__.constructor.apply(this, arguments);
+                    _ref2 = AliasEvent.__super__.constructor.apply(this, arguments);
+                    return _ref2;
                 }
                 return AliasEvent;
             }(this.NodeEvent);
@@ -154,28 +157,32 @@
             this.SequenceStartEvent = function(_super) {
                 __extends(SequenceStartEvent, _super);
                 function SequenceStartEvent() {
-                    return SequenceStartEvent.__super__.constructor.apply(this, arguments);
+                    _ref3 = SequenceStartEvent.__super__.constructor.apply(this, arguments);
+                    return _ref3;
                 }
                 return SequenceStartEvent;
             }(this.CollectionStartEvent);
             this.SequenceEndEvent = function(_super) {
                 __extends(SequenceEndEvent, _super);
                 function SequenceEndEvent() {
-                    return SequenceEndEvent.__super__.constructor.apply(this, arguments);
+                    _ref4 = SequenceEndEvent.__super__.constructor.apply(this, arguments);
+                    return _ref4;
                 }
                 return SequenceEndEvent;
             }(this.CollectionEndEvent);
             this.MappingStartEvent = function(_super) {
                 __extends(MappingStartEvent, _super);
                 function MappingStartEvent() {
-                    return MappingStartEvent.__super__.constructor.apply(this, arguments);
+                    _ref5 = MappingStartEvent.__super__.constructor.apply(this, arguments);
+                    return _ref5;
                 }
                 return MappingStartEvent;
             }(this.CollectionStartEvent);
             this.MappingEndEvent = function(_super) {
                 __extends(MappingEndEvent, _super);
                 function MappingEndEvent() {
-                    return MappingEndEvent.__super__.constructor.apply(this, arguments);
+                    _ref6 = MappingEndEvent.__super__.constructor.apply(this, arguments);
+                    return _ref6;
                 }
                 return MappingEndEvent;
             }(this.CollectionEndEvent);
@@ -218,7 +225,7 @@
                     if (max_length == null) {
                         max_length = 75;
                     }
-                    if (!(this.buffer != null)) {
+                    if (this.buffer == null) {
                         return null;
                     }
                     break_chars = "\0\r\n\u2028\u2029";
@@ -280,7 +287,7 @@
                     if (this.context != null) {
                         lines.push(this.context);
                     }
-                    if (this.context_mark != null && (!(this.problem != null) || !(this.problem_mark != null) || this.context_mark.name !== this.problem_mark.name || this.context_mark.line !== this.problem_mark.line || this.context_mark.column !== this.problem_mark.column)) {
+                    if (this.context_mark != null && (this.problem == null || this.problem_mark == null || this.context_mark.name !== this.problem_mark.name || this.context_mark.line !== this.problem_mark.line || this.context_mark.column !== this.problem_mark.column)) {
                         lines.push(this.context_mark.toString());
                     }
                     if (this.problem != null) {
@@ -302,7 +309,7 @@
         "0": [ "./nodes" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var unique_id, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var unique_id, _ref, _ref1, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -353,7 +360,8 @@
             this.SequenceNode = function(_super) {
                 __extends(SequenceNode, _super);
                 function SequenceNode() {
-                    return SequenceNode.__super__.constructor.apply(this, arguments);
+                    _ref = SequenceNode.__super__.constructor.apply(this, arguments);
+                    return _ref;
                 }
                 SequenceNode.prototype.id = "sequence";
                 return SequenceNode;
@@ -361,7 +369,8 @@
             this.MappingNode = function(_super) {
                 __extends(MappingNode, _super);
                 function MappingNode() {
-                    return MappingNode.__super__.constructor.apply(this, arguments);
+                    _ref1 = MappingNode.__super__.constructor.apply(this, arguments);
+                    return _ref1;
                 }
                 MappingNode.prototype.id = "mapping";
                 return MappingNode;
@@ -372,7 +381,7 @@
         "0": [ "./composer" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var MarkedYAMLError, events, nodes, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var MarkedYAMLError, events, nodes, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -390,7 +399,8 @@
             this.ComposerError = function(_super) {
                 __extends(ComposerError, _super);
                 function ComposerError() {
-                    return ComposerError.__super__.constructor.apply(this, arguments);
+                    _ref = ComposerError.__super__.constructor.apply(this, arguments);
+                    return _ref;
                 }
                 return ComposerError;
             }(MarkedYAMLError);
@@ -548,7 +558,7 @@
         "0": [ "./constructor" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var MarkedYAMLError, nodes, util, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var MarkedYAMLError, nodes, util, _ref, _ref1, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -571,7 +581,8 @@
             this.ConstructorError = function(_super) {
                 __extends(ConstructorError, _super);
                 function ConstructorError() {
-                    return ConstructorError.__super__.constructor.apply(this, arguments);
+                    _ref = ConstructorError.__super__.constructor.apply(this, arguments);
+                    return _ref;
                 }
                 return ConstructorError;
             }(MarkedYAMLError);
@@ -623,11 +634,11 @@
                     return this.deferred_constructors.push(f);
                 };
                 BaseConstructor.prototype.construct_object = function(node) {
-                    var constructor, object, tag_prefix, tag_suffix, _ref;
+                    var constructor, object, tag_prefix, tag_suffix, _ref1;
                     if (node.unique_id in this.constructed_objects) {
                         return this.constructed_objects[node.unique_id];
                     }
-                    if (_ref = node.unique_id, __indexOf.call(this.constructing_nodes, _ref) >= 0) {
+                    if (_ref1 = node.unique_id, __indexOf.call(this.constructing_nodes, _ref1) >= 0) {
                         throw new exports.ConstructorError(null, null, "found unconstructable recursive node", node.start_mark);
                     }
                     this.constructing_nodes.push(node.unique_id);
@@ -643,7 +654,7 @@
                                 break;
                             }
                         }
-                        if (!(constructor != null)) {
+                        if (constructor == null) {
                             if (null in this.yaml_multi_constructors) {
                                 tag_suffix = node.tag;
                                 constructor = this.yaml_multi_constructors[null];
@@ -670,27 +681,27 @@
                     return node.value;
                 };
                 BaseConstructor.prototype.construct_sequence = function(node) {
-                    var child, _i, _len, _ref, _results;
+                    var child, _i, _len, _ref1, _results;
                     if (!(node instanceof nodes.SequenceNode)) {
                         throw new exports.ConstructorError(null, null, "expected a sequence node but found " + node.id, node.start_mark);
                     }
-                    _ref = node.value;
+                    _ref1 = node.value;
                     _results = [];
-                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                        child = _ref[_i];
+                    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+                        child = _ref1[_i];
                         _results.push(this.construct_object(child));
                     }
                     return _results;
                 };
                 BaseConstructor.prototype.construct_mapping = function(node) {
-                    var key, key_node, mapping, value, value_node, _i, _len, _ref, _ref1;
+                    var key, key_node, mapping, value, value_node, _i, _len, _ref1, _ref2;
                     if (!(node instanceof nodes.MappingNode)) {
                         throw new ConstructorError(null, null, "expected a mapping node but found " + node.id, node.start_mark);
                     }
                     mapping = {};
-                    _ref = node.value;
-                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                        _ref1 = _ref[_i], key_node = _ref1[0], value_node = _ref1[1];
+                    _ref1 = node.value;
+                    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+                        _ref2 = _ref1[_i], key_node = _ref2[0], value_node = _ref2[1];
                         key = this.construct_object(key_node);
                         if (typeof key === "object") {
                             throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "found unhashable key", key_node.start_mark);
@@ -701,14 +712,14 @@
                     return mapping;
                 };
                 BaseConstructor.prototype.construct_pairs = function(node) {
-                    var key, key_node, pairs, value, value_node, _i, _len, _ref, _ref1;
+                    var key, key_node, pairs, value, value_node, _i, _len, _ref1, _ref2;
                     if (!(node instanceof nodes.MappingNode)) {
                         throw new exports.ConstructorError(null, null, "expected a mapping node but found " + node.id, node.start_mark);
                     }
                     pairs = [];
-                    _ref = node.value;
-                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                        _ref1 = _ref[_i], key_node = _ref1[0], value_node = _ref1[1];
+                    _ref1 = node.value;
+                    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+                        _ref2 = _ref1[_i], key_node = _ref2[0], value_node = _ref2[1];
                         key = this.construct_object(key_node);
                         value = this.construct_object(value_node);
                         pairs.push([ key, value ]);
@@ -721,7 +732,8 @@
                 var BOOL_VALUES, TIMESTAMP_PARTS, TIMESTAMP_REGEX;
                 __extends(Constructor, _super);
                 function Constructor() {
-                    return Constructor.__super__.constructor.apply(this, arguments);
+                    _ref1 = Constructor.__super__.constructor.apply(this, arguments);
+                    return _ref1;
                 }
                 BOOL_VALUES = {
                     on: true,
@@ -748,11 +760,11 @@
                 Constructor.prototype.yaml_constructors = {};
                 Constructor.prototype.yaml_multi_constructors = {};
                 Constructor.prototype.construct_scalar = function(node) {
-                    var key_node, value_node, _i, _len, _ref, _ref1;
+                    var key_node, value_node, _i, _len, _ref2, _ref3;
                     if (node instanceof nodes.MappingNode) {
-                        _ref = node.value;
-                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            _ref1 = _ref[_i], key_node = _ref1[0], value_node = _ref1[1];
+                        _ref2 = node.value;
+                        for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+                            _ref3 = _ref2[_i], key_node = _ref3[0], value_node = _ref3[1];
                             if (key_node.tag === "tag:yaml.org,2002:value") {
                                 return this.construct_scalar(value_node);
                             }
@@ -761,11 +773,11 @@
                     return Constructor.__super__.construct_scalar.call(this, node);
                 };
                 Constructor.prototype.flatten_mapping = function(node) {
-                    var index, key_node, merge, submerge, subnode, value, value_node, _i, _j, _len, _len1, _ref, _ref1;
+                    var index, key_node, merge, submerge, subnode, value, value_node, _i, _j, _len, _len1, _ref2, _ref3;
                     merge = [];
                     index = 0;
                     while (index < node.value.length) {
-                        _ref = node.value[index], key_node = _ref[0], value_node = _ref[1];
+                        _ref2 = node.value[index], key_node = _ref2[0], value_node = _ref2[1];
                         if (key_node.tag === "tag:yaml.org,2002:merge") {
                             node.value.splice(index, 1);
                             if (value_node instanceof nodes.MappingNode) {
@@ -773,9 +785,9 @@
                                 merge = merge.concat(value_node.value);
                             } else if (value_node instanceof nodes.SequenceNode) {
                                 submerge = [];
-                                _ref1 = value_node.value;
-                                for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                                    subnode = _ref1[_i];
+                                _ref3 = value_node.value;
+                                for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
+                                    subnode = _ref3[_i];
                                     if (!(subnode instanceof nodes.MappingNode)) {
                                         throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping for merging, but found " + subnode.id, subnode.start_mark);
                                     }
@@ -817,11 +829,11 @@
                     return BOOL_VALUES[value.toLowerCase()];
                 };
                 Constructor.prototype.construct_yaml_int = function(node) {
-                    var base, digit, digits, part, sign, value, _i, _len, _ref;
+                    var base, digit, digits, part, sign, value, _i, _len, _ref2;
                     value = this.construct_scalar(node);
                     value = value.replace("_", "");
                     sign = value[0] === "-" ? -1 : 1;
-                    if (_ref = value[0], __indexOf.call("+-", _ref) >= 0) {
+                    if (_ref2 = value[0], __indexOf.call("+-", _ref2) >= 0) {
                         value = value.slice(1);
                     }
                     if (value === "0") {
@@ -836,11 +848,11 @@
                         return sign * parseInt(value, 8);
                     } else if (__indexOf.call(value, ":") >= 0) {
                         digits = function() {
-                            var _i, _len, _ref1, _results;
-                            _ref1 = value.split(/:/g);
+                            var _i, _len, _ref3, _results;
+                            _ref3 = value.split(/:/g);
                             _results = [];
-                            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                                part = _ref1[_i];
+                            for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
+                                part = _ref3[_i];
                                 _results.push(parseInt(part));
                             }
                             return _results;
@@ -859,11 +871,11 @@
                     }
                 };
                 Constructor.prototype.construct_yaml_float = function(node) {
-                    var base, digit, digits, part, sign, value, _i, _len, _ref;
+                    var base, digit, digits, part, sign, value, _i, _len, _ref2;
                     value = this.construct_scalar(node);
                     value = value.replace("_", "").toLowerCase();
                     sign = value[0] === "-" ? -1 : 1;
-                    if (_ref = value[0], __indexOf.call("+-", _ref) >= 0) {
+                    if (_ref2 = value[0], __indexOf.call("+-", _ref2) >= 0) {
                         value = value.slice(1);
                     }
                     if (value === ".inf") {
@@ -872,11 +884,11 @@
                         return NaN;
                     } else if (__indexOf.call(value, ":") >= 0) {
                         digits = function() {
-                            var _i, _len, _ref1, _results;
-                            _ref1 = value.split(/:/g);
+                            var _i, _len, _ref3, _results;
+                            _ref3 = value.split(/:/g);
                             _results = [];
-                            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                                part = _ref1[_i];
+                            for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
+                                part = _ref3[_i];
                                 _results.push(parseFloat(part));
                             }
                             return _results;
@@ -895,14 +907,15 @@
                     }
                 };
                 Constructor.prototype.construct_yaml_binary = function(node) {
-                    var value;
+                    var error, value;
                     value = this.construct_scalar(node);
                     try {
                         if (typeof window !== "undefined" && window !== null) {
                             return atob(value);
                         }
                         return (new Buffer(value, "base64")).toString("ascii");
-                    } catch (error) {
+                    } catch (_error) {
+                        error = _error;
                         throw new exports.ConstructorError(null, null, "failed to decode base64 data: " + error, node.start_mark);
                     }
                 };
@@ -952,18 +965,18 @@
                         throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a sequence but found " + node.id, node.start_mark);
                     }
                     this.defer(function() {
-                        var key, key_node, subnode, value, value_node, _i, _len, _ref, _ref1, _results;
-                        _ref = node.value;
+                        var key, key_node, subnode, value, value_node, _i, _len, _ref2, _ref3, _results;
+                        _ref2 = node.value;
                         _results = [];
-                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            subnode = _ref[_i];
+                        for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+                            subnode = _ref2[_i];
                             if (!(subnode instanceof nodes.MappingNode)) {
                                 throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
                             }
                             if (subnode.value.length !== 1) {
                                 throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
                             }
-                            _ref1 = subnode.value[0], key_node = _ref1[0], value_node = _ref1[1];
+                            _ref3 = subnode.value[0], key_node = _ref3[0], value_node = _ref3[1];
                             key = _this.construct_object(key_node);
                             value = _this.construct_object(value_node);
                             _results.push(list.push([ key, value ]));
@@ -998,11 +1011,11 @@
                     var data, _this = this;
                     data = [];
                     this.defer(function() {
-                        var item, _i, _len, _ref, _results;
-                        _ref = _this.construct_sequence(node);
+                        var item, _i, _len, _ref2, _results;
+                        _ref2 = _this.construct_sequence(node);
                         _results = [];
-                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            item = _ref[_i];
+                        for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+                            item = _ref2[_i];
                             _results.push(data.push(item));
                         }
                         return _results;
@@ -1013,11 +1026,11 @@
                     var data, _this = this;
                     data = {};
                     this.defer(function() {
-                        var key, value, _ref, _results;
-                        _ref = _this.construct_mapping(node);
+                        var key, value, _ref2, _results;
+                        _ref2 = _this.construct_mapping(node);
                         _results = [];
-                        for (key in _ref) {
-                            value = _ref[key];
+                        for (key in _ref2) {
+                            value = _ref2[key];
                             _results.push(data[key] = value);
                         }
                         return _results;
@@ -1028,11 +1041,11 @@
                     var data, _this = this;
                     data = new klass;
                     this.defer(function() {
-                        var key, value, _ref, _results;
-                        _ref = _this.construct_mapping(node, true);
+                        var key, value, _ref2, _results;
+                        _ref2 = _this.construct_mapping(node, true);
                         _results = [];
-                        for (key in _ref) {
-                            value = _ref[key];
+                        for (key in _ref2) {
+                            value = _ref2[key];
                             _results.push(data[key] = value);
                         }
                         return _results;
@@ -1157,7 +1170,7 @@
         "0": [ "./tokens" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var _ref, _ref1, _ref10, _ref11, _ref12, _ref13, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -1190,7 +1203,8 @@
             this.DocumentStartToken = function(_super) {
                 __extends(DocumentStartToken, _super);
                 function DocumentStartToken() {
-                    return DocumentStartToken.__super__.constructor.apply(this, arguments);
+                    _ref = DocumentStartToken.__super__.constructor.apply(this, arguments);
+                    return _ref;
                 }
                 DocumentStartToken.prototype.id = "<document start>";
                 return DocumentStartToken;
@@ -1198,7 +1212,8 @@
             this.DocumentEndToken = function(_super) {
                 __extends(DocumentEndToken, _super);
                 function DocumentEndToken() {
-                    return DocumentEndToken.__super__.constructor.apply(this, arguments);
+                    _ref1 = DocumentEndToken.__super__.constructor.apply(this, arguments);
+                    return _ref1;
                 }
                 DocumentEndToken.prototype.id = "<document end>";
                 return DocumentEndToken;
@@ -1216,7 +1231,8 @@
             this.StreamEndToken = function(_super) {
                 __extends(StreamEndToken, _super);
                 function StreamEndToken() {
-                    return StreamEndToken.__super__.constructor.apply(this, arguments);
+                    _ref2 = StreamEndToken.__super__.constructor.apply(this, arguments);
+                    return _ref2;
                 }
                 StreamEndToken.prototype.id = "<stream end>";
                 return StreamEndToken;
@@ -1224,7 +1240,8 @@
             this.BlockSequenceStartToken = function(_super) {
                 __extends(BlockSequenceStartToken, _super);
                 function BlockSequenceStartToken() {
-                    return BlockSequenceStartToken.__super__.constructor.apply(this, arguments);
+                    _ref3 = BlockSequenceStartToken.__super__.constructor.apply(this, arguments);
+                    return _ref3;
                 }
                 BlockSequenceStartToken.prototype.id = "<block sequence start>";
                 return BlockSequenceStartToken;
@@ -1232,7 +1249,8 @@
             this.BlockMappingStartToken = function(_super) {
                 __extends(BlockMappingStartToken, _super);
                 function BlockMappingStartToken() {
-                    return BlockMappingStartToken.__super__.constructor.apply(this, arguments);
+                    _ref4 = BlockMappingStartToken.__super__.constructor.apply(this, arguments);
+                    return _ref4;
                 }
                 BlockMappingStartToken.prototype.id = "<block mapping end>";
                 return BlockMappingStartToken;
@@ -1240,7 +1258,8 @@
             this.BlockEndToken = function(_super) {
                 __extends(BlockEndToken, _super);
                 function BlockEndToken() {
-                    return BlockEndToken.__super__.constructor.apply(this, arguments);
+                    _ref5 = BlockEndToken.__super__.constructor.apply(this, arguments);
+                    return _ref5;
                 }
                 BlockEndToken.prototype.id = "<block end>";
                 return BlockEndToken;
@@ -1248,7 +1267,8 @@
             this.FlowSequenceStartToken = function(_super) {
                 __extends(FlowSequenceStartToken, _super);
                 function FlowSequenceStartToken() {
-                    return FlowSequenceStartToken.__super__.constructor.apply(this, arguments);
+                    _ref6 = FlowSequenceStartToken.__super__.constructor.apply(this, arguments);
+                    return _ref6;
                 }
                 FlowSequenceStartToken.prototype.id = "[";
                 return FlowSequenceStartToken;
@@ -1256,7 +1276,8 @@
             this.FlowMappingStartToken = function(_super) {
                 __extends(FlowMappingStartToken, _super);
                 function FlowMappingStartToken() {
-                    return FlowMappingStartToken.__super__.constructor.apply(this, arguments);
+                    _ref7 = FlowMappingStartToken.__super__.constructor.apply(this, arguments);
+                    return _ref7;
                 }
                 FlowMappingStartToken.prototype.id = "{";
                 return FlowMappingStartToken;
@@ -1264,7 +1285,8 @@
             this.FlowSequenceEndToken = function(_super) {
                 __extends(FlowSequenceEndToken, _super);
                 function FlowSequenceEndToken() {
-                    return FlowSequenceEndToken.__super__.constructor.apply(this, arguments);
+                    _ref8 = FlowSequenceEndToken.__super__.constructor.apply(this, arguments);
+                    return _ref8;
                 }
                 FlowSequenceEndToken.prototype.id = "]";
                 return FlowSequenceEndToken;
@@ -1272,7 +1294,8 @@
             this.FlowMappingEndToken = function(_super) {
                 __extends(FlowMappingEndToken, _super);
                 function FlowMappingEndToken() {
-                    return FlowMappingEndToken.__super__.constructor.apply(this, arguments);
+                    _ref9 = FlowMappingEndToken.__super__.constructor.apply(this, arguments);
+                    return _ref9;
                 }
                 FlowMappingEndToken.prototype.id = "}";
                 return FlowMappingEndToken;
@@ -1280,7 +1303,8 @@
             this.KeyToken = function(_super) {
                 __extends(KeyToken, _super);
                 function KeyToken() {
-                    return KeyToken.__super__.constructor.apply(this, arguments);
+                    _ref10 = KeyToken.__super__.constructor.apply(this, arguments);
+                    return _ref10;
                 }
                 KeyToken.prototype.id = "?";
                 return KeyToken;
@@ -1288,7 +1312,8 @@
             this.ValueToken = function(_super) {
                 __extends(ValueToken, _super);
                 function ValueToken() {
-                    return ValueToken.__super__.constructor.apply(this, arguments);
+                    _ref11 = ValueToken.__super__.constructor.apply(this, arguments);
+                    return _ref11;
                 }
                 ValueToken.prototype.id = ":";
                 return ValueToken;
@@ -1296,7 +1321,8 @@
             this.BlockEntryToken = function(_super) {
                 __extends(BlockEntryToken, _super);
                 function BlockEntryToken() {
-                    return BlockEntryToken.__super__.constructor.apply(this, arguments);
+                    _ref12 = BlockEntryToken.__super__.constructor.apply(this, arguments);
+                    return _ref12;
                 }
                 BlockEntryToken.prototype.id = "-";
                 return BlockEntryToken;
@@ -1304,7 +1330,8 @@
             this.FlowEntryToken = function(_super) {
                 __extends(FlowEntryToken, _super);
                 function FlowEntryToken() {
-                    return FlowEntryToken.__super__.constructor.apply(this, arguments);
+                    _ref13 = FlowEntryToken.__super__.constructor.apply(this, arguments);
+                    return _ref13;
                 }
                 FlowEntryToken.prototype.id = ",";
                 return FlowEntryToken;
@@ -1357,7 +1384,7 @@
         "0": [ "./scanner" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var MarkedYAMLError, SimpleKey, tokens, util, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var MarkedYAMLError, SimpleKey, tokens, util, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -1380,7 +1407,8 @@
             this.ScannerError = function(_super) {
                 __extends(ScannerError, _super);
                 function ScannerError() {
-                    return ScannerError.__super__.constructor.apply(this, arguments);
+                    _ref = ScannerError.__super__.constructor.apply(this, arguments);
+                    return _ref;
                 }
                 return ScannerError;
             }(MarkedYAMLError);
@@ -1553,12 +1581,12 @@
                     throw new exports.ScannerError("while scanning for the next token", null, "found character " + char + " that cannot start any token", this.get_mark());
                 };
                 Scanner.prototype.next_possible_simple_key = function() {
-                    var key, level, min_token_number, _ref;
+                    var key, level, min_token_number, _ref1;
                     min_token_number = null;
-                    _ref = this.possible_simple_keys;
-                    for (level in _ref) {
-                        if (!__hasProp.call(_ref, level)) continue;
-                        key = _ref[level];
+                    _ref1 = this.possible_simple_keys;
+                    for (level in _ref1) {
+                        if (!__hasProp.call(_ref1, level)) continue;
+                        key = _ref1[level];
                         if (min_token_number === null || key.token_number < min_token_number) {
                             min_token_number = key.token_number;
                         }
@@ -1566,12 +1594,12 @@
                     return min_token_number;
                 };
                 Scanner.prototype.stale_possible_simple_keys = function() {
-                    var key, level, _ref, _results;
-                    _ref = this.possible_simple_keys;
+                    var key, level, _ref1, _results;
+                    _ref1 = this.possible_simple_keys;
                     _results = [];
-                    for (level in _ref) {
-                        if (!__hasProp.call(_ref, level)) continue;
-                        key = _ref[level];
+                    for (level in _ref1) {
+                        if (!__hasProp.call(_ref1, level)) continue;
+                        key = _ref1[level];
                         if (key.line === this.line && this.index - key.index <= 1024) {
                             continue;
                         }
@@ -1813,44 +1841,44 @@
                     return false;
                 };
                 Scanner.prototype.check_document_start = function() {
-                    var _ref;
-                    if (this.column === 0 && this.prefix(3) === "---" && (_ref = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref) >= 0)) {
+                    var _ref1;
+                    if (this.column === 0 && this.prefix(3) === "---" && (_ref1 = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0)) {
                         return true;
                     }
                     return false;
                 };
                 Scanner.prototype.check_document_end = function() {
-                    var _ref;
-                    if (this.column === 0 && this.prefix(3) === "..." && (_ref = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref) >= 0)) {
+                    var _ref1;
+                    if (this.column === 0 && this.prefix(3) === "..." && (_ref1 = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0)) {
                         return true;
                     }
                     return false;
                 };
                 Scanner.prototype.check_block_entry = function() {
-                    var _ref;
-                    return _ref = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref) >= 0;
+                    var _ref1;
+                    return _ref1 = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0;
                 };
                 Scanner.prototype.check_key = function() {
-                    var _ref;
+                    var _ref1;
                     if (this.flow_level !== 0) {
                         return true;
                     }
-                    return _ref = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref) >= 0;
+                    return _ref1 = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0;
                 };
                 Scanner.prototype.check_value = function() {
-                    var _ref;
+                    var _ref1;
                     if (this.flow_level !== 0) {
                         return true;
                     }
-                    return _ref = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref) >= 0;
+                    return _ref1 = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0;
                 };
                 Scanner.prototype.check_plain = function() {
-                    var char, _ref;
+                    var char, _ref1;
                     char = this.peek();
-                    return __indexOf.call(C_LB + C_WS + "\0-?:,[]{}#&*!|>'\"%@`", char) < 0 || (_ref = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref) < 0) && (char === "-" || this.flow_level === 0 && __indexOf.call("?:", char) >= 0);
+                    return __indexOf.call(C_LB + C_WS + "\0-?:,[]{}#&*!|>'\"%@`", char) < 0 || (_ref1 = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref1) < 0) && (char === "-" || this.flow_level === 0 && __indexOf.call("?:", char) >= 0);
                 };
                 Scanner.prototype.scan_to_next_token = function() {
-                    var found, _ref, _results;
+                    var found, _ref1, _results;
                     if (this.index === 0 && this.peek() === "﻿") {
                         this.forward();
                     }
@@ -1861,7 +1889,7 @@
                             this.forward();
                         }
                         if (this.peek() === "#") {
-                            while (_ref = this.peek(), __indexOf.call(C_LB + "\0", _ref) < 0) {
+                            while (_ref1 = this.peek(), __indexOf.call(C_LB + "\0", _ref1) < 0) {
                                 this.forward();
                             }
                         }
@@ -1878,7 +1906,7 @@
                     return _results;
                 };
                 Scanner.prototype.scan_directive = function() {
-                    var end_mark, name, start_mark, value, _ref;
+                    var end_mark, name, start_mark, value, _ref1;
                     start_mark = this.get_mark();
                     this.forward();
                     name = this.scan_directive_name(start_mark);
@@ -1891,7 +1919,7 @@
                         end_mark = this.get_mark();
                     } else {
                         end_mark = this.get_mark();
-                        while (_ref = this.peek(), __indexOf.call(C_LB + "\0", _ref) < 0) {
+                        while (_ref1 = this.peek(), __indexOf.call(C_LB + "\0", _ref1) < 0) {
                             this.forward();
                         }
                     }
@@ -1914,7 +1942,7 @@
                     return value;
                 };
                 Scanner.prototype.scan_yaml_directive_value = function(start_mark) {
-                    var major, minor, _ref;
+                    var major, minor, _ref1;
                     while (this.peek() === " ") {
                         this.forward();
                     }
@@ -1922,15 +1950,15 @@
                     throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit or '.' but found " + this.peek(), this.peek() !== "." ? this.get_mark() : void 0);
                     this.forward();
                     minor = this.scan_yaml_directive_number(start_mark);
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit or ' ' but found " + this.peek(), (_ref = this.peek(), __indexOf.call(C_LB + "\0 ", _ref) < 0) ? this.get_mark() : void 0);
+                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit or ' ' but found " + this.peek(), (_ref1 = this.peek(), __indexOf.call(C_LB + "\0 ", _ref1) < 0) ? this.get_mark() : void 0);
                     return [ major, minor ];
                 };
                 Scanner.prototype.scan_yaml_directive_number = function(start_mark) {
-                    var char, length, value, _ref;
+                    var char, length, value, _ref1;
                     char = this.peek();
                     throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit but found " + char, !("0" <= char && char <= "9") ? this.get_mark() : void 0);
                     length = 0;
-                    while ("0" <= (_ref = this.peek(length)) && _ref <= "9") {
+                    while ("0" <= (_ref1 = this.peek(length)) && _ref1 <= "9") {
                         length++;
                     }
                     value = parseInt(this.prefix(length));
@@ -1964,12 +1992,12 @@
                     return value;
                 };
                 Scanner.prototype.scan_directive_ignored_line = function(start_mark) {
-                    var char, _ref;
+                    var char, _ref1;
                     while (this.peek() === " ") {
                         this.forward();
                     }
                     if (this.peek() === "#") {
-                        while (_ref = this.peek(), __indexOf.call(C_LB + "\0", _ref) < 0) {
+                        while (_ref1 = this.peek(), __indexOf.call(C_LB + "\0", _ref1) < 0) {
                             this.forward();
                         }
                     }
@@ -2046,38 +2074,38 @@
                     return new tokens.TagToken([ handle, suffix ], start_mark, this.get_mark());
                 };
                 Scanner.prototype.scan_block_scalar = function(style) {
-                    var breaks, chomping, chunks, end_mark, folded, increment, indent, leading_non_space, length, line_break, max_indent, min_indent, start_mark, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6;
+                    var breaks, chomping, chunks, end_mark, folded, increment, indent, leading_non_space, length, line_break, max_indent, min_indent, start_mark, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7;
                     folded = style === ">";
                     chunks = [];
                     start_mark = this.get_mark();
                     this.forward();
-                    _ref = this.scan_block_scalar_indicators(start_mark), chomping = _ref[0], increment = _ref[1];
+                    _ref1 = this.scan_block_scalar_indicators(start_mark), chomping = _ref1[0], increment = _ref1[1];
                     this.scan_block_scalar_ignored_line(start_mark);
                     min_indent = this.indent + 1;
                     if (min_indent < 1) {
                         min_indent = 1;
                     }
-                    if (!(increment != null)) {
-                        _ref1 = this.scan_block_scalar_indentation(), breaks = _ref1[0], max_indent = _ref1[1], end_mark = _ref1[2];
+                    if (increment == null) {
+                        _ref2 = this.scan_block_scalar_indentation(), breaks = _ref2[0], max_indent = _ref2[1], end_mark = _ref2[2];
                         indent = Math.max(min_indent, max_indent);
                     } else {
                         indent = min_indent + increment - 1;
-                        _ref2 = this.scan_block_scalar_breaks(indent), breaks = _ref2[0], end_mark = _ref2[1];
+                        _ref3 = this.scan_block_scalar_breaks(indent), breaks = _ref3[0], end_mark = _ref3[1];
                     }
                     line_break = "";
                     while (this.column === indent && this.peek() !== "\0") {
                         chunks = chunks.concat(breaks);
-                        leading_non_space = (_ref3 = this.peek(), __indexOf.call(" 	", _ref3) < 0);
+                        leading_non_space = (_ref4 = this.peek(), __indexOf.call(" 	", _ref4) < 0);
                         length = 0;
-                        while (_ref4 = this.peek(length), __indexOf.call(C_LB + "\0", _ref4) < 0) {
+                        while (_ref5 = this.peek(length), __indexOf.call(C_LB + "\0", _ref5) < 0) {
                             length++;
                         }
                         chunks.push(this.prefix(length));
                         this.forward(length);
                         line_break = this.scan_line_break();
-                        _ref5 = this.scan_block_scalar_breaks(indent), breaks = _ref5[0], end_mark = _ref5[1];
+                        _ref6 = this.scan_block_scalar_breaks(indent), breaks = _ref6[0], end_mark = _ref6[1];
                         if (this.column === indent && this.peek() !== "\0") {
-                            if (folded && line_break === "\n" && leading_non_space && (_ref6 = this.peek(), __indexOf.call(" 	", _ref6) < 0)) {
+                            if (folded && line_break === "\n" && leading_non_space && (_ref7 = this.peek(), __indexOf.call(" 	", _ref7) < 0)) {
                                 if (util.is_empty(breaks)) {
                                     chunks.push(" ");
                                 }
@@ -2131,12 +2159,12 @@
                     return [ chomping, increment ];
                 };
                 Scanner.prototype.scan_block_scalar_ignored_line = function(start_mark) {
-                    var char, _ref;
+                    var char, _ref1;
                     while (this.peek() === " ") {
                         this.forward();
                     }
                     if (this.peek() === "#") {
-                        while (_ref = this.peek(), __indexOf.call(C_LB + "\0", _ref) < 0) {
+                        while (_ref1 = this.peek(), __indexOf.call(C_LB + "\0", _ref1) < 0) {
                             this.forward();
                         }
                     }
@@ -2147,11 +2175,11 @@
                     return this.scan_line_break();
                 };
                 Scanner.prototype.scan_block_scalar_indentation = function() {
-                    var chunks, end_mark, max_indent, _ref;
+                    var chunks, end_mark, max_indent, _ref1;
                     chunks = [];
                     max_indent = 0;
                     end_mark = this.get_mark();
-                    while (_ref = this.peek(), __indexOf.call(C_LB + " ", _ref) >= 0) {
+                    while (_ref1 = this.peek(), __indexOf.call(C_LB + " ", _ref1) >= 0) {
                         if (this.peek() !== " ") {
                             chunks.push(this.scan_line_break());
                             end_mark = this.get_mark();
@@ -2165,13 +2193,13 @@
                     return [ chunks, max_indent, end_mark ];
                 };
                 Scanner.prototype.scan_block_scalar_breaks = function(indent) {
-                    var chunks, end_mark, _ref;
+                    var chunks, end_mark, _ref1;
                     chunks = [];
                     end_mark = this.get_mark();
                     while (this.column < indent && this.peek() === " ") {
                         this.forward();
                     }
-                    while (_ref = this.peek(), __indexOf.call(C_LB, _ref) >= 0) {
+                    while (_ref1 = this.peek(), __indexOf.call(C_LB, _ref1) >= 0) {
                         chunks.push(this.scan_line_break());
                         end_mark = this.get_mark();
                         while (this.column < indent && this.peek() === " ") {
@@ -2196,11 +2224,11 @@
                     return new tokens.ScalarToken(chunks.join(""), false, start_mark, this.get_mark(), style);
                 };
                 Scanner.prototype.scan_flow_scalar_non_spaces = function(double, start_mark) {
-                    var char, chunks, code, k, length, _i, _ref;
+                    var char, chunks, code, k, length, _i, _ref1;
                     chunks = [];
                     while (true) {
                         length = 0;
-                        while (_ref = this.peek(length), __indexOf.call(C_LB + C_WS + "'\"\\\0", _ref) < 0) {
+                        while (_ref1 = this.peek(length), __indexOf.call(C_LB + C_WS + "'\"\\\0", _ref1) < 0) {
                             length++;
                         }
                         if (length !== 0) {
@@ -2243,10 +2271,10 @@
                     }
                 };
                 Scanner.prototype.scan_flow_scalar_spaces = function(double, start_mark) {
-                    var breaks, char, chunks, length, line_break, whitespaces, _ref;
+                    var breaks, char, chunks, length, line_break, whitespaces, _ref1;
                     chunks = [];
                     length = 0;
-                    while (_ref = this.peek(length), __indexOf.call(C_WS, _ref) >= 0) {
+                    while (_ref1 = this.peek(length), __indexOf.call(C_WS, _ref1) >= 0) {
                         length++;
                     }
                     whitespaces = this.prefix(length);
@@ -2270,15 +2298,15 @@
                     return chunks;
                 };
                 Scanner.prototype.scan_flow_scalar_breaks = function(double, start_mark) {
-                    var chunks, prefix, _ref, _ref1;
+                    var chunks, prefix, _ref1, _ref2;
                     chunks = [];
                     while (true) {
                         prefix = this.prefix(3);
                         throw new exports.ScannerError("while scanning a quoted scalar", start_mark, "found unexpected document separator", prefix === "---" || prefix === "..." && this.peek(__indexOf.call(C_LB + C_WS + "\0", 3) >= 0) ? this.get_mark() : void 0);
-                        while (_ref = this.peek(), __indexOf.call(C_WS, _ref) >= 0) {
+                        while (_ref1 = this.peek(), __indexOf.call(C_WS, _ref1) >= 0) {
                             this.forward();
                         }
-                        if (_ref1 = this.peek(), __indexOf.call(C_LB, _ref1) >= 0) {
+                        if (_ref2 = this.peek(), __indexOf.call(C_LB, _ref2) >= 0) {
                             chunks.push(this.scan_line_break());
                         } else {
                             return chunks;
@@ -2286,7 +2314,7 @@
                     }
                 };
                 Scanner.prototype.scan_plain = function() {
-                    var char, chunks, end_mark, indent, length, spaces, start_mark, _ref, _ref1;
+                    var char, chunks, end_mark, indent, length, spaces, start_mark, _ref1, _ref2;
                     chunks = [];
                     start_mark = end_mark = this.get_mark();
                     indent = this.indent + 1;
@@ -2298,12 +2326,12 @@
                         }
                         while (true) {
                             char = this.peek(length);
-                            if (__indexOf.call(C_LB + C_WS + "\0", char) >= 0 || this.flow_level === 0 && char === ":" && (_ref = this.peek(length + 1), __indexOf.call(C_LB + C_WS + "\0", _ref) >= 0) || this.flow_level !== 0 && __indexOf.call(",:?[]{}", char) >= 0) {
+                            if (__indexOf.call(C_LB + C_WS + "\0", char) >= 0 || this.flow_level === 0 && char === ":" && (_ref1 = this.peek(length + 1), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0) || this.flow_level !== 0 && __indexOf.call(",:?[]{}", char) >= 0) {
                                 break;
                             }
                             length++;
                         }
-                        if (this.flow_level !== 0 && char === ":" && (_ref1 = this.peek(length + 1), __indexOf.call(C_LB + C_WS + "\0,[]{}", _ref1) < 0)) {
+                        if (this.flow_level !== 0 && char === ":" && (_ref2 = this.peek(length + 1), __indexOf.call(C_LB + C_WS + "\0,[]{}", _ref2) < 0)) {
                             this.forward(length);
                             throw new exports.ScannerError("while scanning a plain scalar", start_mark, "found unexpected ':'", this.get_mark(), "Please check http://pyyaml.org/wiki/YAMLColonInFlowContext");
                         }
@@ -2316,17 +2344,17 @@
                         this.forward(length);
                         end_mark = this.get_mark();
                         spaces = this.scan_plain_spaces(indent, start_mark);
-                        if (!(spaces != null) || spaces.length === 0 || this.peek() === "#" || this.flow_level === 0 && this.column < indent) {
+                        if (spaces == null || spaces.length === 0 || this.peek() === "#" || this.flow_level === 0 && this.column < indent) {
                             break;
                         }
                     }
                     return new tokens.ScalarToken(chunks.join(""), true, start_mark, end_mark);
                 };
                 Scanner.prototype.scan_plain_spaces = function(indent, start_mark) {
-                    var breaks, char, chunks, length, line_break, prefix, whitespaces, _ref, _ref1;
+                    var breaks, char, chunks, length, line_break, prefix, whitespaces, _ref1, _ref2;
                     chunks = [];
                     length = 0;
-                    while (_ref = this.peek(length), __indexOf.call(" ", _ref) >= 0) {
+                    while (_ref1 = this.peek(length), __indexOf.call(" ", _ref1) >= 0) {
                         length++;
                     }
                     whitespaces = this.prefix(length);
@@ -2340,7 +2368,7 @@
                             return;
                         }
                         breaks = [];
-                        while (_ref1 = this.peek(), __indexOf.call(C_LB + " ", _ref1) >= 0) {
+                        while (_ref2 = this.peek(), __indexOf.call(C_LB + " ", _ref2) >= 0) {
                             if (this.peek() === " ") {
                                 this.forward();
                             } else {
@@ -2449,7 +2477,7 @@
         "0": [ "./parser" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var MarkedYAMLError, events, tokens, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var MarkedYAMLError, events, tokens, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -2467,7 +2495,8 @@
             this.ParserError = function(_super) {
                 __extends(ParserError, _super);
                 function ParserError() {
-                    return ParserError.__super__.constructor.apply(this, arguments);
+                    _ref = ParserError.__super__.constructor.apply(this, arguments);
+                    return _ref;
                 }
                 return ParserError;
             }(MarkedYAMLError);
@@ -2547,13 +2576,13 @@
                     }
                 };
                 Parser.prototype.parse_document_start = function() {
-                    var end_mark, event, start_mark, tags, token, version, _ref;
+                    var end_mark, event, start_mark, tags, token, version, _ref1;
                     while (this.check_token(tokens.DocumentEndToken)) {
                         this.get_token();
                     }
                     if (!this.check_token(tokens.StreamEndToken)) {
                         start_mark = this.peek_token().start_mark;
-                        _ref = this.process_directives(), version = _ref[0], tags = _ref[1];
+                        _ref1 = this.process_directives(), version = _ref1[0], tags = _ref1[1];
                         if (!this.check_token(tokens.DocumentStartToken)) {
                             throw new exports.ParserError("expected '<document start>', but found " + this.peek_token().id, this.peek_token().start_mark);
                         }
@@ -2600,7 +2629,7 @@
                     }
                 };
                 Parser.prototype.process_directives = function() {
-                    var handle, major, minor, prefix, tag_handles_copy, token, value, _ref, _ref1, _ref2;
+                    var handle, major, minor, prefix, tag_handles_copy, token, value, _ref1, _ref2, _ref3;
                     this.yaml_version = null;
                     this.tag_handles = {};
                     while (this.check_token(tokens.DirectiveToken)) {
@@ -2609,13 +2638,13 @@
                             if (this.yaml_version !== null) {
                                 throw new exports.ParserError(null, null, "found duplicate YAML directive", token.start_mark);
                             }
-                            _ref = token.value, major = _ref[0], minor = _ref[1];
+                            _ref1 = token.value, major = _ref1[0], minor = _ref1[1];
                             if (major !== 1) {
                                 throw new exports.ParserError(null, null, "found incompatible YAML document (version 1.* is required)", token.start_mark);
                             }
                             this.yaml_version = token.value;
                         } else if (token.name === "TAG") {
-                            _ref1 = this.tag_handles, handle = _ref1[0], prefix = _ref1[1];
+                            _ref2 = this.tag_handles, handle = _ref2[0], prefix = _ref2[1];
                             if (handle in this.tag_handles) {
                                 throw new exports.ParserError(null, null, "duplicate tag handle " + handle, token.start_mark);
                             }
@@ -2623,10 +2652,10 @@
                         }
                     }
                     tag_handles_copy = null;
-                    _ref2 = this.tag_handles;
-                    for (handle in _ref2) {
-                        if (!__hasProp.call(_ref2, handle)) continue;
-                        prefix = _ref2[handle];
+                    _ref3 = this.tag_handles;
+                    for (handle in _ref3) {
+                        if (!__hasProp.call(_ref3, handle)) continue;
+                        prefix = _ref3[handle];
                         if (tag_handles_copy == null) {
                             tag_handles_copy = {};
                         }
@@ -2986,7 +3015,7 @@
         "0": [ "./resolver" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var YAMLError, nodes, util, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var YAMLError, nodes, util, _ref, _ref1, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -3009,7 +3038,8 @@
             this.ResolverError = function(_super) {
                 __extends(ResolverError, _super);
                 function ResolverError() {
-                    return ResolverError.__super__.constructor.apply(this, arguments);
+                    _ref = ResolverError.__super__.constructor.apply(this, arguments);
+                    return _ref;
                 }
                 return ResolverError;
             }(YAMLError);
@@ -3021,7 +3051,7 @@
                 BaseResolver.prototype.yaml_implicit_resolvers = {};
                 BaseResolver.prototype.yaml_path_resolvers = {};
                 BaseResolver.add_implicit_resolver = function(tag, regexp, first) {
-                    var char, _base, _i, _len, _ref, _results;
+                    var char, _base, _i, _len, _ref1, _results;
                     if (first == null) {
                         first = [ null ];
                     }
@@ -3031,7 +3061,7 @@
                     _results = [];
                     for (_i = 0, _len = first.length; _i < _len; _i++) {
                         char = first[_i];
-                        _results.push(((_ref = (_base = this.prototype.yaml_implicit_resolvers)[char]) != null ? _ref : _base[char] = []).push([ tag, regexp ]));
+                        _results.push(((_ref1 = (_base = this.prototype.yaml_implicit_resolvers)[char]) != null ? _ref1 : _base[char] = []).push([ tag, regexp ]));
                     }
                     return _results;
                 };
@@ -3040,7 +3070,7 @@
                     this.resolver_prefix_paths = [];
                 }
                 BaseResolver.prototype.descend_resolver = function(current_node, current_index) {
-                    var depth, exact_paths, kind, path, prefix_paths, _i, _j, _len, _len1, _ref, _ref1, _ref2, _ref3;
+                    var depth, exact_paths, kind, path, prefix_paths, _i, _j, _len, _len1, _ref1, _ref2, _ref3, _ref4;
                     if (util.is_empty(this.yaml_path_resolvers)) {
                         return;
                     }
@@ -3048,9 +3078,9 @@
                     prefix_paths = [];
                     if (current_node) {
                         depth = this.resolver_prefix_paths.length;
-                        _ref = this.resolver_prefix_paths.slice(-1)[0];
-                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            _ref1 = _ref[_i], path = _ref1[0], kind = _ref1[1];
+                        _ref1 = this.resolver_prefix_paths.slice(-1)[0];
+                        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+                            _ref2 = _ref1[_i], path = _ref2[0], kind = _ref2[1];
                             if (this.check_resolver_prefix(depth, path, kind, current_node, current_index)) {
                                 if (path.length > depth) {
                                     prefix_paths.push([ path, kind ]);
@@ -3060,9 +3090,9 @@
                             }
                         }
                     } else {
-                        _ref2 = this.yaml_path_resolvers;
-                        for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
-                            _ref3 = _ref2[_j], path = _ref3[0], kind = _ref3[1];
+                        _ref3 = this.yaml_path_resolvers;
+                        for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
+                            _ref4 = _ref3[_j], path = _ref4[0], kind = _ref4[1];
                             if (!path) {
                                 exact_paths[kind] = this.yaml_path_resolvers[path][kind];
                             } else {
@@ -3081,8 +3111,8 @@
                     return this.resolver_prefix_paths.pop();
                 };
                 BaseResolver.prototype.check_resolver_prefix = function(depth, path, kind, current_node, current_index) {
-                    var index_check, node_check, _ref;
-                    _ref = path[depth - 1], node_check = _ref[0], index_check = _ref[1];
+                    var index_check, node_check, _ref1;
+                    _ref1 = path[depth - 1], node_check = _ref1[0], index_check = _ref1[1];
                     if (typeof node_check === "string") {
                         if (current_node.tag !== node_check) {
                             return;
@@ -3110,16 +3140,16 @@
                     return true;
                 };
                 BaseResolver.prototype.resolve = function(kind, value, implicit) {
-                    var empty, exact_paths, k, regexp, resolvers, tag, _i, _len, _ref, _ref1, _ref2, _ref3;
+                    var empty, exact_paths, k, regexp, resolvers, tag, _i, _len, _ref1, _ref2, _ref3, _ref4;
                     if (kind === nodes.ScalarNode && implicit[0]) {
                         if (value === "") {
-                            resolvers = (_ref = this.yaml_implicit_resolvers[""]) != null ? _ref : [];
+                            resolvers = (_ref1 = this.yaml_implicit_resolvers[""]) != null ? _ref1 : [];
                         } else {
-                            resolvers = (_ref1 = this.yaml_implicit_resolvers[value[0]]) != null ? _ref1 : [];
+                            resolvers = (_ref2 = this.yaml_implicit_resolvers[value[0]]) != null ? _ref2 : [];
                         }
-                        resolvers = resolvers.concat((_ref2 = this.yaml_implicit_resolvers[null]) != null ? _ref2 : []);
+                        resolvers = resolvers.concat((_ref3 = this.yaml_implicit_resolvers[null]) != null ? _ref3 : []);
                         for (_i = 0, _len = resolvers.length; _i < _len; _i++) {
-                            _ref3 = resolvers[_i], tag = _ref3[0], regexp = _ref3[1];
+                            _ref4 = resolvers[_i], tag = _ref4[0], regexp = _ref4[1];
                             if (value.match(regexp)) {
                                 return tag;
                             }
@@ -3156,7 +3186,8 @@
             this.Resolver = function(_super) {
                 __extends(Resolver, _super);
                 function Resolver() {
-                    return Resolver.__super__.constructor.apply(this, arguments);
+                    _ref1 = Resolver.__super__.constructor.apply(this, arguments);
+                    return _ref1;
                 }
                 return Resolver;
             }(this.BaseResolver);
