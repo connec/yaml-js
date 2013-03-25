@@ -297,9 +297,9 @@ class @Constructor extends @BaseConstructor
     values[key] = match[index] for key, index of TIMESTAMP_PARTS
     
     year  = parseInt values.year
-    month = parseInt values.month
+    month = parseInt(values.month) - 1
     day   = parseInt values.day
-    return new Date year, month, day unless values.hour
+    return new Date Date.UTC year, month, day unless values.hour
     
     hour        = parseInt values.hour
     minute      = parseInt values.minute
@@ -314,7 +314,7 @@ class @Constructor extends @BaseConstructor
       tz_sign = if values.tz_sign is '-' then 1 else -1
       hour   += tz_sign * tz_hour   if tz_hour   = parseInt values.tz_hour
       minute += tz_sign * tz_minute if tz_minute = parseInt values.tz_minute
-    date = new Date year, month, day, hour, minute, second, millisecond
+    date = new Date Date.UTC year, month, day, hour, minute, second, millisecond
     return date
   
   construct_yaml_pair_list: (type, node) ->
