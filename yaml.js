@@ -929,10 +929,10 @@
                         values[key] = match[index];
                     }
                     year = parseInt(values.year);
-                    month = parseInt(values.month);
+                    month = parseInt(values.month) - 1;
                     day = parseInt(values.day);
                     if (!values.hour) {
-                        return new Date(year, month, day);
+                        return new Date(Date.UTC(year, month, day));
                     }
                     hour = parseInt(values.hour);
                     minute = parseInt(values.minute);
@@ -955,7 +955,7 @@
                             minute += tz_sign * tz_minute;
                         }
                     }
-                    date = new Date(year, month, day, hour, minute, second, millisecond);
+                    date = new Date(Date.UTC(year, month, day, hour, minute, second, millisecond));
                     return date;
                 };
                 Constructor.prototype.construct_yaml_pair_list = function(type, node) {
