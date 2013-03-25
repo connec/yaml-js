@@ -929,7 +929,7 @@
                         values[key] = match[index];
                     }
                     year = parseInt(values.year);
-                    month = parseInt(values.month);
+                    month = parseInt(values.month) - 1;
                     day = parseInt(values.day);
                     if (!values.hour) {
                         return new Date(year, month, day);
