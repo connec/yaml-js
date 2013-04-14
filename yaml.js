@@ -800,7 +800,7 @@
                                     merge = merge.concat(value);
                                 }
                             } else {
-                                throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping or list of mappings for             merging but found " + value_node.id, value_node.start_mark);
+                                throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping or list of mappings for            merging but found " + value_node.id, value_node.start_mark);
                             }
                         } else if (key_node.tag === "tag:yaml.org,2002:value") {
                             key_node.tag = "tag:yaml.org,2002:str";
@@ -831,7 +831,7 @@
                 Constructor.prototype.construct_yaml_int = function(node) {
                     var base, digit, digits, part, sign, value, _i, _len, _ref2;
                     value = this.construct_scalar(node);
-                    value = value.replace("_", "");
+                    value = value.replace(/_/g, "");
                     sign = value[0] === "-" ? -1 : 1;
                     if (_ref2 = value[0], __indexOf.call("+-", _ref2) >= 0) {
                         value = value.slice(1);
@@ -873,7 +873,7 @@
                 Constructor.prototype.construct_yaml_float = function(node) {
                     var base, digit, digits, part, sign, value, _i, _len, _ref2;
                     value = this.construct_scalar(node);
-                    value = value.replace("_", "").toLowerCase();
+                    value = value.replace(/_/g, "").toLowerCase();
                     sign = value[0] === "-" ? -1 : 1;
                     if (_ref2 = value[0], __indexOf.call("+-", _ref2) >= 0) {
                         value = value.slice(1);
@@ -3260,7 +3260,7 @@
         }).call(this);
     });
     register({
-        "": [ "./lib/yaml" ]
+        "": [ "yaml" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
             var fs;
@@ -3346,11 +3346,6 @@
                 };
             }
         }).call(this);
-    });
-    register({
-        "": [ "yaml" ]
-    }, "", function(global, module, exports, require, window) {
-        module.exports = require("./lib/yaml");
     });
     root["yaml"] = require_from(null, "")("yaml");
 }).call(this);
