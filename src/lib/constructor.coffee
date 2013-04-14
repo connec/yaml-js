@@ -5,36 +5,36 @@ util              = require './util'
 class @ConstructorError extends MarkedYAMLError
 
 class @BaseConstructor
-  
+
   yaml_constructors      : {}
   yaml_multi_constructors: {}
-  
+
   @add_constructor: (tag, constructor) ->
     unless @::hasOwnProperty 'yaml_constructors'
       @::yaml_constructors = util.extend {}, @::yaml_constructors
     @::yaml_constructors[tag] = constructor
-  
+
   @add_multi_constructor: (tag_prefix, multi_constructor) ->
     unless @::hasOwnProperty 'yaml_multi_constructors'
       @::yaml_multi_constructors = util.extend {}, @::yaml_multi_constructors
     @::yaml_multi_constructors[tag_prefix] = multi_constructor
-  
+
   constructor: ->
     @constructed_objects   = {}
     @constructing_nodes    = []
     @deferred_constructors = []
-  
+
   ###
   Are there more documents available?
   ###
   check_data: -> @check_node()
-  
+
   ###
   Construct and return the next document.
   ###
   get_data: ->
     return @construct_document @get_node() if @check_node()
-  
+
   ###
   Ensure that the stream contains a single document and construct it.
   ###
@@ -42,15 +42,15 @@ class @BaseConstructor
     node = @get_single_node()
     return @construct_document node if node?
     return null
-  
+
   construct_document: (node) ->
     data = @construct_object node
     while not util.is_empty @deferred_constructors
       @deferred_constructors.pop()()
     return data
-  
+
   defer: (f) -> @deferred_constructors.push f
-  
+
   construct_object: (node) ->
     return @constructed_objects[node.unique_id] \
       if node.unique_id of @constructed_objects
@@ -58,7 +58,7 @@ class @BaseConstructor
       'found unconstructable recursive node', node.start_mark \
       if node.unique_id in @constructing_nodes
     @constructing_nodes.push node.unique_id
-    
+
     constructor = null
     tag_suffix  = null
     if node.tag of @yaml_constructors
@@ -85,19 +85,19 @@ class @BaseConstructor
     @constructed_objects[node.unique_id] = object
     @constructing_nodes.pop()
     return object
-  
+
   construct_scalar: (node) ->
     throw new exports.ConstructorError null, null, \
       "expected a scalar node but found #{node.id}", node.start_mark \
       unless node instanceof nodes.ScalarNode
     node.value
-  
+
   construct_sequence: (node) ->
     throw new exports.ConstructorError null, null, \
       "expected a sequence node but found #{node.id}", node.start_mark \
       unless node instanceof nodes.SequenceNode
     @construct_object child for child in node.value
-  
+
   construct_mapping: (node) ->
     throw new ConstructorError null, null, \
       "expected a mapping node but found #{node.id}", node.start_mark \
@@ -111,7 +111,7 @@ class @BaseConstructor
       value = @construct_object value_node
       mapping[key] = value
     return mapping
-  
+
   construct_pairs: (node) ->
     throw new exports.ConstructorError null, null, \
       "expected a mapping node but found #{node.id}", node.start_mark \
@@ -124,7 +124,7 @@ class @BaseConstructor
     return pairs
 
 class @Constructor extends @BaseConstructor
-  
+
   BOOL_VALUES =
     on   : true
     off  : false
@@ -132,7 +132,7 @@ class @Constructor extends @BaseConstructor
     false: false
     yes  : true
     no   : false
-  
+
   TIMESTAMP_REGEX = \
     ///
     ^
@@ -151,7 +151,7 @@ class @Constructor extends @BaseConstructor
         [\x20\t]*
         (
           Z
-        | 
+        |
           ([-+])           #  9: tz_sign
           ([0-9][0-9]?)    # 10: tz_hour
           (?:
@@ -174,17 +174,17 @@ class @Constructor extends @BaseConstructor
     tz_sign  : 9
     tz_hour  : 10
     tz_minute: 11
-  
+
   yaml_constructors      : {}
   yaml_multi_constructors: {}
-  
+
   construct_scalar: (node) ->
     if node instanceof nodes.MappingNode
       for [key_node, value_node] in node.value
         return @construct_scalar value_node \
           if key_node.tag is 'tag:yaml.org,2002:value'
     return super node
-  
+
   flatten_mapping: (node) ->
     merge = []
     index = 0
@@ -209,7 +209,7 @@ class @Constructor extends @BaseConstructor
           merge = merge.concat value for value in submerge
         else
           throw new exports.ConstructorError 'while constructing a mapping',
-            node.start_mark, "expected a mapping or list of mappings for 
+            node.start_mark, "expected a mapping or list of mappings for
             merging but found #{value_node.id}", value_node.start_mark
       else if key_node.tag == 'tag:yaml.org,2002:value'
         key_node.tag = 'tag:yaml.org,2002:str'
@@ -218,25 +218,25 @@ class @Constructor extends @BaseConstructor
         index++
     if merge.length
       node.value = merge.concat node.value
-  
+
   construct_mapping: (node) ->
     @flatten_mapping node if node instanceof nodes.MappingNode
     return super node
-  
+
   construct_yaml_null: (node) ->
     @construct_scalar node
     return null
-  
+
   construct_yaml_bool: (node) ->
     value = @construct_scalar node
     return BOOL_VALUES[value.toLowerCase()]
-  
+
   construct_yaml_int: (node) ->
     value = @construct_scalar node
     value = value.replace '_', ''
     sign  = if value[0] is '-' then -1 else 1
     value = value[1...] if value[0] in '+-'
-    
+
     if value is '0'
       return 0
     else if value.indexOf('0b') is 0
@@ -258,13 +258,13 @@ class @Constructor extends @BaseConstructor
       return sign * value
     else
       return sign * parseInt value
-  
+
   construct_yaml_float: (node) ->
     value = @construct_scalar node
     value = value.replace('_', '').toLowerCase()
     sign  = if value[0] is '-' then -1 else 1
     value = value[1...] if value[0] in '+-'
-    
+
     if value is '.inf'
       return sign * Infinity
     else if value is '.nan'
@@ -280,7 +280,7 @@ class @Constructor extends @BaseConstructor
       return sign * value
     else
       return sign * parseFloat value
-  
+
   construct_yaml_binary: (node) ->
     value = @construct_scalar node
     try
@@ -289,18 +289,18 @@ class @Constructor extends @BaseConstructor
     catch error
       throw new exports.ConstructorError null, null,
         "failed to decode base64 data: #{error}", node.start_mark
-  
+
   construct_yaml_timestamp: (node) ->
     value  = @construct_scalar node
     match  = node.value.match TIMESTAMP_REGEX
     values = {}
     values[key] = match[index] for key, index of TIMESTAMP_PARTS
-    
+
     year  = parseInt values.year
     month = parseInt(values.month) - 1
     day   = parseInt values.day
     return new Date Date.UTC year, month, day unless values.hour
-    
+
     hour        = parseInt values.hour
     minute      = parseInt values.minute
     second      = parseInt values.second
@@ -316,61 +316,61 @@ class @Constructor extends @BaseConstructor
       minute += tz_sign * tz_minute if tz_minute = parseInt values.tz_minute
     date = new Date Date.UTC year, month, day, hour, minute, second, millisecond
     return date
-  
+
   construct_yaml_pair_list: (type, node) ->
     list = []
     throw new exports.ConstructorError "while constructing #{type}", \
       node.start_mark, "expected a sequence but found #{node.id}", \
       node.start_mark unless node instanceof nodes.SequenceNode
-    
+
     @defer =>
       for subnode in node.value
         throw new exports.ConstructorError "while constructing #{type}", \
           node.start_mark, \
           "expected a mapping of length 1 but found #{subnode.id}", \
           subnode.start_mark unless subnode instanceof nodes.MappingNode
-        
+
         throw new exports.ConstructorError "while constructing #{type}", \
           node.start_mark, \
           "expected a mapping of length 1 but found #{subnode.id}", \
           subnode.start_mark unless subnode.value.length is 1
-        
+
         [key_node, value_node] = subnode.value[0]
         key   = @construct_object key_node
         value = @construct_object value_node
         list.push [key, value]
     return list
-  
+
   construct_yaml_omap: (node) ->
     @construct_yaml_pair_list 'an ordered map', node
-  
+
   construct_yaml_pairs: (node) ->
     @construct_yaml_pair_list 'pairs', node
-  
+
   construct_yaml_set: (node) ->
     data = []
     @defer => data.push item for item of @construct_mapping node
     return data
-  
+
   construct_yaml_str: (node) ->
     @construct_scalar node
-  
+
   construct_yaml_seq: (node) ->
     data = []
     @defer => data.push item for item in @construct_sequence node
     return data
-  
+
   construct_yaml_map: (node) ->
     data = {}
     @defer => data[key] = value for key, value of @construct_mapping node
     return data
-  
+
   construct_yaml_object: (node, klass) ->
     data = new klass
     @defer =>
       data[key] = value for key, value of @construct_mapping node, true
     return data
-  
+
   construct_undefined: (node) ->
     throw new exports.ConstructorError null, null,
       "could not determine a constructor for the tag #{node.tag}",
