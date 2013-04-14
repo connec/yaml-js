@@ -233,7 +233,7 @@ class @Constructor extends @BaseConstructor
 
   construct_yaml_int: (node) ->
     value = @construct_scalar node
-    value = value.replace '_', ''
+    value = value.replace /_/g, ''
     sign  = if value[0] is '-' then -1 else 1
     value = value[1...] if value[0] in '+-'
 
@@ -261,7 +261,7 @@ class @Constructor extends @BaseConstructor
 
   construct_yaml_float: (node) ->
     value = @construct_scalar node
-    value = value.replace('_', '').toLowerCase()
+    value = value.replace(/_/g, '').toLowerCase()
     sign  = if value[0] is '-' then -1 else 1
     value = value[1...] if value[0] in '+-'
 
