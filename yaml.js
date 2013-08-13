@@ -2224,7 +2224,7 @@
                     return new tokens.ScalarToken(chunks.join(""), false, start_mark, this.get_mark(), style);
                 };
                 Scanner.prototype.scan_flow_scalar_non_spaces = function(double, start_mark) {
-                    var char, chunks, code, k, length, _i, _ref1;
+                    var char, chunks, code, k, length, _i, _ref1, _ref2;
                     chunks = [];
                     while (true) {
                         length = 0;
@@ -2252,7 +2252,7 @@
                                 length = ESCAPE_CODES[char];
                                 this.forward();
                                 for (k = _i = 0; 0 <= length ? _i < length : _i > length; k = 0 <= length ? ++_i : --_i) {
-                                    if (this.peek(__indexOf.call(C_NUMBERS + "ABCDEFabcdef", k) < 0)) {
+                                    if (_ref2 = this.peek(k), __indexOf.call(C_NUMBERS + "ABCDEFabcdef", _ref2) < 0) {
                                         throw new exports.ScannerError("while scanning a double-quoted scalar", start_mark, "expected escape sequence of " + length + " hexadecimal numbers, but              found " + this.peek(k), this.get_mark());
                                     }
                                 }
@@ -2298,15 +2298,17 @@
                     return chunks;
                 };
                 Scanner.prototype.scan_flow_scalar_breaks = function(double, start_mark) {
-                    var chunks, prefix, _ref1, _ref2;
+                    var chunks, prefix, _ref1, _ref2, _ref3;
                     chunks = [];
                     while (true) {
                         prefix = this.prefix(3);
-                        throw new exports.ScannerError("while scanning a quoted scalar", start_mark, "found unexpected document separator", prefix === "---" || prefix === "..." && this.peek(__indexOf.call(C_LB + C_WS + "\0", 3) >= 0) ? this.get_mark() : void 0);
-                        while (_ref1 = this.peek(), __indexOf.call(C_WS, _ref1) >= 0) {
+                        if (prefix === "---" || prefix === "..." && (_ref1 = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0)) {
+                            throw new exports.ScannerError("while scanning a quoted scalar", start_mark, "found unexpected document separator", this.get_mark());
+                        }
+                        while (_ref2 = this.peek(), __indexOf.call(C_WS, _ref2) >= 0) {
                             this.forward();
                         }
-                        if (_ref2 = this.peek(), __indexOf.call(C_LB, _ref2) >= 0) {
+                        if (_ref3 = this.peek(), __indexOf.call(C_LB, _ref3) >= 0) {
                             chunks.push(this.scan_line_break());
                         } else {
                             return chunks;
@@ -2351,7 +2353,7 @@
                     return new tokens.ScalarToken(chunks.join(""), true, start_mark, end_mark);
                 };
                 Scanner.prototype.scan_plain_spaces = function(indent, start_mark) {
-                    var breaks, char, chunks, length, line_break, prefix, whitespaces, _ref1, _ref2;
+                    var breaks, char, chunks, length, line_break, prefix, whitespaces, _ref1, _ref2, _ref3, _ref4;
                     chunks = [];
                     length = 0;
                     while (_ref1 = this.peek(length), __indexOf.call(" ", _ref1) >= 0) {
@@ -2364,17 +2366,17 @@
                         line_break = this.scan_line_break();
                         this.allow_simple_key = true;
                         prefix = this.prefix(3);
-                        if (prefix === "---" || prefix === "..." && this.peek(__indexOf.call(C_LB + C_WS + "\0", 3) >= 0)) {
+                        if (prefix === "---" || prefix === "..." && (_ref2 = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref2) >= 0)) {
                             return;
                         }
                         breaks = [];
-                        while (_ref2 = this.peek(), __indexOf.call(C_LB + " ", _ref2) >= 0) {
+                        while (_ref4 = this.peek(), __indexOf.call(C_LB + " ", _ref4) >= 0) {
                             if (this.peek() === " ") {
                                 this.forward();
                             } else {
                                 breaks.push(this.scan_line_break());
                                 prefix = this.prefix(3);
-                                if (prefix === "---" || prefix === "..." && this.peek(__indexOf.call(C_LB + C_WS + "\0", 3) >= 0)) {
+                                if (prefix === "---" || prefix === "..." && (_ref3 = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref3) >= 0)) {
                                     return;
                                 }
                             }
