@@ -2224,7 +2224,7 @@
                     return new tokens.ScalarToken(chunks.join(""), false, start_mark, this.get_mark(), style);
                 };
                 Scanner.prototype.scan_flow_scalar_non_spaces = function(double, start_mark) {
-                    var char, chunks, code, k, length, _i, _ref1;
+                    var char, chunks, code, k, length, _i, _ref1, _ref2;
                     chunks = [];
                     while (true) {
                         length = 0;
@@ -2252,7 +2252,7 @@
                                 length = ESCAPE_CODES[char];
                                 this.forward();
                                 for (k = _i = 0; 0 <= length ? _i < length : _i > length; k = 0 <= length ? ++_i : --_i) {
-                                    if (this.peek(__indexOf.call(C_NUMBERS + "ABCDEFabcdef", k) < 0)) {
+                                    if (_ref2 = this.peek(k), __indexOf.call(C_NUMBERS + "ABCDEFabcdef", _ref2) < 0) {
                                         throw new exports.ScannerError("while scanning a double-quoted scalar", start_mark, "expected escape sequence of " + length + " hexadecimal numbers, but              found " + this.peek(k), this.get_mark());
                                     }
                                 }
@@ -3051,7 +3051,7 @@
                 BaseResolver.prototype.yaml_implicit_resolvers = {};
                 BaseResolver.prototype.yaml_path_resolvers = {};
                 BaseResolver.add_implicit_resolver = function(tag, regexp, first) {
-                    var char, _base, _i, _len, _ref1, _results;
+                    var char, _base, _i, _len, _results;
                     if (first == null) {
                         first = [ null ];
                     }
@@ -3061,7 +3061,7 @@
                     _results = [];
                     for (_i = 0, _len = first.length; _i < _len; _i++) {
                         char = first[_i];
-                        _results.push(((_ref1 = (_base = this.prototype.yaml_implicit_resolvers)[char]) != null ? _ref1 : _base[char] = []).push([ tag, regexp ]));
+                        _results.push(((_base = this.prototype.yaml_implicit_resolvers)[char] != null ? (_base = this.prototype.yaml_implicit_resolvers)[char] : _base[char] = []).push([ tag, regexp ]));
                     }
                     return _results;
                 };

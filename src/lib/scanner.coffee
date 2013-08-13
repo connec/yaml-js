@@ -1091,7 +1091,7 @@ class @Scanner
               'while scanning a double-quoted scalar', start_mark,
               "expected escape sequence of #{length} hexadecimal numbers, but
               found #{@peek k}", @get_mark() \
-              if @peek k not in C_NUMBERS + 'ABCDEFabcdef'
+              if @peek(k) not in C_NUMBERS + 'ABCDEFabcdef'
           code = parseInt @prefix(length), 16
           chunks.push String.fromCharCode code
           @forward length
