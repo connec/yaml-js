@@ -50,35 +50,44 @@
     }
   </style>
   <script src='jquery.js'></script>
-  <script src='https://raw.github.com/connec/yaml-js/master/yaml.min.js'></script>
   <script>
+  (function() {
+    var resize = function() {
+      $('#yaml, #js').each(function() {
+        var $this = $(this);
+        $this.css('height', $('body').height() - $('h1').outerHeight(true) - ($this.outerHeight(true) - $this.height()) - 10);
+      });
+    };
 
-    $(function() {
-      var resize = function() {
-        $('#yaml, #js').each(function() {
-          var $this = $(this);
-          $this.css('height', $('body').height() - $('h1').outerHeight(true) - ($this.outerHeight(true) - $this.height()) - 10);
-        });
-      };
+    var update = function() {
+      var result;
+      try {
+        result = yaml.load($('#yaml').val());
+        console.log(result);
+        $('#js').text(JSON.stringify(result, null, '  '));
+        $('#js').html($('#js').html().replace(/\n/g, '<br>'));
+      } catch(e) {
+        $('#js').text(e.stack);
+        $('#js').html($('#js').html().replace(/\n/g, '<br>'));
+      }
+    };
+
+    var ready = function() {
       $(window).resize(resize);
       resize();
 
-      var update = function() {
-        var result;
-        try {
-          result = yaml.load($('#yaml').val());
-          console.log(result);
-          $('#js').text(JSON.stringify(result, null, '  '));
-          $('#js').html($('#js').html().replace(/\n/g, '<br>'));
-        } catch(e) {
-          $('#js').text(e.stack);
-          $('#js').html($('#js').html().replace(/\n/g, '<br>'));
-        }
-      };
       $('#yaml').keyup(update);
       update();
-    });
+    }
 
+    $.get('https://raw.github.com/connec/yaml-js/master/yaml.min.js', function(data) {
+      var script = document.createElement('script');
+      script.innerHTML = data;
+      document.head.appendChild(script);document.createElement('script')
+
+      $(ready);
+    });
+  })();
   </script>
 </head>
 <body>
