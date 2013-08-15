@@ -1089,9 +1089,9 @@ class @Scanner
           for k in [0...length]
             throw new exports.ScannerError \
               'while scanning a double-quoted scalar', start_mark,
-              "expected escape sequence of #{length} hexadecimal numbers, but
-              found #{@peek k}", @get_mark() \
-              if @peek k not in C_NUMBERS + 'ABCDEFabcdef'
+              "expected escape sequence of #{length} hexadecimal numbers, but #{
+              }found #{@peek k}", @get_mark() \
+              if @peek(k) not in C_NUMBERS + 'ABCDEFabcdef'
           code = parseInt @prefix(length), 16
           chunks.push String.fromCharCode code
           @forward length
@@ -1139,10 +1139,9 @@ class @Scanner
     while true
       # Instead of checking for indentation, we check for document separators.
       prefix = @prefix 3
-      throw new exports.ScannerError 'while scanning a quoted scalar',
-        start_mark, 'found unexpected document separator', @get_mark() \
-        if prefix is '---' or prefix is '...' \
-          and @peek 3 in C_LB + C_WS + '\x00'
+      if prefix is '---' or prefix is '...' and @peek(3) in C_LB + C_WS + '\x00'
+        throw new exports.ScannerError 'while scanning a quoted scalar',
+          start_mark, 'found unexpected document separator', @get_mark()
       @forward() while @peek() in C_WS
       if @peek() in C_LB
         chunks.push @scan_line_break()
@@ -1213,7 +1212,7 @@ class @Scanner
       @allow_simple_key = yes
       prefix = @prefix 3
       return if prefix is '---' or prefix is '...' \
-        and @peek 3 in C_LB + C_WS + '\x00'
+        and @peek(3) in C_LB + C_WS + '\x00'
       breaks = []
       while @peek() in C_LB + ' '
         if @peek() == ' '
@@ -1222,7 +1221,7 @@ class @Scanner
           breaks.push @scan_line_break()
           prefix = @prefix 3
           return if prefix is '---' or prefix is '...' \
-            and @peek 3 in C_LB + C_WS + '\x00'
+            and @peek(3) in C_LB + C_WS + '\x00'
 
       if line_break isnt '\n'
         chunks.push line_break
