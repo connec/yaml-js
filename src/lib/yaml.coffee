@@ -1,66 +1,106 @@
-# Attach all the classes to the yaml-js object.
-@composer    = require './composer'
-@constructor = require './constructor'
-@errors      = require './errors'
-@events      = require './events'
-@loader      = require './loader'
-@nodes       = require './nodes'
-@parser      = require './parser'
-@reader      = require './reader'
-@resolver    = require './resolver'
-@scanner     = require './scanner'
-@tokens      = require './tokens'
+composer    = require './composer'
+constructor = require './constructor'
+dumper      = require './dumper'
+errors      = require './errors'
+events      = require './events'
+loader      = require './loader'
+nodes       = require './nodes'
+parser      = require './parser'
+reader      = require './reader'
+resolver    = require './resolver'
+scanner     = require './scanner'
+tokens      = require './tokens'
+util        = require './util'
 
 ###
 Scan a YAML stream and produce scanning tokens.
 ###
-@scan = (stream, Loader = exports.loader.Loader) ->
-  loader = new Loader stream
-  loader.get_token() while loader.check_token()
+@scan = (stream, Loader = loader.Loader) ->
+  _loader = new Loader stream
+  _loader.get_token() while _loader.check_token()
 
 ###
 Parse a YAML stream and produce parsing events.
 ###
-@parse = (stream, Loader = exports.loader.Loader) ->
-  loader = new Loader stream
-  loader.get_event() while loader.check_event()
+@parse = (stream, Loader = loader.Loader) ->
+  _loader = new Loader stream
+  _loader.get_event() while _loader.check_event()
 
 ###
 Parse the first YAML document in a stream and produce the corresponding
 representation tree.
 ###
-@compose = (stream, Loader = exports.loader.Loader) ->
-  loader = new Loader stream
-  return loader.get_single_node()
+@compose = (stream, Loader = loader.Loader) ->
+  _loader = new Loader stream
+  _loader.get_single_node()
 
 ###
 Parse all YAML documents in a stream and produce corresponding representation
 trees.
 ###
-@compose_all = (stream, Loader = exports.loader.Loader) ->
-  loader = new Loader stream
-  loader.get_node() while loader.check_node()
+@compose_all = (stream, Loader = loader.Loader) ->
+  _loader = new Loader stream
+  _loader.get_node() while _loader.check_node()
 
 ###
 Parse the first YAML document in a stream and produce the corresponding
 Javascript object.
 ###
-@load = (stream, Loader = exports.loader.Loader) ->
-  loader = new Loader stream
-  loader.get_single_data()
+@load = (stream, Loader = loader.Loader) ->
+  _loader = new Loader stream
+  _loader.get_single_data()
 
 ###
 Parse all YAML documents in a stream and produce the corresponing Javascript
 object.
 ###
-@load_all = (stream, Loader = exports.loader.Loader) ->
-  loader = new Loader stream
-  loader.get_data() while loader.check_data()
+@load_all = (stream, Loader = loader.Loader) ->
+  _loader = new Loader stream
+  _loader.get_data() while _loader.check_data()
+
+###
+Emit YAML parsing events into a stream.
+If stream is falsey, return the produced string instead.
+###
+@emit = (events, stream, Dumper = dumper.Dumper, options = {}) ->
+  dest    = stream or new util.StringStream
+  _dumper = new Dumper dest, options
+  try
+    _dumper.emit event for event in events
+  finally
+    _dumper.dispose()
+  stream or dest.string
+
+###
+Serialize a representation tree into a YAML stream.
+If stream is falsey, return the produced string instead.
+###
+@serialize = (node, stream, Dumper = dumper.Dumper. options = {}) ->
+  exports.serialize_all [ node ], stream, Dumper, options
+
+###
+Serialize a sequence of representation tress into a YAML stream.
+If stream is falsey, return the produced string instead.
+###
+@serialize_all = (nodes, stream, Dumper = dumper.Dumper, options = {}) ->
+
+###
+Serialize a Javascript object into a YAML stream.
+If stream is falsey, return the produced string instead.
+###
+@dump = (data, stream, Dumper = dumper.Dumper, options = {}) ->
+  exports.dump_all [ data ], stream, Dumper, options
+
+###
+Serialize a sequence of Javascript objects into a YAML stream.
+If stream is falsey, return the produced string instead.
+###
+@dump_all = (documents, stream, Dumper = dumper.Dumper, options = {}) ->
 
 ###
 Register .yml and .yaml requires with yaml-js
 ###
-if require? and require.extensions
+if require?.extensions
   fs = require 'fs'
   require.extensions['.yml'] = require.extensions['.yaml'] = (module, filename) ->
     module.exports = exports.load_all fs.readFileSync filename, 'utf8'

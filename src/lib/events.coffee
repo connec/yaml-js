@@ -23,8 +23,7 @@ class @DocumentEndEvent extends @Event
 class @AliasEvent extends @NodeEvent
 
 class @ScalarEvent extends @NodeEvent
-  constructor: \
-    (@anchor, @tag, @implicit, @value, @start_mark, @end_mark, @style) ->
+  constructor: (@anchor, @tag, @implicit, @value, @start_mark, @end_mark, @style) ->
 
 class @SequenceStartEvent extends @CollectionStartEvent
 

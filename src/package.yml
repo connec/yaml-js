@@ -7,6 +7,6 @@ repository:
   url:           http://github.com/connec/yaml-js.git
 devDependencies:
   coffee-script: 1.6.x
-  plantation:    0.0.7
+  plantation:    0.0.8
   squash:        0.0.12
 license:         WTFPL
