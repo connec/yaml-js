@@ -75,7 +75,7 @@ If stream is falsey, return the produced string instead.
 Serialize a representation tree into a YAML stream.
 If stream is falsey, return the produced string instead.
 ###
-@serialize = (node, stream, Dumper = dumper.Dumper. options = {}) ->
+@serialize = (node, stream, Dumper = dumper.Dumper, options = {}) ->
   exports.serialize_all [ node ], stream, Dumper, options
 
 ###
@@ -83,6 +83,15 @@ Serialize a sequence of representation tress into a YAML stream.
 If stream is falsey, return the produced string instead.
 ###
 @serialize_all = (nodes, stream, Dumper = dumper.Dumper, options = {}) ->
+  dest    = stream or new util.StringStream
+  _dumper = new Dumper dest, options
+  try
+    _dumper.open()
+    _dumper.serialize node for node in nodes
+    _dumper.close()
+  finally
+    _dumper.dispose()
+  stream or dest.string
 
 ###
 Serialize a Javascript object into a YAML stream.

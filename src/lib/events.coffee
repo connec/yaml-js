@@ -5,12 +5,12 @@ class @NodeEvent extends @Event
   constructor: (@anchor, @start_mark, @end_mark) ->
 
 class @CollectionStartEvent extends @NodeEvent
-  constructor: (@anchor, @tag, @implicit, @start_mark, @end_mark) ->
+  constructor: (@anchor, @tag, @implicit, @start_mark, @end_mark, @flow_style) ->
 
 class @CollectionEndEvent extends @Event
 
 class @StreamStartEvent extends @Event
-  constructor: (@start_mark, @end_mark, @explicit, @version, @tags) ->
+  constructor: (@start_mark, @end_mark, @encoding) ->
 
 class @StreamEndEvent extends @Event
 

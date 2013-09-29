@@ -20,10 +20,15 @@ class @StringStream
   return false for own key of obj
   return true
 
-@to_hex = (num, min_size) ->
-  num    = num.charCodeAt 0 if typeof num is 'string'
-  result = num.toString 16
-  if result.size < min_size
-    "#{new Array(result.size - min_size + 1).join '0'}#{result}"
+@pad_left = (str, char, length) ->
+  str = String str
+  if str.length >= length
+    str
+  else if str.length + 1 == length
+    "#{char}#{str}"
   else
-    result
+    "#{new Array(length - str.length + 1).join char}#{str}"
+
+@to_hex = (num) ->
+  num    = num.charCodeAt 0 if typeof num is 'string'
+  num.toString 16

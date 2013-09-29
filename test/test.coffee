@@ -27,3 +27,7 @@ describe 'load', ->
 describe 'emit', ->
   each_test ->
     expect_equal @result, yaml.load(yaml.emit yaml.parse @yaml)
+
+describe 'serialize', ->
+  each_test ->
+    expect_equal @result, yaml.load(yaml.serialize yaml.compose @yaml)

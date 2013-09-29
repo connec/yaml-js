@@ -790,11 +790,11 @@ class @Emitter
           data = if char of ESCAPE_REPLACEMENTS
             '\\' + ESCAPE_REPLACEMENTS[char]
           else if char <= '\xFF'
-            "\\x#{util.to_hex char, 2}"
+            "\\x#{util.pad_left util.to_hex(char), '0', 2}"
           else if char <= '\uFFFF'
-            "\\u#{util.to_hex char, 4}"
+            "\\u#{util.pad_left util.to_hex(char), '0', 4}"
           else
-            "\\U#{util.to_hex char, 16}"
+            "\\U#{util.pad_left util.to_hex(char), '0', 16}"
           @column += data.length
           @stream.write data, @encoding
           start = end + 1
