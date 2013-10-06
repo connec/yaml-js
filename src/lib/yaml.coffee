@@ -105,6 +105,15 @@ Serialize a sequence of Javascript objects into a YAML stream.
 If stream is falsey, return the produced string instead.
 ###
 @dump_all = (documents, stream, Dumper = dumper.Dumper, options = {}) ->
+  dest    = stream or new util.StringStream
+  _dumper = new Dumper dest, options
+  try
+    _dumper.open()
+    _dumper.represent document for document in documents
+    _dumper.close()
+  finally
+    _dumper.dispose()
+  stream or dest.string
 
 ###
 Register .yml and .yaml requires with yaml-js

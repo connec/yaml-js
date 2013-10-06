@@ -49,7 +49,8 @@ class @BaseConstructor
       @deferred_constructors.pop()()
     return data
 
-  defer: (f) -> @deferred_constructors.push f
+  defer: (f) ->
+    @deferred_constructors.push f
 
   construct_object: (node) ->
     return @constructed_objects[node.unique_id] \
@@ -84,7 +85,7 @@ class @BaseConstructor
     object = constructor.call @, tag_suffix ? node, node
     @constructed_objects[node.unique_id] = object
     @constructing_nodes.pop()
-    return object
+    object
 
   construct_scalar: (node) ->
     throw new exports.ConstructorError null, null, \
@@ -174,9 +175,6 @@ class @Constructor extends @BaseConstructor
     tz_sign  : 9
     tz_hour  : 10
     tz_minute: 11
-
-  yaml_constructors      : {}
-  yaml_multi_constructors: {}
 
   construct_scalar: (node) ->
     if node instanceof nodes.MappingNode
