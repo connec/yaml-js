@@ -20,6 +20,8 @@ class @StringStream
   return false for own key of obj
   return true
 
+@inspect = require('util')?.inspect ? global.inspect ? (a) -> "#{a}"
+
 @pad_left = (str, char, length) ->
   str = String str
   if str.length >= length

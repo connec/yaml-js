@@ -1,6 +1,5 @@
 events      = require './events'
 util        = require './util'
-{inspect}   = require 'util'
 {YAMLError} = require './errors'
 
 class @EmitterError extends YAMLError
@@ -956,7 +955,7 @@ class @Emitter
   Helper for common error pattern.
   ###
   error: (message, context) ->
-    context = context?.constructor?.name ? inspect context if context
+    context = context?.constructor?.name ? util.inspect context if context
     throw new exports.EmitterError "#{message}#{if context then " #{context}" else ''}"
 
 class ScalarAnalysis

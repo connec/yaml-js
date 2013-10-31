@@ -531,7 +531,7 @@
         "0": [ "./util" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var _this = this, __slice = [].slice, __hasProp = {}.hasOwnProperty;
+            var _ref, _ref1, _ref2, _this = this, __slice = [].slice, __hasProp = {}.hasOwnProperty;
             this.StringStream = function() {
                 function StringStream() {
                     this.string = "";
@@ -566,6 +566,9 @@
                     return false;
                 }
                 return true;
+            };
+            this.inspect = (_ref = (_ref1 = (_ref2 = require("util")) != null ? _ref2.inspect : void 0) != null ? _ref1 : global.inspect) != null ? _ref : function(a) {
+                return "" + a;
             };
             this.pad_left = function(str, char, length) {
                 str = String(str);
@@ -1105,7 +1108,7 @@
         "0": [ "./emitter" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var ScalarAnalysis, YAMLError, events, inspect, util, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var ScalarAnalysis, YAMLError, events, util, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
                 for (var key in parent) {
                     if (__hasProp.call(parent, key)) child[key] = parent[key];
                 }
@@ -1124,7 +1127,6 @@
             };
             events = require("./events");
             util = require("./util");
-            inspect = require("util").inspect;
             YAMLError = require("./errors").YAMLError;
             this.EmitterError = function(_super) {
                 __extends(EmitterError, _super);
@@ -2305,7 +2307,7 @@
                 Emitter.prototype.error = function(message, context) {
                     var _ref1, _ref2;
                     if (context) {
-                        context = (_ref1 = context != null ? (_ref2 = context.constructor) != null ? _ref2.name : void 0 : void 0) != null ? _ref1 : inspect(context);
+                        context = (_ref1 = context != null ? (_ref2 = context.constructor) != null ? _ref2.name : void 0 : void 0) != null ? _ref1 : util.inspect(context);
                     }
                     throw new exports.EmitterError("" + message + (context ? " " + context : ""));
                 };
