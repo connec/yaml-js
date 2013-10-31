@@ -2572,7 +2572,7 @@
                     if (representer != null) {
                         return representer.call(this, data);
                     } else {
-                        return new nodes.ScalarNode(null, data.toString());
+                        return new nodes.ScalarNode(null, "" + data);
                     }
                 };
                 BaseRepresenter.prototype.represent_scalar = function(tag, value, style) {

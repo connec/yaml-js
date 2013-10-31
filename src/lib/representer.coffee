@@ -74,7 +74,7 @@ class @BaseRepresenter
     if representer?
       representer.call @, data
     else
-      new nodes.ScalarNode null, data.toString()
+      new nodes.ScalarNode null, "#{data}"
 
   represent_scalar: (tag, value, style = @default_style) ->
     node   = new nodes.ScalarNode tag, value, style
