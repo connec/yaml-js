@@ -50,6 +50,7 @@
     }
   </style>
   <script src='jquery.js'></script>
+  <script src='http://rawgithub.com/connec/yaml-js/master/yaml.min.js'></script>
   <script>
   (function() {
     var resize = function() {
@@ -80,13 +81,7 @@
       update();
     }
 
-    $.get('https://raw.github.com/connec/yaml-js/master/yaml.min.js', function(data) {
-      var script = document.createElement('script');
-      script.innerHTML = data;
-      document.head.appendChild(script);document.createElement('script')
-
-      $(ready);
-    });
+    $(ready);
   })();
   </script>
 </head>
