@@ -888,8 +888,10 @@ class @Emitter
       end++
 
   write_plain: (text, split = true) ->
-    @open_ended = true if @root_context
     unless text then return
+
+    @open_ended = true if @root_context
+
     unless @whitespace
       data = ' '
       @column += data.length

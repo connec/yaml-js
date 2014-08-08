@@ -34,10 +34,12 @@ class @Serializer
     else if @closed
       throw new SerializerError 'serializer is closed'
 
-    @emit new events.DocumentStartEvent undefined, undefined, @explicit_start, @version, @tags
-    @anchor_node node
-    @serialize_node node
-    @emit new events.DocumentEndEvent undefined, undefined, @explicit_end
+    if node?
+      @emit new events.DocumentStartEvent undefined, undefined, @explicit_start, @version, @tags
+      @anchor_node node
+      @serialize_node node
+      @emit new events.DocumentEndEvent undefined, undefined, @explicit_end
+
     @serialized_nodes = {}
     @anchors          = {}
     @last_anchor_id   = 0
