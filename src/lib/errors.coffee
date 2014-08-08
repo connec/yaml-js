@@ -1,5 +1,5 @@
 class @Mark
-  constructor: (@name, @line, @column, @buffer, @pointer) ->
+  constructor: (@line, @column, @buffer, @pointer) ->
 
   get_snippet: (indent = 4, max_length = 75) ->
     return null if not @buffer?
@@ -28,7 +28,7 @@ class @Mark
 
   toString: ->
     snippet = @get_snippet()
-    where = "  in \"#{@name}\", line #{@line + 1}, column #{@column + 1}"
+    where = "  on line #{@line + 1}, column #{@column + 1}"
     return if snippet then where else "#{where}:\n#{snippet}"
 
 class @YAMLError extends Error
@@ -51,7 +51,6 @@ class @MarkedYAMLError extends @YAMLError
     lines.push @context_mark.toString()             \
       if @context_mark? and (                       \
         not @problem? or not @problem_mark?         \
-        or @context_mark.name != @problem_mark.name \
         or @context_mark.line != @problem_mark.line \
         or @context_mark.column != @problem_mark.column)
     lines.push @problem                 if @problem?
