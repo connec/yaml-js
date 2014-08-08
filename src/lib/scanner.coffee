@@ -1053,7 +1053,7 @@ class @Scanner
     @forward()
     chunks = chunks.concat @scan_flow_scalar_non_spaces double, start_mark
     while @peek() != quote
-      chunks = chunks.concat  @scan_flow_scalar_spaces double, start_mark
+      chunks = chunks.concat @scan_flow_scalar_spaces double, start_mark
       chunks = chunks.concat @scan_flow_scalar_non_spaces double, start_mark
     @forward()
     return new tokens.ScalarToken chunks.join(''), false, start_mark,
@@ -1123,7 +1123,7 @@ class @Scanner
       breaks = @scan_flow_scalar_breaks double, start_mark
       if line_break isnt '\n'
         chunks.push line_break
-      else if not breaks
+      else if breaks.length is 0
         chunks.push ' '
       chunks = chunks.concat breaks
     else
