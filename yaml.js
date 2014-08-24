@@ -209,8 +209,7 @@
                 return child;
             };
             this.Mark = function() {
-                function Mark(name, line, column, buffer, pointer) {
-                    this.name = name;
+                function Mark(line, column, buffer, pointer) {
                     this.line = line;
                     this.column = column;
                     this.buffer = buffer;
@@ -253,7 +252,7 @@
                 Mark.prototype.toString = function() {
                     var snippet, where;
                     snippet = this.get_snippet();
-                    where = '  in "' + this.name + '", line ' + (this.line + 1) + ", column " + (this.column + 1);
+                    where = "  on line " + (this.line + 1) + ", column " + (this.column + 1);
                     if (snippet) {
                         return where;
                     } else {
@@ -290,7 +289,7 @@
                     if (this.context != null) {
                         lines.push(this.context);
                     }
-                    if (this.context_mark != null && (this.problem == null || this.problem_mark == null || this.context_mark.name !== this.problem_mark.name || this.context_mark.line !== this.problem_mark.line || this.context_mark.column !== this.problem_mark.column)) {
+                    if (this.context_mark != null && (this.problem == null || this.problem_mark == null || this.context_mark.line !== this.problem_mark.line || this.context_mark.column !== this.problem_mark.column)) {
                         lines.push(this.context_mark.toString());
                     }
                     if (this.problem != null) {
@@ -2220,11 +2219,11 @@
                     if (split == null) {
                         split = true;
                     }
-                    if (this.root_context) {
-                        this.open_ended = true;
-                    }
                     if (!text) {
                         return;
+                    }
+                    if (this.root_context) {
+                        this.open_ended = true;
                     }
                     if (!this.whitespace) {
                         data = " ";
@@ -2389,10 +2388,12 @@
                     } else if (this.closed) {
                         throw new SerializerError("serializer is closed");
                     }
-                    this.emit(new events.DocumentStartEvent(void 0, void 0, this.explicit_start, this.version, this.tags));
-                    this.anchor_node(node);
-                    this.serialize_node(node);
-                    this.emit(new events.DocumentEndEvent(void 0, void 0, this.explicit_end));
+                    if (node != null) {
+                        this.emit(new events.DocumentStartEvent(void 0, void 0, this.explicit_start, this.version, this.tags));
+                        this.anchor_node(node);
+                        this.serialize_node(node);
+                        this.emit(new events.DocumentEndEvent(void 0, void 0, this.explicit_end));
+                    }
                     this.serialized_nodes = {};
                     this.anchors = {};
                     return this.last_anchor_id = 0;
@@ -2963,15 +2964,14 @@
             _ref = require("./errors"), Mark = _ref.Mark, YAMLError = _ref.YAMLError;
             this.ReaderError = function(_super) {
                 __extends(ReaderError, _super);
-                function ReaderError(name, position, character, reason) {
-                    this.name = name;
+                function ReaderError(position, character, reason) {
                     this.position = position;
                     this.character = character;
                     this.reason = reason;
                     ReaderError.__super__.constructor.call(this);
                 }
                 ReaderError.prototype.toString = function() {
-                    return "unacceptable character " + this.character.charCodeAt() + ": " + this.reason + '\n  in "' + this.name + '", position ' + this.position;
+                    return "unacceptable character " + this.character.charCodeAt() + ": " + this.reason + "\n  position " + this.position;
                 };
                 return ReaderError;
             }(YAMLError);
@@ -3018,7 +3018,7 @@
                     return _results;
                 };
                 Reader.prototype.get_mark = function() {
-                    return new Mark(this.name, this.line, this.column, this.string, this.index);
+                    return new Mark(this.line, this.column, this.string, this.index);
                 };
                 Reader.prototype.check_printable = function() {
                     var character, match, position;
@@ -3026,7 +3026,7 @@
                     if (match) {
                         character = match[0];
                         position = this.string.length - this.index + match.index;
-                        throw new exports.ReaderError(this.name, position, character.charCodeAt(), "special characters are not allowed");
+                        throw new exports.ReaderError(position, character.charCodeAt(), "special characters are not allowed");
                     }
                 };
                 return Reader;
@@ -4155,7 +4155,7 @@
                         breaks = this.scan_flow_scalar_breaks(double, start_mark);
                         if (line_break !== "\n") {
                             chunks.push(line_break);
-                        } else if (!breaks) {
+                        } else if (breaks.length === 0) {
                             chunks.push(" ");
                         }
                         chunks = chunks.concat(breaks);
