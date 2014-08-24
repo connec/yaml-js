@@ -9,7 +9,7 @@ try it out [here](http://connec.github.com/yaml-js/).
 Current Status
 ---
 
-The library is being actively maintained.
+The library is being actively maintained for issues, and rather less actively developed for new/improved features.
 
 Loading is stable and well-used, and passes the [yaml-spec](https://github.com/connec/yaml-spec)
 test suite, which fairly thoroughly covers the YAML 'core' schema (if you notice anything missing,
@@ -29,9 +29,9 @@ How Do I Get It?
 How Do I Use It?
 ---
 
-In node (CoffeeScript):
+### In node (CoffeeScript):
 
-*Load*
+**Load**
 
 ```coffee
 yaml = require 'yaml-js'
@@ -52,7 +52,7 @@ console.log yaml.load '''
 #   phrase3: 'What is up in this place.' }
 ```
 
-*Dump*
+**Dump**
 
 ```coffee
 yaml = require 'yaml-js'
@@ -65,7 +65,7 @@ console.log yaml.dump
 # phrase3: What is up in this place.
 ```
 
-In the browser:
+### In the browser:
 
 ```html
 <script src='yaml.min.js'></script>
