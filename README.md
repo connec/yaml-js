@@ -77,6 +77,22 @@ console.log yaml.dump
 </script>
 ```
 
+#### API
+
+| Method          | Description                                                                                                               |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------|
+| `scan`          | Scan a YAML stream and produce scanning tokens.                                                                           |
+| `parse`         | Parse a YAML stream and produce parsing events.                                                                           |
+| `compose`       | Parse the first YAML document in a stream and produce the corresponding representation tree.                              |
+| `compose_all`   | Parse all YAML documents in a stream and produce corresponding representation trees.                                      |
+| `load`          | Parse the first YAML document in a stream and produce the corresponding Javascript object.                                |
+| `load_all`      | Parse all YAML documents in a stream and produce the corresponing Javascript object.                                      |
+| `emit`          | Emit YAML parsing events into a stream. If stream is falsey, return the produced string instead.                          |
+| `serialize`     | Serialize a representation tree into a YAML stream. If stream is falsey, return the produced string instead.              |
+| `serialize_all` | Serialize a sequence of representation tress into a YAML stream. If stream is falsey, return the produced string instead. |
+| `dump`          | Serialize a Javascript object into a YAML stream. If stream is falsey, return the produced string instead.                |
+| `dump_all`      | Serialize a sequence of Javascript objects into a YAML stream. If stream is falsey, return the produced string instead.   |
+
 License
 ---
 
