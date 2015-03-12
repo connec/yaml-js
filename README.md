@@ -89,7 +89,7 @@ console.log yaml.dump
 | `load_all`      | Parse all YAML documents in a stream and produce the corresponing Javascript objects.           |
 | `emit`          | Emit YAML parsing events into a stream.                                                         |
 | `serialize`     | Serialize a representation tree into a YAML stream.                                             |
-| `serialize_all` | Serialize a sequence of representation tress into a YAML stream.                                |
+| `serialize_all` | Serialize a sequence of representation trees into a YAML stream.                                |
 | `dump`          | Serialize a Javascript object into a YAML stream.                                               |
 | `dump_all`      | Serialize a sequence of Javascript objects into a YAML stream.                                  |
 
