@@ -8,8 +8,8 @@
     "url": "http://github.com/connec/yaml-js.git"
   },
   "devDependencies": {
-    "coffee-script": "1.6.x",
-    "plantation": "0.0.8",
+    "coffee-script": "1.9.x",
+    "plantation": "0.0.15",
     "squash": "0.0.12"
   },
   "license": "WTFPL"

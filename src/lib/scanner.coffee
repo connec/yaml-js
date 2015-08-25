@@ -1086,12 +1086,12 @@ class @Scanner
         else if char of ESCAPE_CODES
           length = ESCAPE_CODES[char]
           @forward()
-          for k in [0...length]
+          for k in [0...length] when @peek(k) not in "#{C_NUMBERS}ABCDEFabcdef"
             throw new exports.ScannerError \
-              'while scanning a double-quoted scalar', start_mark,
-              "expected escape sequence of #{length} hexadecimal numbers, but #{
-              }found #{@peek k}", @get_mark() \
-              if @peek(k) not in C_NUMBERS + 'ABCDEFabcdef'
+              'while scanning a double-quoted scalar',
+              start_mark,
+              "expected escape sequence of #{length} hexadecimal numbers, but found #{@peek k}",
+              @get_mark()
           code = parseInt @prefix(length), 16
           chunks.push String.fromCharCode code
           @forward length
