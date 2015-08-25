@@ -77,7 +77,7 @@ class @BaseRepresenter
       new nodes.ScalarNode null, "#{data}"
 
   represent_scalar: (tag, value, style = @default_style) ->
-    node   = new nodes.ScalarNode tag, value, style
+    node = new nodes.ScalarNode tag, value, null, null, style
     @represented_objects[@alias_key] = node if @alias_key?
     node
 

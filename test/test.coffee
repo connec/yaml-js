@@ -35,3 +35,10 @@ describe 'serialize', ->
 describe 'dump', ->
   each_test ->
     expect_equal @result, yaml.load(yaml.dump yaml.load @yaml)
+
+describe 'dump (formatting)', ->
+  [ examples ] = require './format-spec'
+  for { input, output }, i in examples then do (input, output, i) ->
+    for [ options, result ], j in output then do (options, result, j) ->
+      it "input #{i} options #{j}", ->
+        expect_equal yaml.dump(yaml.load(input), null, null, options), result

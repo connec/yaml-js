@@ -76,6 +76,8 @@ class @Emitter
 
     # Formatting details
     { @canonical, @allow_unicode } = options
+    @canonical      ?= false
+    @allow_unicode  ?= true
     @best_indent     = if 1 < options.indent and options.indent < 10   then options.indent     else 2
     @best_width      = if options.width > @indent * 2                  then options.width      else 80
     @best_line_break = if options.line_break in [ '\r', '\n', '\r\n' ] then options.line_break else '\n'
@@ -440,7 +442,7 @@ class @Emitter
       if @event.implicit[0] and not tag?
         tag = '!'
         @prepared_tag = null
-    else if (not @canonical or not @tag?) and @event.implicit
+    else if (not @canonical or not tag?) and @event.implicit
       @prepared_tag = null
       return
 
@@ -470,15 +472,15 @@ class @Emitter
     return '"' if @event.style is '"' or @canonical
 
     return '' if not @event.style and @event.implicit[0] \
-             and not (@simple_key_context and (@analysis.empty or @analysis.multiline)) \
-             and ((@flow_level and @analysis.allow_flow_plain) \
-               or (not @flow_level and @analysis.allow_block_plain))
+      and not (@simple_key_context and (@analysis.empty or @analysis.multiline)) \
+      and ((@flow_level and @analysis.allow_flow_plain) \
+      or (not @flow_level and @analysis.allow_block_plain))
 
     return @event.style if @event.style and @event.style in '|>' and not @flow_level \
-                       and not @simple_key_context and @analysis.allow_block
+      and not @simple_key_context and @analysis.allow_block
 
-    return "'" if not (@event.style or @event.style is "'") and @analysis.allow_single_quoted \
-              and not (@simple_key_context and @analysis.multiline)
+    return "'" if (not @event.style or @event.style is "'") and @analysis.allow_single_quoted \
+      and not (@simple_key_context and @analysis.multiline)
 
     return '"'
 
@@ -494,7 +496,7 @@ class @Emitter
     if handle[0] isnt '!' or handle[-1..] isnt '!'
       @error "tag handle must start and end with '!':", handle
     for char in handle[1...-1]
-      unless '0' <= char <= '9' or 'A' <= char 'Z' or 'a' <= char <= 'z' or char in '-_'
+      unless '0' <= char <= '9' or 'A' <= char <= 'Z' or 'a' <= char <= 'z' or char in '-_'
         @error "invalid character '#{char}' in the tag handle:", handle
 
     handle
@@ -721,11 +723,11 @@ class @Emitter
     @stream.write data ? @best_line_break, @encoding
 
   write_version_directive: (version_text) ->
-    @stream.write "%%YAML #{version_text}", @encoding
+    @stream.write "%YAML #{version_text}", @encoding
     @write_line_break()
 
   write_tag_directive: (handle_text, prefix_text) ->
-    @stream.write "%%TAG #{handle_text} #{prefix_text}", @encoding
+    @stream.write "%TAG #{handle_text} #{prefix_text}", @encoding
     @write_line_break()
 
   write_single_quoted: (text, split = true) ->
@@ -942,11 +944,12 @@ class @Emitter
 
   determine_block_hints: (text) ->
     hints = ''
-    if text[0] in ' \n\x85\u2028\u2029'
+    [ first, ..., penultimate, last ] = text
+    if first in ' \n\x85\u2028\u2029'
       hints += @best_indent
-    if text[-1..] not in '\n\x85\u2028\u2029'
+    if last not in '\n\x85\u2028\u2029'
       hints += '-'
-    else if text.length is 1 or text[-2..-2] in '\n\x85\u2028\u2029'
+    else if text.length is 1 or penultimate in '\n\x85\u2028\u2029'
       hints += '+'
     hints
 
