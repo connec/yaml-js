@@ -95,6 +95,16 @@
           voice of the Mysterons}
 
 - input: |
+    empty: []
+  output: !!omap
+  - ? {}
+    : |
+      empty: []
+  - ? default_flow_style: false
+    : |
+      empty: []
+
+- input: |
     ---
     invoice: 34843
     date   : !!str 2001-01-23

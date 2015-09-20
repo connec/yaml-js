@@ -47,9 +47,9 @@
         "0": [ "./events" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -58,7 +58,7 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            };
+            }, hasProp = {}.hasOwnProperty;
             this.Event = function() {
                 function Event(start_mark, end_mark) {
                     this.start_mark = start_mark;
@@ -66,8 +66,8 @@
                 }
                 return Event;
             }();
-            this.NodeEvent = function(_super) {
-                __extends(NodeEvent, _super);
+            this.NodeEvent = function(superClass) {
+                extend(NodeEvent, superClass);
                 function NodeEvent(anchor, start_mark, end_mark) {
                     this.anchor = anchor;
                     this.start_mark = start_mark;
@@ -75,8 +75,8 @@
                 }
                 return NodeEvent;
             }(this.Event);
-            this.CollectionStartEvent = function(_super) {
-                __extends(CollectionStartEvent, _super);
+            this.CollectionStartEvent = function(superClass) {
+                extend(CollectionStartEvent, superClass);
                 function CollectionStartEvent(anchor, tag, implicit, start_mark, end_mark, flow_style) {
                     this.anchor = anchor;
                     this.tag = tag;
@@ -87,16 +87,15 @@
                 }
                 return CollectionStartEvent;
             }(this.NodeEvent);
-            this.CollectionEndEvent = function(_super) {
-                __extends(CollectionEndEvent, _super);
+            this.CollectionEndEvent = function(superClass) {
+                extend(CollectionEndEvent, superClass);
                 function CollectionEndEvent() {
-                    _ref = CollectionEndEvent.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return CollectionEndEvent.__super__.constructor.apply(this, arguments);
                 }
                 return CollectionEndEvent;
             }(this.Event);
-            this.StreamStartEvent = function(_super) {
-                __extends(StreamStartEvent, _super);
+            this.StreamStartEvent = function(superClass) {
+                extend(StreamStartEvent, superClass);
                 function StreamStartEvent(start_mark, end_mark, encoding) {
                     this.start_mark = start_mark;
                     this.end_mark = end_mark;
@@ -104,16 +103,15 @@
                 }
                 return StreamStartEvent;
             }(this.Event);
-            this.StreamEndEvent = function(_super) {
-                __extends(StreamEndEvent, _super);
+            this.StreamEndEvent = function(superClass) {
+                extend(StreamEndEvent, superClass);
                 function StreamEndEvent() {
-                    _ref1 = StreamEndEvent.__super__.constructor.apply(this, arguments);
-                    return _ref1;
+                    return StreamEndEvent.__super__.constructor.apply(this, arguments);
                 }
                 return StreamEndEvent;
             }(this.Event);
-            this.DocumentStartEvent = function(_super) {
-                __extends(DocumentStartEvent, _super);
+            this.DocumentStartEvent = function(superClass) {
+                extend(DocumentStartEvent, superClass);
                 function DocumentStartEvent(start_mark, end_mark, explicit, version, tags) {
                     this.start_mark = start_mark;
                     this.end_mark = end_mark;
@@ -123,8 +121,8 @@
                 }
                 return DocumentStartEvent;
             }(this.Event);
-            this.DocumentEndEvent = function(_super) {
-                __extends(DocumentEndEvent, _super);
+            this.DocumentEndEvent = function(superClass) {
+                extend(DocumentEndEvent, superClass);
                 function DocumentEndEvent(start_mark, end_mark, explicit) {
                     this.start_mark = start_mark;
                     this.end_mark = end_mark;
@@ -132,16 +130,15 @@
                 }
                 return DocumentEndEvent;
             }(this.Event);
-            this.AliasEvent = function(_super) {
-                __extends(AliasEvent, _super);
+            this.AliasEvent = function(superClass) {
+                extend(AliasEvent, superClass);
                 function AliasEvent() {
-                    _ref2 = AliasEvent.__super__.constructor.apply(this, arguments);
-                    return _ref2;
+                    return AliasEvent.__super__.constructor.apply(this, arguments);
                 }
                 return AliasEvent;
             }(this.NodeEvent);
-            this.ScalarEvent = function(_super) {
-                __extends(ScalarEvent, _super);
+            this.ScalarEvent = function(superClass) {
+                extend(ScalarEvent, superClass);
                 function ScalarEvent(anchor, tag, implicit, value, start_mark, end_mark, style) {
                     this.anchor = anchor;
                     this.tag = tag;
@@ -153,35 +150,31 @@
                 }
                 return ScalarEvent;
             }(this.NodeEvent);
-            this.SequenceStartEvent = function(_super) {
-                __extends(SequenceStartEvent, _super);
+            this.SequenceStartEvent = function(superClass) {
+                extend(SequenceStartEvent, superClass);
                 function SequenceStartEvent() {
-                    _ref3 = SequenceStartEvent.__super__.constructor.apply(this, arguments);
-                    return _ref3;
+                    return SequenceStartEvent.__super__.constructor.apply(this, arguments);
                 }
                 return SequenceStartEvent;
             }(this.CollectionStartEvent);
-            this.SequenceEndEvent = function(_super) {
-                __extends(SequenceEndEvent, _super);
+            this.SequenceEndEvent = function(superClass) {
+                extend(SequenceEndEvent, superClass);
                 function SequenceEndEvent() {
-                    _ref4 = SequenceEndEvent.__super__.constructor.apply(this, arguments);
-                    return _ref4;
+                    return SequenceEndEvent.__super__.constructor.apply(this, arguments);
                 }
                 return SequenceEndEvent;
             }(this.CollectionEndEvent);
-            this.MappingStartEvent = function(_super) {
-                __extends(MappingStartEvent, _super);
+            this.MappingStartEvent = function(superClass) {
+                extend(MappingStartEvent, superClass);
                 function MappingStartEvent() {
-                    _ref5 = MappingStartEvent.__super__.constructor.apply(this, arguments);
-                    return _ref5;
+                    return MappingStartEvent.__super__.constructor.apply(this, arguments);
                 }
                 return MappingStartEvent;
             }(this.CollectionStartEvent);
-            this.MappingEndEvent = function(_super) {
-                __extends(MappingEndEvent, _super);
+            this.MappingEndEvent = function(superClass) {
+                extend(MappingEndEvent, superClass);
                 function MappingEndEvent() {
-                    _ref6 = MappingEndEvent.__super__.constructor.apply(this, arguments);
-                    return _ref6;
+                    return MappingEndEvent.__super__.constructor.apply(this, arguments);
                 }
                 return MappingEndEvent;
             }(this.CollectionEndEvent);
@@ -191,14 +184,14 @@
         "0": [ "./errors" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var __indexOf = [].indexOf || function(item) {
+            var indexOf = [].indexOf || function(item) {
                 for (var i = 0, l = this.length; i < l; i++) {
                     if (i in this && this[i] === item) return i;
                 }
                 return -1;
-            }, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            }, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -207,7 +200,7 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            };
+            }, hasProp = {}.hasOwnProperty;
             this.Mark = function() {
                 function Mark(line, column, buffer, pointer) {
                     this.line = line;
@@ -216,7 +209,7 @@
                     this.pointer = pointer;
                 }
                 Mark.prototype.get_snippet = function(indent, max_length) {
-                    var break_chars, end, head, start, tail, _ref, _ref1;
+                    var break_chars, end, head, ref, ref1, start, tail;
                     if (indent == null) {
                         indent = 4;
                     }
@@ -229,7 +222,7 @@
                     break_chars = "\0\r\n\u2028\u2029";
                     head = "";
                     start = this.pointer;
-                    while (start > 0 && (_ref = this.buffer[start - 1], __indexOf.call(break_chars, _ref) < 0)) {
+                    while (start > 0 && (ref = this.buffer[start - 1], indexOf.call(break_chars, ref) < 0)) {
                         start--;
                         if (this.pointer - start > max_length / 2 - 1) {
                             head = " ... ";
@@ -239,7 +232,7 @@
                     }
                     tail = "";
                     end = this.pointer;
-                    while (end < this.buffer.length && (_ref1 = this.buffer[end], __indexOf.call(break_chars, _ref1) < 0)) {
+                    while (end < this.buffer.length && (ref1 = this.buffer[end], indexOf.call(break_chars, ref1) < 0)) {
                         end++;
                         if (end - this.pointer > max_length / 2 - 1) {
                             tail = " ... ";
@@ -256,13 +249,13 @@
                     if (snippet) {
                         return where;
                     } else {
-                        return "" + where + ":\n" + snippet;
+                        return where + ":\n" + snippet;
                     }
                 };
                 return Mark;
             }();
-            this.YAMLError = function(_super) {
-                __extends(YAMLError, _super);
+            this.YAMLError = function(superClass) {
+                extend(YAMLError, superClass);
                 function YAMLError(message) {
                     this.message = message;
                     YAMLError.__super__.constructor.call(this);
@@ -273,8 +266,8 @@
                 };
                 return YAMLError;
             }(Error);
-            this.MarkedYAMLError = function(_super) {
-                __extends(MarkedYAMLError, _super);
+            this.MarkedYAMLError = function(superClass) {
+                extend(MarkedYAMLError, superClass);
                 function MarkedYAMLError(context, context_mark, problem, problem_mark, note) {
                     this.context = context;
                     this.context_mark = context_mark;
@@ -311,9 +304,9 @@
         "0": [ "./nodes" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var unique_id, _ref, _ref1, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var unique_id, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -322,7 +315,7 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            };
+            }, hasProp = {}.hasOwnProperty;
             unique_id = 0;
             this.Node = function() {
                 function Node(tag, value, start_mark, end_mark) {
@@ -334,8 +327,8 @@
                 }
                 return Node;
             }();
-            this.ScalarNode = function(_super) {
-                __extends(ScalarNode, _super);
+            this.ScalarNode = function(superClass) {
+                extend(ScalarNode, superClass);
                 ScalarNode.prototype.id = "scalar";
                 function ScalarNode(tag, value, start_mark, end_mark, style) {
                     this.tag = tag;
@@ -347,8 +340,8 @@
                 }
                 return ScalarNode;
             }(this.Node);
-            this.CollectionNode = function(_super) {
-                __extends(CollectionNode, _super);
+            this.CollectionNode = function(superClass) {
+                extend(CollectionNode, superClass);
                 function CollectionNode(tag, value, start_mark, end_mark, flow_style) {
                     this.tag = tag;
                     this.value = value;
@@ -359,20 +352,18 @@
                 }
                 return CollectionNode;
             }(this.Node);
-            this.SequenceNode = function(_super) {
-                __extends(SequenceNode, _super);
+            this.SequenceNode = function(superClass) {
+                extend(SequenceNode, superClass);
                 function SequenceNode() {
-                    _ref = SequenceNode.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return SequenceNode.__super__.constructor.apply(this, arguments);
                 }
                 SequenceNode.prototype.id = "sequence";
                 return SequenceNode;
             }(this.CollectionNode);
-            this.MappingNode = function(_super) {
-                __extends(MappingNode, _super);
+            this.MappingNode = function(superClass) {
+                extend(MappingNode, superClass);
                 function MappingNode() {
-                    _ref1 = MappingNode.__super__.constructor.apply(this, arguments);
-                    return _ref1;
+                    return MappingNode.__super__.constructor.apply(this, arguments);
                 }
                 MappingNode.prototype.id = "mapping";
                 return MappingNode;
@@ -383,9 +374,9 @@
         "0": [ "./composer" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var MarkedYAMLError, events, nodes, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var MarkedYAMLError, events, nodes, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -394,15 +385,14 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            };
+            }, hasProp = {}.hasOwnProperty;
             events = require("./events");
             MarkedYAMLError = require("./errors").MarkedYAMLError;
             nodes = require("./nodes");
-            this.ComposerError = function(_super) {
-                __extends(ComposerError, _super);
+            this.ComposerError = function(superClass) {
+                extend(ComposerError, superClass);
                 function ComposerError() {
-                    _ref = ComposerError.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return ComposerError.__super__.constructor.apply(this, arguments);
                 }
                 return ComposerError;
             }(MarkedYAMLError);
@@ -530,7 +520,7 @@
         "0": [ "./util" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var _ref, _ref1, _ref2, _this = this, __slice = [].slice, __hasProp = {}.hasOwnProperty;
+            var ref, ref1, ref2, slice = [].slice, hasProp = {}.hasOwnProperty;
             this.StringStream = function() {
                 function StringStream() {
                     this.string = "";
@@ -540,14 +530,16 @@
                 };
                 return StringStream;
             }();
-            this.clone = function(obj) {
-                return _this.extend({}, obj);
-            };
+            this.clone = function(_this) {
+                return function(obj) {
+                    return _this.extend({}, obj);
+                };
+            }(this);
             this.extend = function() {
-                var destination, k, source, sources, v, _i, _len;
-                destination = arguments[0], sources = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-                for (_i = 0, _len = sources.length; _i < _len; _i++) {
-                    source = sources[_i];
+                var destination, i, k, len, source, sources, v;
+                destination = arguments[0], sources = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+                for (i = 0, len = sources.length; i < len; i++) {
+                    source = sources[i];
                     for (k in source) {
                         v = source[k];
                         destination[k] = v;
@@ -561,12 +553,12 @@
                     return obj.length === 0;
                 }
                 for (key in obj) {
-                    if (!__hasProp.call(obj, key)) continue;
+                    if (!hasProp.call(obj, key)) continue;
                     return false;
                 }
                 return true;
             };
-            this.inspect = (_ref = (_ref1 = (_ref2 = require("util")) != null ? _ref2.inspect : void 0) != null ? _ref1 : global.inspect) != null ? _ref : function(a) {
+            this.inspect = (ref = (ref1 = (ref2 = require("util")) != null ? ref2.inspect : void 0) != null ? ref1 : global.inspect) != null ? ref : function(a) {
                 return "" + a;
             };
             this.pad_left = function(str, char, length) {
@@ -591,9 +583,9 @@
         "0": [ "./constructor" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var MarkedYAMLError, nodes, util, _ref, _ref1, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var MarkedYAMLError, nodes, util, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -602,7 +594,7 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            }, __indexOf = [].indexOf || function(item) {
+            }, hasProp = {}.hasOwnProperty, indexOf = [].indexOf || function(item) {
                 for (var i = 0, l = this.length; i < l; i++) {
                     if (i in this && this[i] === item) return i;
                 }
@@ -611,11 +603,10 @@
             MarkedYAMLError = require("./errors").MarkedYAMLError;
             nodes = require("./nodes");
             util = require("./util");
-            this.ConstructorError = function(_super) {
-                __extends(ConstructorError, _super);
+            this.ConstructorError = function(superClass) {
+                extend(ConstructorError, superClass);
                 function ConstructorError() {
-                    _ref = ConstructorError.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return ConstructorError.__super__.constructor.apply(this, arguments);
                 }
                 return ConstructorError;
             }(MarkedYAMLError);
@@ -667,11 +658,11 @@
                     return this.deferred_constructors.push(f);
                 };
                 BaseConstructor.prototype.construct_object = function(node) {
-                    var constructor, object, tag_prefix, tag_suffix, _ref1;
+                    var constructor, object, ref, tag_prefix, tag_suffix;
                     if (node.unique_id in this.constructed_objects) {
                         return this.constructed_objects[node.unique_id];
                     }
-                    if (_ref1 = node.unique_id, __indexOf.call(this.constructing_nodes, _ref1) >= 0) {
+                    if (ref = node.unique_id, indexOf.call(this.constructing_nodes, ref) >= 0) {
                         throw new exports.ConstructorError(null, null, "found unconstructable recursive node", node.start_mark);
                     }
                     this.constructing_nodes.push(node.unique_id);
@@ -714,27 +705,27 @@
                     return node.value;
                 };
                 BaseConstructor.prototype.construct_sequence = function(node) {
-                    var child, _i, _len, _ref1, _results;
+                    var child, i, len, ref, results;
                     if (!(node instanceof nodes.SequenceNode)) {
                         throw new exports.ConstructorError(null, null, "expected a sequence node but found " + node.id, node.start_mark);
                     }
-                    _ref1 = node.value;
-                    _results = [];
-                    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                        child = _ref1[_i];
-                        _results.push(this.construct_object(child));
+                    ref = node.value;
+                    results = [];
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        child = ref[i];
+                        results.push(this.construct_object(child));
                     }
-                    return _results;
+                    return results;
                 };
                 BaseConstructor.prototype.construct_mapping = function(node) {
-                    var key, key_node, mapping, value, value_node, _i, _len, _ref1, _ref2;
+                    var i, key, key_node, len, mapping, ref, ref1, value, value_node;
                     if (!(node instanceof nodes.MappingNode)) {
                         throw new ConstructorError(null, null, "expected a mapping node but found " + node.id, node.start_mark);
                     }
                     mapping = {};
-                    _ref1 = node.value;
-                    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                        _ref2 = _ref1[_i], key_node = _ref2[0], value_node = _ref2[1];
+                    ref = node.value;
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        ref1 = ref[i], key_node = ref1[0], value_node = ref1[1];
                         key = this.construct_object(key_node);
                         if (typeof key === "object") {
                             throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "found unhashable key", key_node.start_mark);
@@ -745,14 +736,14 @@
                     return mapping;
                 };
                 BaseConstructor.prototype.construct_pairs = function(node) {
-                    var key, key_node, pairs, value, value_node, _i, _len, _ref1, _ref2;
+                    var i, key, key_node, len, pairs, ref, ref1, value, value_node;
                     if (!(node instanceof nodes.MappingNode)) {
                         throw new exports.ConstructorError(null, null, "expected a mapping node but found " + node.id, node.start_mark);
                     }
                     pairs = [];
-                    _ref1 = node.value;
-                    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                        _ref2 = _ref1[_i], key_node = _ref2[0], value_node = _ref2[1];
+                    ref = node.value;
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        ref1 = ref[i], key_node = ref1[0], value_node = ref1[1];
                         key = this.construct_object(key_node);
                         value = this.construct_object(value_node);
                         pairs.push([ key, value ]);
@@ -761,12 +752,11 @@
                 };
                 return BaseConstructor;
             }();
-            this.Constructor = function(_super) {
+            this.Constructor = function(superClass) {
                 var BOOL_VALUES, TIMESTAMP_PARTS, TIMESTAMP_REGEX;
-                __extends(Constructor, _super);
+                extend(Constructor, superClass);
                 function Constructor() {
-                    _ref1 = Constructor.__super__.constructor.apply(this, arguments);
-                    return _ref1;
+                    return Constructor.__super__.constructor.apply(this, arguments);
                 }
                 BOOL_VALUES = {
                     on: true,
@@ -791,11 +781,11 @@
                     tz_minute: 11
                 };
                 Constructor.prototype.construct_scalar = function(node) {
-                    var key_node, value_node, _i, _len, _ref2, _ref3;
+                    var i, key_node, len, ref, ref1, value_node;
                     if (node instanceof nodes.MappingNode) {
-                        _ref2 = node.value;
-                        for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-                            _ref3 = _ref2[_i], key_node = _ref3[0], value_node = _ref3[1];
+                        ref = node.value;
+                        for (i = 0, len = ref.length; i < len; i++) {
+                            ref1 = ref[i], key_node = ref1[0], value_node = ref1[1];
                             if (key_node.tag === "tag:yaml.org,2002:value") {
                                 return this.construct_scalar(value_node);
                             }
@@ -804,11 +794,11 @@
                     return Constructor.__super__.construct_scalar.call(this, node);
                 };
                 Constructor.prototype.flatten_mapping = function(node) {
-                    var index, key_node, merge, submerge, subnode, value, value_node, _i, _j, _len, _len1, _ref2, _ref3;
+                    var i, index, j, key_node, len, len1, merge, ref, ref1, submerge, subnode, value, value_node;
                     merge = [];
                     index = 0;
                     while (index < node.value.length) {
-                        _ref2 = node.value[index], key_node = _ref2[0], value_node = _ref2[1];
+                        ref = node.value[index], key_node = ref[0], value_node = ref[1];
                         if (key_node.tag === "tag:yaml.org,2002:merge") {
                             node.value.splice(index, 1);
                             if (value_node instanceof nodes.MappingNode) {
@@ -816,9 +806,9 @@
                                 merge = merge.concat(value_node.value);
                             } else if (value_node instanceof nodes.SequenceNode) {
                                 submerge = [];
-                                _ref3 = value_node.value;
-                                for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
-                                    subnode = _ref3[_i];
+                                ref1 = value_node.value;
+                                for (i = 0, len = ref1.length; i < len; i++) {
+                                    subnode = ref1[i];
                                     if (!(subnode instanceof nodes.MappingNode)) {
                                         throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping for merging, but found " + subnode.id, subnode.start_mark);
                                     }
@@ -826,12 +816,12 @@
                                     submerge.push(subnode.value);
                                 }
                                 submerge.reverse();
-                                for (_j = 0, _len1 = submerge.length; _j < _len1; _j++) {
-                                    value = submerge[_j];
+                                for (j = 0, len1 = submerge.length; j < len1; j++) {
+                                    value = submerge[j];
                                     merge = merge.concat(value);
                                 }
                             } else {
-                                throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping or list of mappings for            merging but found " + value_node.id, value_node.start_mark);
+                                throw new exports.ConstructorError("while constructing a mapping", node.start_mark, "expected a mapping or list of mappings for merging but found " + value_node.id, value_node.start_mark);
                             }
                         } else if (key_node.tag === "tag:yaml.org,2002:value") {
                             key_node.tag = "tag:yaml.org,2002:str";
@@ -860,11 +850,11 @@
                     return BOOL_VALUES[value.toLowerCase()];
                 };
                 Constructor.prototype.construct_yaml_int = function(node) {
-                    var base, digit, digits, part, sign, value, _i, _len, _ref2;
+                    var base, digit, digits, i, len, part, ref, sign, value;
                     value = this.construct_scalar(node);
                     value = value.replace(/_/g, "");
                     sign = value[0] === "-" ? -1 : 1;
-                    if (_ref2 = value[0], __indexOf.call("+-", _ref2) >= 0) {
+                    if (ref = value[0], indexOf.call("+-", ref) >= 0) {
                         value = value.slice(1);
                     }
                     if (value === "0") {
@@ -877,22 +867,22 @@
                         return sign * parseInt(value.slice(2), 8);
                     } else if (value[0] === "0") {
                         return sign * parseInt(value, 8);
-                    } else if (__indexOf.call(value, ":") >= 0) {
+                    } else if (indexOf.call(value, ":") >= 0) {
                         digits = function() {
-                            var _i, _len, _ref3, _results;
-                            _ref3 = value.split(/:/g);
-                            _results = [];
-                            for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
-                                part = _ref3[_i];
-                                _results.push(parseInt(part));
+                            var i, len, ref1, results;
+                            ref1 = value.split(/:/g);
+                            results = [];
+                            for (i = 0, len = ref1.length; i < len; i++) {
+                                part = ref1[i];
+                                results.push(parseInt(part));
                             }
-                            return _results;
+                            return results;
                         }();
                         digits.reverse();
                         base = 1;
                         value = 0;
-                        for (_i = 0, _len = digits.length; _i < _len; _i++) {
-                            digit = digits[_i];
+                        for (i = 0, len = digits.length; i < len; i++) {
+                            digit = digits[i];
                             value += digit * base;
                             base *= 60;
                         }
@@ -902,33 +892,33 @@
                     }
                 };
                 Constructor.prototype.construct_yaml_float = function(node) {
-                    var base, digit, digits, part, sign, value, _i, _len, _ref2;
+                    var base, digit, digits, i, len, part, ref, sign, value;
                     value = this.construct_scalar(node);
                     value = value.replace(/_/g, "").toLowerCase();
                     sign = value[0] === "-" ? -1 : 1;
-                    if (_ref2 = value[0], __indexOf.call("+-", _ref2) >= 0) {
+                    if (ref = value[0], indexOf.call("+-", ref) >= 0) {
                         value = value.slice(1);
                     }
                     if (value === ".inf") {
                         return sign * Infinity;
                     } else if (value === ".nan") {
                         return NaN;
-                    } else if (__indexOf.call(value, ":") >= 0) {
+                    } else if (indexOf.call(value, ":") >= 0) {
                         digits = function() {
-                            var _i, _len, _ref3, _results;
-                            _ref3 = value.split(/:/g);
-                            _results = [];
-                            for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
-                                part = _ref3[_i];
-                                _results.push(parseFloat(part));
+                            var i, len, ref1, results;
+                            ref1 = value.split(/:/g);
+                            results = [];
+                            for (i = 0, len = ref1.length; i < len; i++) {
+                                part = ref1[i];
+                                results.push(parseFloat(part));
                             }
-                            return _results;
+                            return results;
                         }();
                         digits.reverse();
                         base = 1;
                         value = 0;
-                        for (_i = 0, _len = digits.length; _i < _len; _i++) {
-                            digit = digits[_i];
+                        for (i = 0, len = digits.length; i < len; i++) {
+                            digit = digits[i];
                             value += digit * base;
                             base *= 60;
                         }
@@ -990,30 +980,32 @@
                     return date;
                 };
                 Constructor.prototype.construct_yaml_pair_list = function(type, node) {
-                    var list, _this = this;
+                    var list;
                     list = [];
                     if (!(node instanceof nodes.SequenceNode)) {
                         throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a sequence but found " + node.id, node.start_mark);
                     }
-                    this.defer(function() {
-                        var key, key_node, subnode, value, value_node, _i, _len, _ref2, _ref3, _results;
-                        _ref2 = node.value;
-                        _results = [];
-                        for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-                            subnode = _ref2[_i];
-                            if (!(subnode instanceof nodes.MappingNode)) {
-                                throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
+                    this.defer(function(_this) {
+                        return function() {
+                            var i, key, key_node, len, ref, ref1, results, subnode, value, value_node;
+                            ref = node.value;
+                            results = [];
+                            for (i = 0, len = ref.length; i < len; i++) {
+                                subnode = ref[i];
+                                if (!(subnode instanceof nodes.MappingNode)) {
+                                    throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
+                                }
+                                if (subnode.value.length !== 1) {
+                                    throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
+                                }
+                                ref1 = subnode.value[0], key_node = ref1[0], value_node = ref1[1];
+                                key = _this.construct_object(key_node);
+                                value = _this.construct_object(value_node);
+                                results.push(list.push([ key, value ]));
                             }
-                            if (subnode.value.length !== 1) {
-                                throw new exports.ConstructorError("while constructing " + type, node.start_mark, "expected a mapping of length 1 but found " + subnode.id, subnode.start_mark);
-                            }
-                            _ref3 = subnode.value[0], key_node = _ref3[0], value_node = _ref3[1];
-                            key = _this.construct_object(key_node);
-                            value = _this.construct_object(value_node);
-                            _results.push(list.push([ key, value ]));
-                        }
-                        return _results;
-                    });
+                            return results;
+                        };
+                    }(this));
                     return list;
                 };
                 Constructor.prototype.construct_yaml_omap = function(node) {
@@ -1023,64 +1015,72 @@
                     return this.construct_yaml_pair_list("pairs", node);
                 };
                 Constructor.prototype.construct_yaml_set = function(node) {
-                    var data, _this = this;
+                    var data;
                     data = [];
-                    this.defer(function() {
-                        var item, _results;
-                        _results = [];
-                        for (item in _this.construct_mapping(node)) {
-                            _results.push(data.push(item));
-                        }
-                        return _results;
-                    });
+                    this.defer(function(_this) {
+                        return function() {
+                            var item, results;
+                            results = [];
+                            for (item in _this.construct_mapping(node)) {
+                                results.push(data.push(item));
+                            }
+                            return results;
+                        };
+                    }(this));
                     return data;
                 };
                 Constructor.prototype.construct_yaml_str = function(node) {
                     return this.construct_scalar(node);
                 };
                 Constructor.prototype.construct_yaml_seq = function(node) {
-                    var data, _this = this;
+                    var data;
                     data = [];
-                    this.defer(function() {
-                        var item, _i, _len, _ref2, _results;
-                        _ref2 = _this.construct_sequence(node);
-                        _results = [];
-                        for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-                            item = _ref2[_i];
-                            _results.push(data.push(item));
-                        }
-                        return _results;
-                    });
+                    this.defer(function(_this) {
+                        return function() {
+                            var i, item, len, ref, results;
+                            ref = _this.construct_sequence(node);
+                            results = [];
+                            for (i = 0, len = ref.length; i < len; i++) {
+                                item = ref[i];
+                                results.push(data.push(item));
+                            }
+                            return results;
+                        };
+                    }(this));
                     return data;
                 };
                 Constructor.prototype.construct_yaml_map = function(node) {
-                    var data, _this = this;
+                    var data;
                     data = {};
-                    this.defer(function() {
-                        var key, value, _ref2, _results;
-                        _ref2 = _this.construct_mapping(node);
-                        _results = [];
-                        for (key in _ref2) {
-                            value = _ref2[key];
-                            _results.push(data[key] = value);
-                        }
-                        return _results;
-                    });
+                    this.defer(function(_this) {
+                        return function() {
+                            var key, ref, results, value;
+                            ref = _this.construct_mapping(node);
+                            results = [];
+                            for (key in ref) {
+                                value = ref[key];
+                                results.push(data[key] = value);
+                            }
+                            return results;
+                        };
+                    }(this));
                     return data;
                 };
                 Constructor.prototype.construct_yaml_object = function(node, klass) {
-                    var data, _this = this;
+                    var data;
                     data = new klass;
-                    this.defer(function() {
-                        var key, value, _ref2, _results;
-                        _ref2 = _this.construct_mapping(node, true);
-                        _results = [];
-                        for (key in _ref2) {
-                            value = _ref2[key];
-                            _results.push(data[key] = value);
-                        }
-                        return _results;
-                    });
+                    this.defer(function(_this) {
+                        return function() {
+                            var key, ref, results, value;
+                            ref = _this.construct_mapping(node, true);
+                            results = [];
+                            for (key in ref) {
+                                value = ref[key];
+                                results.push(data[key] = value);
+                            }
+                            return results;
+                        };
+                    }(this));
                     return data;
                 };
                 Constructor.prototype.construct_undefined = function(node) {
@@ -1107,9 +1107,9 @@
         "0": [ "./emitter" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var ScalarAnalysis, YAMLError, events, util, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var ScalarAnalysis, YAMLError, events, util, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -1118,7 +1118,7 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            }, __indexOf = [].indexOf || function(item) {
+            }, hasProp = {}.hasOwnProperty, indexOf = [].indexOf || function(item) {
                 for (var i = 0, l = this.length; i < l; i++) {
                     if (i in this && this[i] === item) return i;
                 }
@@ -1127,11 +1127,10 @@
             events = require("./events");
             util = require("./util");
             YAMLError = require("./errors").YAMLError;
-            this.EmitterError = function(_super) {
-                __extends(EmitterError, _super);
+            this.EmitterError = function(superClass) {
+                extend(EmitterError, superClass);
                 function EmitterError() {
-                    _ref = EmitterError.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return EmitterError.__super__.constructor.apply(this, arguments);
                 }
                 return EmitterError;
             }(YAMLError);
@@ -1160,7 +1159,7 @@
                     "\u2029": "P"
                 };
                 function Emitter(stream, options) {
-                    var _ref1;
+                    var ref;
                     this.stream = stream;
                     this.encoding = null;
                     this.states = [];
@@ -1180,9 +1179,15 @@
                     this.indentation = true;
                     this.open_ended = false;
                     this.canonical = options.canonical, this.allow_unicode = options.allow_unicode;
+                    if (this.canonical == null) {
+                        this.canonical = false;
+                    }
+                    if (this.allow_unicode == null) {
+                        this.allow_unicode = true;
+                    }
                     this.best_indent = 1 < options.indent && options.indent < 10 ? options.indent : 2;
                     this.best_width = options.width > this.indent * 2 ? options.width : 80;
-                    this.best_line_break = (_ref1 = options.line_break) === "\r" || _ref1 === "\n" || _ref1 === "\r\n" ? options.line_break : "\n";
+                    this.best_line_break = (ref = options.line_break) === "\r" || ref === "\n" || ref === "\r\n" ? options.line_break : "\n";
                     this.tag_prefixes = null;
                     this.prepared_anchor = null;
                     this.prepared_tag = null;
@@ -1194,22 +1199,22 @@
                     return this.state = null;
                 };
                 Emitter.prototype.emit = function(event) {
-                    var _results;
+                    var results;
                     this.events.push(event);
-                    _results = [];
+                    results = [];
                     while (!this.need_more_events()) {
                         this.event = this.events.shift();
                         this.state();
-                        _results.push(this.event = null);
+                        results.push(this.event = null);
                     }
-                    return _results;
+                    return results;
                 };
                 Emitter.prototype.need_more_events = function() {
                     var event;
                     if (this.events.length === 0) {
                         return true;
                     }
-                    event = events[0];
+                    event = this.events[0];
                     if (event instanceof events.DocumentStartEvent) {
                         return this.need_events(1);
                     } else if (event instanceof events.SequenceStartEvent) {
@@ -1221,16 +1226,16 @@
                     }
                 };
                 Emitter.prototype.need_events = function(count) {
-                    var event, level, _i, _len, _ref1;
+                    var event, i, len, level, ref;
                     level = 0;
-                    _ref1 = this.events.slice(1);
-                    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                        event = _ref1[_i];
+                    ref = this.events.slice(1);
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        event = ref[i];
                         if (event instanceof events.DocumentStartEvent || event instanceof events.CollectionStartEvent) {
                             level++;
                         } else if (event instanceof events.DocumentEndEvent || event instanceof events.CollectionEndEvent) {
                             level--;
-                        } else if (event instanceof StreamEndEvent) {
+                        } else if (event instanceof events.StreamEndEvent) {
                             level = -1;
                         }
                         if (level < 0) {
@@ -1268,7 +1273,7 @@
                     return this.expect_document_start(true);
                 };
                 Emitter.prototype.expect_document_start = function(first) {
-                    var explicit, handle, k, prefix, _i, _len, _ref1;
+                    var explicit, handle, i, k, len, prefix, ref;
                     if (first == null) {
                         first = false;
                     }
@@ -1282,18 +1287,18 @@
                         }
                         this.tag_prefixes = util.clone(DEFAULT_TAG_PREFIXES);
                         if (this.event.tags) {
-                            _ref1 = function() {
-                                var _ref1, _results;
-                                _ref1 = this.event.tags;
-                                _results = [];
-                                for (k in _ref1) {
-                                    if (!__hasProp.call(_ref1, k)) continue;
-                                    _results.push(k);
+                            ref = function() {
+                                var ref, results;
+                                ref = this.event.tags;
+                                results = [];
+                                for (k in ref) {
+                                    if (!hasProp.call(ref, k)) continue;
+                                    results.push(k);
                                 }
-                                return _results;
+                                return results;
                             }.call(this).sort();
-                            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                                handle = _ref1[_i];
+                            for (i = 0, len = ref.length; i < len; i++) {
+                                handle = ref[i];
                                 prefix = this.event.tags[handle];
                                 this.tag_prefixes[prefix] = handle;
                                 this.write_tag_directive(this.prepare_tag_handle(handle), this.prepare_tag_prefix(prefix));
@@ -1658,7 +1663,7 @@
                             tag = "!";
                             this.prepared_tag = null;
                         }
-                    } else if ((!this.canonical || this.tag == null) && this.event.implicit) {
+                    } else if ((!this.canonical || tag == null) && this.event.implicit) {
                         this.prepared_tag = null;
                         return;
                     }
@@ -1700,7 +1705,7 @@
                     return this.style = null;
                 };
                 Emitter.prototype.choose_scalar_style = function() {
-                    var _ref1;
+                    var ref;
                     if (this.analysis == null) {
                         this.analysis = this.analyze_scalar(this.event.value);
                     }
@@ -1710,18 +1715,18 @@
                     if (!this.event.style && this.event.implicit[0] && !(this.simple_key_context && (this.analysis.empty || this.analysis.multiline)) && (this.flow_level && this.analysis.allow_flow_plain || !this.flow_level && this.analysis.allow_block_plain)) {
                         return "";
                     }
-                    if (this.event.style && (_ref1 = this.event.style, __indexOf.call("|>", _ref1) >= 0) && !this.flow_level && !this.simple_key_context && this.analysis.allow_block) {
+                    if (this.event.style && (ref = this.event.style, indexOf.call("|>", ref) >= 0) && !this.flow_level && !this.simple_key_context && this.analysis.allow_block) {
                         return this.event.style;
                     }
-                    if (!(this.event.style || this.event.style === "'") && this.analysis.allow_single_quoted && !(this.simple_key_context && this.analysis.multiline)) {
+                    if ((!this.event.style || this.event.style === "'") && this.analysis.allow_single_quoted && !(this.simple_key_context && this.analysis.multiline)) {
                         return "'";
                     }
                     return '"';
                 };
-                Emitter.prototype.prepare_version = function(_arg) {
+                Emitter.prototype.prepare_version = function(arg) {
                     var major, minor, version;
-                    major = _arg[0], minor = _arg[1];
-                    version = "" + major + "." + minor;
+                    major = arg[0], minor = arg[1];
+                    version = major + "." + minor;
                     if (major === 1) {
                         return version;
                     } else {
@@ -1729,17 +1734,17 @@
                     }
                 };
                 Emitter.prototype.prepare_tag_handle = function(handle) {
-                    var char, _i, _len, _ref1;
+                    var char, i, len, ref;
                     if (!handle) {
                         this.error("tag handle must not be empty");
                     }
                     if (handle[0] !== "!" || handle.slice(-1) !== "!") {
                         this.error("tag handle must start and end with '!':", handle);
                     }
-                    _ref1 = handle.slice(1, -1);
-                    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                        char = _ref1[_i];
-                        if (!("0" <= char && char <= "9" || "A" <= char("Z" || "a" <= char && char <= "z" || __indexOf.call("-_", char) >= 0))) {
+                    ref = handle.slice(1, -1);
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        char = ref[i];
+                        if (!("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || indexOf.call("-_", char) >= 0)) {
                             this.error("invalid character '" + char + "' in the tag handle:", handle);
                         }
                     }
@@ -1755,7 +1760,7 @@
                     end = +(prefix[0] === "!");
                     while (end < prefix.length) {
                         char = prefix[end];
-                        if ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || __indexOf.call("-;/?!:@&=+$,_.~*'()[]", char) >= 0) {
+                        if ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || indexOf.call("-;/?!:@&=+$,_.~*'()[]", char) >= 0) {
                             end++;
                         } else {
                             if (start < end) {
@@ -1771,7 +1776,7 @@
                     return chunks.join("");
                 };
                 Emitter.prototype.prepare_tag = function(tag) {
-                    var char, chunks, end, handle, k, prefix, start, suffix, suffix_text, _i, _len, _ref1;
+                    var char, chunks, end, handle, i, k, len, prefix, ref, start, suffix, suffix_text;
                     if (!tag) {
                         this.error("tag must not be empty");
                     }
@@ -1780,18 +1785,18 @@
                     }
                     handle = null;
                     suffix = tag;
-                    _ref1 = function() {
-                        var _ref1, _results;
-                        _ref1 = this.tag_prefixes;
-                        _results = [];
-                        for (k in _ref1) {
-                            if (!__hasProp.call(_ref1, k)) continue;
-                            _results.push(k);
+                    ref = function() {
+                        var ref, results;
+                        ref = this.tag_prefixes;
+                        results = [];
+                        for (k in ref) {
+                            if (!hasProp.call(ref, k)) continue;
+                            results.push(k);
                         }
-                        return _results;
+                        return results;
                     }.call(this).sort();
-                    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                        prefix = _ref1[_i];
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        prefix = ref[i];
                         if (tag.indexOf(prefix) === 0 && (prefix === "!" || prefix.length < tag.length)) {
                             handle = this.tag_prefixes[prefix];
                             suffix = tag.slice(prefix.length);
@@ -1801,7 +1806,7 @@
                     start = end = 0;
                     while (end < suffix.length) {
                         char = suffix[end];
-                        if ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || __indexOf.call("-;/?!:@&=+$,_.~*'()[]", char) >= 0 || char === "!" && handle !== "!") {
+                        if ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || indexOf.call("-;/?!:@&=+$,_.~*'()[]", char) >= 0 || char === "!" && handle !== "!") {
                             end++;
                         } else {
                             if (start < end) {
@@ -1822,20 +1827,20 @@
                     }
                 };
                 Emitter.prototype.prepare_anchor = function(anchor) {
-                    var char, _i, _len;
+                    var char, i, len;
                     if (!anchor) {
                         this.error("anchor must not be empty");
                     }
-                    for (_i = 0, _len = anchor.length; _i < _len; _i++) {
-                        char = anchor[_i];
-                        if (!("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || __indexOf.call("-_", char) >= 0)) {
+                    for (i = 0, len = anchor.length; i < len; i++) {
+                        char = anchor[i];
+                        if (!("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || indexOf.call("-_", char) >= 0)) {
                             this.error("invalid character '" + char + "' in the anchor:", anchor);
                         }
                     }
                     return anchor;
                 };
                 Emitter.prototype.analyze_scalar = function(scalar) {
-                    var allow_block, allow_block_plain, allow_double_quoted, allow_flow_plain, allow_single_quoted, block_indicators, break_space, char, flow_indicators, followed_by_whitespace, index, leading_break, leading_space, line_breaks, preceded_by_whitespace, previous_break, previous_space, space_break, special_characters, trailing_break, trailing_space, unicode_characters, _i, _len, _ref1, _ref2;
+                    var allow_block, allow_block_plain, allow_double_quoted, allow_flow_plain, allow_single_quoted, block_indicators, break_space, char, flow_indicators, followed_by_whitespace, i, index, leading_break, leading_space, len, line_breaks, preceded_by_whitespace, previous_break, previous_space, ref, ref1, space_break, special_characters, trailing_break, trailing_space, unicode_characters;
                     if (!scalar) {
                         new ScalarAnalysis(scalar, true, false, false, true, true, true, false);
                     }
@@ -1855,24 +1860,24 @@
                         flow_indicators = true;
                     }
                     preceded_by_whitespace = true;
-                    followed_by_whitespace = scalar.length === 1 || (_ref1 = scalar[1], __indexOf.call("\0 	\r\n\u2028\u2029", _ref1) >= 0);
+                    followed_by_whitespace = scalar.length === 1 || (ref = scalar[1], indexOf.call("\0 	\r\n\u2028\u2029", ref) >= 0);
                     previous_space = false;
                     previous_break = false;
                     index = 0;
-                    for (index = _i = 0, _len = scalar.length; _i < _len; index = ++_i) {
+                    for (index = i = 0, len = scalar.length; i < len; index = ++i) {
                         char = scalar[index];
                         if (index === 0) {
-                            if (__indexOf.call("#,[]{}&*!|>'\"%@`", char) >= 0 || char === "-" && followed_by_whitespace) {
+                            if (indexOf.call("#,[]{}&*!|>'\"%@`", char) >= 0 || char === "-" && followed_by_whitespace) {
                                 flow_indicators = true;
                                 block_indicators = true;
-                            } else if (__indexOf.call("?:", char) >= 0) {
+                            } else if (indexOf.call("?:", char) >= 0) {
                                 flow_indicators = true;
                                 if (followed_by_whitespace) {
                                     block_indicators = true;
                                 }
                             }
                         } else {
-                            if (__indexOf.call(",?[]{}", char) >= 0) {
+                            if (indexOf.call(",?[]{}", char) >= 0) {
                                 flow_indicators = true;
                             } else if (char === ":") {
                                 flow_indicators = true;
@@ -1884,7 +1889,7 @@
                                 block_indicators = true;
                             }
                         }
-                        if (__indexOf.call("\n\u2028\u2029", char) >= 0) {
+                        if (indexOf.call("\n\u2028\u2029", char) >= 0) {
                             line_breaks = true;
                         }
                         if (!(char === "\n" || " " <= char && char <= "~")) {
@@ -1909,7 +1914,7 @@
                             }
                             previous_break = false;
                             previous_space = true;
-                        } else if (__indexOf.call("\n\u2028\u2029", char) >= 0) {
+                        } else if (indexOf.call("\n\u2028\u2029", char) >= 0) {
                             if (index === 0) {
                                 leading_break = true;
                             }
@@ -1925,8 +1930,8 @@
                             previous_break = false;
                             previous_space = false;
                         }
-                        preceded_by_whitespace = __indexOf.call(C_WHITESPACE, char) >= 0;
-                        followed_by_whitespace = index + 2 >= scalar.length || (_ref2 = scalar[index + 2], __indexOf.call(C_WHITESPACE, _ref2) >= 0);
+                        preceded_by_whitespace = indexOf.call(C_WHITESPACE, char) >= 0;
+                        followed_by_whitespace = index + 2 >= scalar.length || (ref1 = scalar[index + 2], indexOf.call(C_WHITESPACE, ref1) >= 0);
                     }
                     allow_flow_plain = true;
                     allow_block_plain = true;
@@ -1977,8 +1982,8 @@
                     return this.stream.write(data, this.encoding);
                 };
                 Emitter.prototype.write_indent = function() {
-                    var data, indent, _ref1;
-                    indent = (_ref1 = this.indent) != null ? _ref1 : 0;
+                    var data, indent, ref;
+                    indent = (ref = this.indent) != null ? ref : 0;
                     if (!this.indentation || this.column > indent || this.column === indent && !this.whitespace) {
                         this.write_line_break();
                     }
@@ -1997,15 +2002,15 @@
                     return this.stream.write(data != null ? data : this.best_line_break, this.encoding);
                 };
                 Emitter.prototype.write_version_directive = function(version_text) {
-                    this.stream.write("%%YAML " + version_text, this.encoding);
+                    this.stream.write("%YAML " + version_text, this.encoding);
                     return this.write_line_break();
                 };
                 Emitter.prototype.write_tag_directive = function(handle_text, prefix_text) {
-                    this.stream.write("%%TAG " + handle_text + " " + prefix_text, this.encoding);
+                    this.stream.write("%TAG " + handle_text + " " + prefix_text, this.encoding);
                     return this.write_line_break();
                 };
                 Emitter.prototype.write_single_quoted = function(text, split) {
-                    var br, breaks, char, data, end, spaces, start, _i, _len, _ref1;
+                    var br, breaks, char, data, end, i, len, ref, spaces, start;
                     if (split == null) {
                         split = true;
                     }
@@ -2027,13 +2032,13 @@
                                 start = end;
                             }
                         } else if (breaks) {
-                            if (char == null || __indexOf.call("\n\u2028\u2029", char) < 0) {
+                            if (char == null || indexOf.call("\n\u2028\u2029", char) < 0) {
                                 if (text[start] === "\n") {
                                     this.write_line_break();
                                 }
-                                _ref1 = text.slice(start, end);
-                                for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                                    br = _ref1[_i];
+                                ref = text.slice(start, end);
+                                for (i = 0, len = ref.length; i < len; i++) {
+                                    br = ref[i];
                                     if (br === "\n") {
                                         this.write_line_break();
                                     } else {
@@ -2043,7 +2048,7 @@
                                 this.write_indent();
                                 start = end;
                             }
-                        } else if ((char == null || __indexOf.call(" \n\u2028\u2029", char) >= 0 || char === "'") && start < end) {
+                        } else if ((char == null || indexOf.call(" \n\u2028\u2029", char) >= 0 || char === "'") && start < end) {
                             data = text.slice(start, end);
                             this.column += data.length;
                             this.stream.write(data, this.encoding);
@@ -2056,7 +2061,7 @@
                         }
                         if (char != null) {
                             spaces = char === " ";
-                            breaks = __indexOf.call("\n\u2028\u2029", char) >= 0;
+                            breaks = indexOf.call("\n\u2028\u2029", char) >= 0;
                         }
                         end++;
                     }
@@ -2071,7 +2076,7 @@
                     start = end = 0;
                     while (end <= text.length) {
                         char = text[end];
-                        if (char == null || __indexOf.call('"\\\u2028\u2029﻿', char) >= 0 || !(" " <= char && char <= "~" || this.allow_unicode && (" " <= char && char <= "퟿" || "" <= char && char <= "�"))) {
+                        if (char == null || indexOf.call('"\\\u2028\u2029﻿', char) >= 0 || !(" " <= char && char <= "~" || this.allow_unicode && (" " <= char && char <= "퟿" || "" <= char && char <= "�"))) {
                             if (start < end) {
                                 data = text.slice(start, end);
                                 this.column += data.length;
@@ -2086,7 +2091,7 @@
                             }
                         }
                         if (split && 0 < end && end < text.length - 1 && (char === " " || start >= end) && this.column + (end - start) > this.best_width) {
-                            data = "" + text.slice(start, end) + "\\";
+                            data = text.slice(start, end) + "\\";
                             if (start < end) {
                                 start = end;
                             }
@@ -2106,7 +2111,7 @@
                     return this.write_indicator('"', false);
                 };
                 Emitter.prototype.write_folded = function(text) {
-                    var br, breaks, char, data, end, hints, leading_space, spaces, start, _i, _len, _ref1, _results;
+                    var br, breaks, char, data, end, hints, i, leading_space, len, ref, results, spaces, start;
                     hints = this.determine_block_hints(text);
                     this.write_indicator(">" + hints, true);
                     if (hints.slice(-1) === "+") {
@@ -2117,18 +2122,18 @@
                     breaks = true;
                     spaces = false;
                     start = end = 0;
-                    _results = [];
+                    results = [];
                     while (end <= text.length) {
                         char = text[end];
                         if (breaks) {
-                            if (char == null || __indexOf.call("\n\u2028\u2029", char) < 0) {
+                            if (char == null || indexOf.call("\n\u2028\u2029", char) < 0) {
                                 if (!leading_space && char != null && char !== " " && text[start] === "\n") {
                                     this.write_line_break();
                                 }
                                 leading_space = char === " ";
-                                _ref1 = text.slice(start, end);
-                                for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                                    br = _ref1[_i];
+                                ref = text.slice(start, end);
+                                for (i = 0, len = ref.length; i < len; i++) {
+                                    br = ref[i];
                                     if (br === "\n") {
                                         this.write_line_break();
                                     } else {
@@ -2151,7 +2156,7 @@
                                 }
                                 start = end;
                             }
-                        } else if (char == null || __indexOf.call(" \n\u2028\u2029", char) >= 0) {
+                        } else if (char == null || indexOf.call(" \n\u2028\u2029", char) >= 0) {
                             data = text.slice(start, end);
                             this.column += data.length;
                             this.stream.write(data, this.encoding);
@@ -2161,15 +2166,15 @@
                             start = end;
                         }
                         if (char != null) {
-                            breaks = __indexOf.call("\n\u2028\u2029", char) >= 0;
+                            breaks = indexOf.call("\n\u2028\u2029", char) >= 0;
                             spaces = char === " ";
                         }
-                        _results.push(end++);
+                        results.push(end++);
                     }
-                    return _results;
+                    return results;
                 };
                 Emitter.prototype.write_literal = function(text) {
-                    var br, breaks, char, data, end, hints, start, _i, _len, _ref1, _results;
+                    var br, breaks, char, data, end, hints, i, len, ref, results, start;
                     hints = this.determine_block_hints(text);
                     this.write_indicator("|" + hints, true);
                     if (hints.slice(-1) === "+") {
@@ -2178,14 +2183,14 @@
                     this.write_line_break();
                     breaks = true;
                     start = end = 0;
-                    _results = [];
+                    results = [];
                     while (end <= text.length) {
                         char = text[end];
                         if (breaks) {
-                            if (char == null || __indexOf.call("\n\u2028\u2029", char) < 0) {
-                                _ref1 = text.slice(start, end);
-                                for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                                    br = _ref1[_i];
+                            if (char == null || indexOf.call("\n\u2028\u2029", char) < 0) {
+                                ref = text.slice(start, end);
+                                for (i = 0, len = ref.length; i < len; i++) {
+                                    br = ref[i];
                                     if (br === "\n") {
                                         this.write_line_break();
                                     } else {
@@ -2198,7 +2203,7 @@
                                 start = end;
                             }
                         } else {
-                            if (char == null || __indexOf.call("\n\u2028\u2029", char) >= 0) {
+                            if (char == null || indexOf.call("\n\u2028\u2029", char) >= 0) {
                                 data = text.slice(start, end);
                                 this.stream.write(data, this.encoding);
                                 if (char == null) {
@@ -2208,14 +2213,14 @@
                             }
                         }
                         if (char != null) {
-                            breaks = __indexOf.call("\n\u2028\u2029", char) >= 0;
+                            breaks = indexOf.call("\n\u2028\u2029", char) >= 0;
                         }
-                        _results.push(end++);
+                        results.push(end++);
                     }
-                    return _results;
+                    return results;
                 };
                 Emitter.prototype.write_plain = function(text, split) {
-                    var br, breaks, char, data, end, spaces, start, _i, _len, _ref1, _results;
+                    var br, breaks, char, data, end, i, len, ref, results, spaces, start;
                     if (split == null) {
                         split = true;
                     }
@@ -2235,7 +2240,7 @@
                     spaces = false;
                     breaks = false;
                     start = end = 0;
-                    _results = [];
+                    results = [];
                     while (end <= text.length) {
                         char = text[end];
                         if (spaces) {
@@ -2252,13 +2257,13 @@
                                 start = end;
                             }
                         } else if (breaks) {
-                            if (__indexOf.call("\n\u2028\u2029", char) < 0) {
+                            if (indexOf.call("\n\u2028\u2029", char) < 0) {
                                 if (text[start] === "\n") {
                                     this.write_line_break();
                                 }
-                                _ref1 = text.slice(start, end);
-                                for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                                    br = _ref1[_i];
+                                ref = text.slice(start, end);
+                                for (i = 0, len = ref.length; i < len; i++) {
+                                    br = ref[i];
                                     if (br === "\n") {
                                         this.write_line_break();
                                     } else {
@@ -2271,7 +2276,7 @@
                                 start = end;
                             }
                         } else {
-                            if (char == null || __indexOf.call(" \n\u2028\u2029", char) >= 0) {
+                            if (char == null || indexOf.call(" \n\u2028\u2029", char) >= 0) {
                                 data = text.slice(start, end);
                                 this.column += data.length;
                                 this.stream.write(data, this.encoding);
@@ -2280,48 +2285,49 @@
                         }
                         if (char != null) {
                             spaces = char === " ";
-                            breaks = __indexOf.call("\n\u2028\u2029", char) >= 0;
+                            breaks = indexOf.call("\n\u2028\u2029", char) >= 0;
                         }
-                        _results.push(end++);
+                        results.push(end++);
                     }
-                    return _results;
+                    return results;
                 };
                 Emitter.prototype.determine_block_hints = function(text) {
-                    var hints, _ref1, _ref2, _ref3;
+                    var first, hints, i, last, penultimate;
                     hints = "";
-                    if (_ref1 = text[0], __indexOf.call(" \n\u2028\u2029", _ref1) >= 0) {
+                    first = text[0], i = text.length - 2, penultimate = text[i++], last = text[i++];
+                    if (indexOf.call(" \n\u2028\u2029", first) >= 0) {
                         hints += this.best_indent;
                     }
-                    if (_ref2 = text.slice(-1), __indexOf.call("\n\u2028\u2029", _ref2) < 0) {
+                    if (indexOf.call("\n\u2028\u2029", last) < 0) {
                         hints += "-";
-                    } else if (text.length === 1 || (_ref3 = text.slice(-2, -1), __indexOf.call("\n\u2028\u2029", _ref3) >= 0)) {
+                    } else if (text.length === 1 || indexOf.call("\n\u2028\u2029", penultimate) >= 0) {
                         hints += "+";
                     }
                     return hints;
                 };
                 Emitter.prototype.flush_stream = function() {
-                    var _base;
-                    return typeof (_base = this.stream).flush === "function" ? _base.flush() : void 0;
+                    var base;
+                    return typeof (base = this.stream).flush === "function" ? base.flush() : void 0;
                 };
                 Emitter.prototype.error = function(message, context) {
-                    var _ref1, _ref2;
+                    var ref, ref1;
                     if (context) {
-                        context = (_ref1 = context != null ? (_ref2 = context.constructor) != null ? _ref2.name : void 0 : void 0) != null ? _ref1 : util.inspect(context);
+                        context = (ref = context != null ? (ref1 = context.constructor) != null ? ref1.name : void 0 : void 0) != null ? ref : util.inspect(context);
                     }
                     throw new exports.EmitterError("" + message + (context ? " " + context : ""));
                 };
                 return Emitter;
             }();
             ScalarAnalysis = function() {
-                function ScalarAnalysis(scalar, empty, multiline, allow_flow_plain, allow_block_plain, allow_single_quoted, allow_double_quoted, allow_block) {
-                    this.scalar = scalar;
+                function ScalarAnalysis(scalar1, empty, multiline, allow_flow_plain1, allow_block_plain1, allow_single_quoted1, allow_double_quoted1, allow_block1) {
+                    this.scalar = scalar1;
                     this.empty = empty;
                     this.multiline = multiline;
-                    this.allow_flow_plain = allow_flow_plain;
-                    this.allow_block_plain = allow_block_plain;
-                    this.allow_single_quoted = allow_single_quoted;
-                    this.allow_double_quoted = allow_double_quoted;
-                    this.allow_block = allow_block;
+                    this.allow_flow_plain = allow_flow_plain1;
+                    this.allow_block_plain = allow_block_plain1;
+                    this.allow_single_quoted = allow_single_quoted1;
+                    this.allow_double_quoted = allow_double_quoted1;
+                    this.allow_block = allow_block1;
                 }
                 return ScalarAnalysis;
             }();
@@ -2331,9 +2337,9 @@
         "0": [ "./serializer" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var YAMLError, events, nodes, util, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var YAMLError, events, nodes, util, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -2342,23 +2348,22 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            };
+            }, hasProp = {}.hasOwnProperty;
             events = require("./events");
             nodes = require("./nodes");
             util = require("./util");
             YAMLError = require("./errors").YAMLError;
-            this.SerializerError = function(_super) {
-                __extends(SerializerError, _super);
+            this.SerializerError = function(superClass) {
+                extend(SerializerError, superClass);
                 function SerializerError() {
-                    _ref = SerializerError.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return SerializerError.__super__.constructor.apply(this, arguments);
                 }
                 return SerializerError;
             }(YAMLError);
             this.Serializer = function() {
-                function Serializer(_arg) {
-                    var _ref1;
-                    _ref1 = _arg != null ? _arg : {}, this.encoding = _ref1.encoding, this.explicit_start = _ref1.explicit_start, this.explicit_end = _ref1.explicit_end, this.version = _ref1.version, this.tags = _ref1.tags;
+                function Serializer(arg) {
+                    var ref;
+                    ref = arg != null ? arg : {}, this.encoding = ref.encoding, this.explicit_start = ref.explicit_start, this.explicit_end = ref.explicit_end, this.version = ref.version, this.tags = ref.tags;
                     this.serialized_nodes = {};
                     this.anchors = {};
                     this.last_anchor_id = 0;
@@ -2399,28 +2404,28 @@
                     return this.last_anchor_id = 0;
                 };
                 Serializer.prototype.anchor_node = function(node) {
-                    var item, key, value, _base, _i, _j, _len, _len1, _name, _ref1, _ref2, _ref3, _results, _results1;
+                    var base, i, item, j, key, len, len1, name, ref, ref1, ref2, results, results1, value;
                     if (node.unique_id in this.anchors) {
-                        return (_base = this.anchors)[_name = node.unique_id] != null ? (_base = this.anchors)[_name = node.unique_id] : _base[_name] = this.generate_anchor(node);
+                        return (base = this.anchors)[name = node.unique_id] != null ? base[name] : base[name] = this.generate_anchor(node);
                     } else {
                         this.anchors[node.unique_id] = null;
                         if (node instanceof nodes.SequenceNode) {
-                            _ref1 = node.value;
-                            _results = [];
-                            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                                item = _ref1[_i];
-                                _results.push(this.anchor_node(item));
+                            ref = node.value;
+                            results = [];
+                            for (i = 0, len = ref.length; i < len; i++) {
+                                item = ref[i];
+                                results.push(this.anchor_node(item));
                             }
-                            return _results;
+                            return results;
                         } else if (node instanceof nodes.MappingNode) {
-                            _ref2 = node.value;
-                            _results1 = [];
-                            for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
-                                _ref3 = _ref2[_j], key = _ref3[0], value = _ref3[1];
+                            ref1 = node.value;
+                            results1 = [];
+                            for (j = 0, len1 = ref1.length; j < len1; j++) {
+                                ref2 = ref1[j], key = ref2[0], value = ref2[1];
                                 this.anchor_node(key);
-                                _results1.push(this.anchor_node(value));
+                                results1.push(this.anchor_node(value));
                             }
-                            return _results1;
+                            return results1;
                         }
                     }
                 };
@@ -2428,7 +2433,7 @@
                     return "id" + util.pad_left(++this.last_anchor_id, "0", 4);
                 };
                 Serializer.prototype.serialize_node = function(node, parent, index) {
-                    var alias, default_tag, detected_tag, implicit, item, key, value, _i, _j, _len, _len1, _ref1, _ref2, _ref3;
+                    var alias, default_tag, detected_tag, i, implicit, item, j, key, len, len1, ref, ref1, ref2, value;
                     alias = this.anchors[node.unique_id];
                     if (node.unique_id in this.serialized_nodes) {
                         return this.emit(new events.AliasEvent(alias));
@@ -2443,18 +2448,18 @@
                         } else if (node instanceof nodes.SequenceNode) {
                             implicit = node.tag === this.resolve(nodes.SequenceNode, node.value, true);
                             this.emit(new events.SequenceStartEvent(alias, node.tag, implicit, void 0, void 0, node.flow_style));
-                            _ref1 = node.value;
-                            for (index = _i = 0, _len = _ref1.length; _i < _len; index = ++_i) {
-                                item = _ref1[index];
+                            ref = node.value;
+                            for (index = i = 0, len = ref.length; i < len; index = ++i) {
+                                item = ref[index];
                                 this.serialize_node(item, node, index);
                             }
                             this.emit(new events.SequenceEndEvent);
                         } else if (node instanceof nodes.MappingNode) {
                             implicit = node.tag === this.resolve(nodes.MappingNode, node.value, true);
                             this.emit(new events.MappingStartEvent(alias, node.tag, implicit, void 0, void 0, node.flow_style));
-                            _ref2 = node.value;
-                            for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
-                                _ref3 = _ref2[_j], key = _ref3[0], value = _ref3[1];
+                            ref1 = node.value;
+                            for (j = 0, len1 = ref1.length; j < len1; j++) {
+                                ref2 = ref1[j], key = ref2[0], value = ref2[1];
                                 this.serialize_node(key, node, null);
                                 this.serialize_node(value, node, key);
                             }
@@ -2471,9 +2476,9 @@
         "0": [ "./representer" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var YAMLError, nodes, _ref, _ref1, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var YAMLError, nodes, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -2482,14 +2487,13 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            };
+            }, hasProp = {}.hasOwnProperty;
             nodes = require("./nodes");
             YAMLError = require("./errors").YAMLError;
-            this.RepresenterError = function(_super) {
-                __extends(RepresenterError, _super);
+            this.RepresenterError = function(superClass) {
+                extend(RepresenterError, superClass);
                 function RepresenterError() {
-                    _ref = RepresenterError.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return RepresenterError.__super__.constructor.apply(this, arguments);
                 }
                 return RepresenterError;
             }(YAMLError);
@@ -2518,9 +2522,9 @@
                     this.prototype.yaml_multi_representers_types.push(data_type);
                     return this.prototype.yaml_multi_representers_handlers.push(handler);
                 };
-                function BaseRepresenter(_arg) {
-                    var _ref1;
-                    _ref1 = _arg != null ? _arg : {}, this.default_style = _ref1.default_style, this.default_flow_style = _ref1.default_flow_style;
+                function BaseRepresenter(arg) {
+                    var ref;
+                    ref = arg != null ? arg : {}, this.default_style = ref.default_style, this.default_flow_style = ref.default_flow_style;
                     this.represented_objects = {};
                     this.object_keeper = [];
                     this.alias_key = null;
@@ -2534,7 +2538,7 @@
                     return this.alias_key = null;
                 };
                 BaseRepresenter.prototype.represent_data = function(data) {
-                    var data_type, i, representer, type, _i, _len, _ref1;
+                    var data_type, i, j, len, ref, representer, type;
                     if (this.ignore_aliases(data)) {
                         this.alias_key = null;
                     } else if ((i = this.object_keeper.indexOf(data)) !== -1) {
@@ -2555,9 +2559,9 @@
                         representer = this.yaml_representers_handlers[i];
                     }
                     if (representer == null) {
-                        _ref1 = this.yaml_multi_representers_types;
-                        for (i = _i = 0, _len = _ref1.length; _i < _len; i = ++_i) {
-                            type = _ref1[i];
+                        ref = this.yaml_multi_representers_types;
+                        for (i = j = 0, len = ref.length; j < len; i = ++j) {
+                            type = ref[i];
                             if (!(data instanceof type)) {
                                 continue;
                             }
@@ -2583,22 +2587,22 @@
                     if (style == null) {
                         style = this.default_style;
                     }
-                    node = new nodes.ScalarNode(tag, value, style);
+                    node = new nodes.ScalarNode(tag, value, null, null, style);
                     if (this.alias_key != null) {
                         this.represented_objects[this.alias_key] = node;
                     }
                     return node;
                 };
                 BaseRepresenter.prototype.represent_sequence = function(tag, sequence, flow_style) {
-                    var best_style, item, node, node_item, value, _i, _len, _ref1;
+                    var best_style, item, j, len, node, node_item, ref, value;
                     value = [];
                     node = new nodes.SequenceNode(tag, value, null, null, flow_style);
                     if (this.alias_key != null) {
                         this.represented_objects[this.alias_key] = node;
                     }
                     best_style = true;
-                    for (_i = 0, _len = sequence.length; _i < _len; _i++) {
-                        item = sequence[_i];
+                    for (j = 0, len = sequence.length; j < len; j++) {
+                        item = sequence[j];
                         node_item = this.represent_data(item);
                         if (!(node_item instanceof nodes.ScalarNode || node_item.style)) {
                             best_style = false;
@@ -2606,12 +2610,12 @@
                         value.push(node_item);
                     }
                     if (flow_style == null) {
-                        node.flow_style = (_ref1 = this.default_flow_style) != null ? _ref1 : best_style;
+                        node.flow_style = (ref = this.default_flow_style) != null ? ref : best_style;
                     }
                     return node;
                 };
                 BaseRepresenter.prototype.represent_mapping = function(tag, mapping, flow_style) {
-                    var best_style, item_key, item_value, node, node_key, node_value, value, _ref1;
+                    var best_style, item_key, item_value, node, node_key, node_value, ref, value;
                     value = [];
                     node = new nodes.MappingNode(tag, value, flow_style);
                     if (this.alias_key) {
@@ -2619,7 +2623,7 @@
                     }
                     best_style = true;
                     for (item_key in mapping) {
-                        if (!__hasProp.call(mapping, item_key)) continue;
+                        if (!hasProp.call(mapping, item_key)) continue;
                         item_value = mapping[item_key];
                         node_key = this.represent_data(item_key);
                         node_value = this.represent_data(item_value);
@@ -2632,7 +2636,7 @@
                         value.push([ node_key, node_value ]);
                     }
                     if (!flow_style) {
-                        node.flow_style = (_ref1 = this.default_flow_style) != null ? _ref1 : best_style;
+                        node.flow_style = (ref = this.default_flow_style) != null ? ref : best_style;
                     }
                     return node;
                 };
@@ -2641,11 +2645,10 @@
                 };
                 return BaseRepresenter;
             }();
-            this.Representer = function(_super) {
-                __extends(Representer, _super);
+            this.Representer = function(superClass) {
+                extend(Representer, superClass);
                 function Representer() {
-                    _ref1 = Representer.__super__.constructor.apply(this, arguments);
-                    return _ref1;
+                    return Representer.__super__.constructor.apply(this, arguments);
                 }
                 Representer.prototype.represent_boolean = function(data) {
                     return this.represent_scalar("tag:yaml.org,2002:bool", data ? "true" : "false");
@@ -2675,11 +2678,11 @@
                     throw new exports.RepresenterError("cannot represent an onbject: " + data);
                 };
                 Representer.prototype.ignore_aliases = function(data) {
-                    var _ref2;
+                    var ref;
                     if (data == null) {
                         return true;
                     }
-                    if ((_ref2 = typeof data) === "boolean" || _ref2 === "number" || _ref2 === "string") {
+                    if ((ref = typeof data) === "boolean" || ref === "number" || ref === "string") {
                         return true;
                     }
                     return false;
@@ -2700,9 +2703,9 @@
         "0": [ "./resolver" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var YAMLError, nodes, util, _ref, _ref1, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var YAMLError, nodes, util, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -2711,7 +2714,7 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            }, __indexOf = [].indexOf || function(item) {
+            }, hasProp = {}.hasOwnProperty, indexOf = [].indexOf || function(item) {
                 for (var i = 0, l = this.length; i < l; i++) {
                     if (i in this && this[i] === item) return i;
                 }
@@ -2720,11 +2723,10 @@
             nodes = require("./nodes");
             util = require("./util");
             YAMLError = require("./errors").YAMLError;
-            this.ResolverError = function(_super) {
-                __extends(ResolverError, _super);
+            this.ResolverError = function(superClass) {
+                extend(ResolverError, superClass);
                 function ResolverError() {
-                    _ref = ResolverError.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return ResolverError.__super__.constructor.apply(this, arguments);
                 }
                 return ResolverError;
             }(YAMLError);
@@ -2736,26 +2738,26 @@
                 BaseResolver.prototype.yaml_implicit_resolvers = {};
                 BaseResolver.prototype.yaml_path_resolvers = {};
                 BaseResolver.add_implicit_resolver = function(tag, regexp, first) {
-                    var char, _base, _i, _len, _results;
+                    var base, char, i, len, results;
                     if (first == null) {
                         first = [ null ];
                     }
                     if (!this.prototype.hasOwnProperty("yaml_implicit_resolvers")) {
                         this.prototype.yaml_implicit_resolvers = util.extend({}, this.prototype.yaml_implicit_resolvers);
                     }
-                    _results = [];
-                    for (_i = 0, _len = first.length; _i < _len; _i++) {
-                        char = first[_i];
-                        _results.push(((_base = this.prototype.yaml_implicit_resolvers)[char] != null ? (_base = this.prototype.yaml_implicit_resolvers)[char] : _base[char] = []).push([ tag, regexp ]));
+                    results = [];
+                    for (i = 0, len = first.length; i < len; i++) {
+                        char = first[i];
+                        results.push(((base = this.prototype.yaml_implicit_resolvers)[char] != null ? base[char] : base[char] = []).push([ tag, regexp ]));
                     }
-                    return _results;
+                    return results;
                 };
                 function BaseResolver() {
                     this.resolver_exact_paths = [];
                     this.resolver_prefix_paths = [];
                 }
                 BaseResolver.prototype.descend_resolver = function(current_node, current_index) {
-                    var depth, exact_paths, kind, path, prefix_paths, _i, _j, _len, _len1, _ref1, _ref2, _ref3, _ref4;
+                    var depth, exact_paths, i, j, kind, len, len1, path, prefix_paths, ref, ref1, ref2, ref3;
                     if (util.is_empty(this.yaml_path_resolvers)) {
                         return;
                     }
@@ -2763,9 +2765,9 @@
                     prefix_paths = [];
                     if (current_node) {
                         depth = this.resolver_prefix_paths.length;
-                        _ref1 = this.resolver_prefix_paths.slice(-1)[0];
-                        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                            _ref2 = _ref1[_i], path = _ref2[0], kind = _ref2[1];
+                        ref = this.resolver_prefix_paths.slice(-1)[0];
+                        for (i = 0, len = ref.length; i < len; i++) {
+                            ref1 = ref[i], path = ref1[0], kind = ref1[1];
                             if (this.check_resolver_prefix(depth, path, kind, current_node, current_index)) {
                                 if (path.length > depth) {
                                     prefix_paths.push([ path, kind ]);
@@ -2775,9 +2777,9 @@
                             }
                         }
                     } else {
-                        _ref3 = this.yaml_path_resolvers;
-                        for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
-                            _ref4 = _ref3[_j], path = _ref4[0], kind = _ref4[1];
+                        ref2 = this.yaml_path_resolvers;
+                        for (j = 0, len1 = ref2.length; j < len1; j++) {
+                            ref3 = ref2[j], path = ref3[0], kind = ref3[1];
                             if (!path) {
                                 exact_paths[kind] = this.yaml_path_resolvers[path][kind];
                             } else {
@@ -2796,8 +2798,8 @@
                     return this.resolver_prefix_paths.pop();
                 };
                 BaseResolver.prototype.check_resolver_prefix = function(depth, path, kind, current_node, current_index) {
-                    var index_check, node_check, _ref1;
-                    _ref1 = path[depth - 1], node_check = _ref1[0], index_check = _ref1[1];
+                    var index_check, node_check, ref;
+                    ref = path[depth - 1], node_check = ref[0], index_check = ref[1];
                     if (typeof node_check === "string") {
                         if (current_node.tag !== node_check) {
                             return;
@@ -2825,16 +2827,16 @@
                     return true;
                 };
                 BaseResolver.prototype.resolve = function(kind, value, implicit) {
-                    var empty, exact_paths, k, regexp, resolvers, tag, _i, _len, _ref1, _ref2, _ref3, _ref4;
+                    var empty, exact_paths, i, k, len, ref, ref1, ref2, ref3, regexp, resolvers, tag;
                     if (kind === nodes.ScalarNode && implicit[0]) {
                         if (value === "") {
-                            resolvers = (_ref1 = this.yaml_implicit_resolvers[""]) != null ? _ref1 : [];
+                            resolvers = (ref = this.yaml_implicit_resolvers[""]) != null ? ref : [];
                         } else {
-                            resolvers = (_ref2 = this.yaml_implicit_resolvers[value[0]]) != null ? _ref2 : [];
+                            resolvers = (ref1 = this.yaml_implicit_resolvers[value[0]]) != null ? ref1 : [];
                         }
-                        resolvers = resolvers.concat((_ref3 = this.yaml_implicit_resolvers[null]) != null ? _ref3 : []);
-                        for (_i = 0, _len = resolvers.length; _i < _len; _i++) {
-                            _ref4 = resolvers[_i], tag = _ref4[0], regexp = _ref4[1];
+                        resolvers = resolvers.concat((ref2 = this.yaml_implicit_resolvers[null]) != null ? ref2 : []);
+                        for (i = 0, len = resolvers.length; i < len; i++) {
+                            ref3 = resolvers[i], tag = ref3[0], regexp = ref3[1];
                             if (value.match(regexp)) {
                                 return tag;
                             }
@@ -2849,10 +2851,10 @@
                     }
                     if (!empty) {
                         exact_paths = this.resolver_exact_paths.slice(-1)[0];
-                        if (__indexOf.call(exact_paths, kind) >= 0) {
+                        if (indexOf.call(exact_paths, kind) >= 0) {
                             return exact_paths[kind];
                         }
-                        if (__indexOf.call(exact_paths, null) >= 0) {
+                        if (indexOf.call(exact_paths, null) >= 0) {
                             return exact_paths[null];
                         }
                     }
@@ -2868,11 +2870,10 @@
                 };
                 return BaseResolver;
             }();
-            this.Resolver = function(_super) {
-                __extends(Resolver, _super);
+            this.Resolver = function(superClass) {
+                extend(Resolver, superClass);
                 function Resolver() {
-                    _ref1 = Resolver.__super__.constructor.apply(this, arguments);
-                    return _ref1;
+                    return Resolver.__super__.constructor.apply(this, arguments);
                 }
                 return Resolver;
             }(this.BaseResolver);
@@ -2890,7 +2891,7 @@
         "0": [ "./dumper" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var emitter, representer, resolver, serializer, util, __slice = [].slice;
+            var emitter, representer, resolver, serializer, util, slice = [].slice;
             util = require("./util");
             emitter = require("./emitter");
             serializer = require("./serializer");
@@ -2913,24 +2914,24 @@
                 components = [ Emitter, Serializer, Representer, Resolver ];
                 return Dumper = function() {
                     var component;
-                    util.extend.apply(util, [ Dumper.prototype ].concat(__slice.call(function() {
-                        var _i, _len, _results;
-                        _results = [];
-                        for (_i = 0, _len = components.length; _i < _len; _i++) {
-                            component = components[_i];
-                            _results.push(component.prototype);
+                    util.extend.apply(util, [ Dumper.prototype ].concat(slice.call(function() {
+                        var i, len, results;
+                        results = [];
+                        for (i = 0, len = components.length; i < len; i++) {
+                            component = components[i];
+                            results.push(component.prototype);
                         }
-                        return _results;
+                        return results;
                     }())));
                     function Dumper(stream, options) {
-                        var _i, _len, _ref;
+                        var i, len, ref;
                         if (options == null) {
                             options = {};
                         }
                         components[0].call(this, stream, options);
-                        _ref = components.slice(1);
-                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            component = _ref[_i];
+                        ref = components.slice(1);
+                        for (i = 0, len = ref.length; i < len; i++) {
+                            component = ref[i];
                             component.call(this, options);
                         }
                     }
@@ -2944,9 +2945,9 @@
         "0": [ "./reader" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var Mark, YAMLError, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var Mark, YAMLError, ref, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -2955,18 +2956,18 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            }, __indexOf = [].indexOf || function(item) {
+            }, hasProp = {}.hasOwnProperty, indexOf = [].indexOf || function(item) {
                 for (var i = 0, l = this.length; i < l; i++) {
                     if (i in this && this[i] === item) return i;
                 }
                 return -1;
             };
-            _ref = require("./errors"), Mark = _ref.Mark, YAMLError = _ref.YAMLError;
-            this.ReaderError = function(_super) {
-                __extends(ReaderError, _super);
-                function ReaderError(position, character, reason) {
-                    this.position = position;
-                    this.character = character;
+            ref = require("./errors"), Mark = ref.Mark, YAMLError = ref.YAMLError;
+            this.ReaderError = function(superClass) {
+                extend(ReaderError, superClass);
+                function ReaderError(position1, character1, reason) {
+                    this.position = position1;
+                    this.character = character1;
                     this.reason = reason;
                     ReaderError.__super__.constructor.call(this);
                 }
@@ -2999,23 +3000,23 @@
                     return this.string.slice(this.index, this.index + length);
                 };
                 Reader.prototype.forward = function(length) {
-                    var char, _results;
+                    var char, results;
                     if (length == null) {
                         length = 1;
                     }
-                    _results = [];
+                    results = [];
                     while (length) {
                         char = this.string[this.index];
                         this.index++;
-                        if (__indexOf.call("\n₂\u2029", char) >= 0 || char === "\r" && this.string[this.index] !== "\n") {
+                        if (indexOf.call("\n₂\u2029", char) >= 0 || char === "\r" && this.string[this.index] !== "\n") {
                             this.line++;
                             this.column = 0;
                         } else {
                             this.column++;
                         }
-                        _results.push(length--);
+                        results.push(length--);
                     }
-                    return _results;
+                    return results;
                 };
                 Reader.prototype.get_mark = function() {
                     return new Mark(this.line, this.column, this.string, this.index);
@@ -3037,9 +3038,9 @@
         "0": [ "./tokens" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var _ref, _ref1, _ref10, _ref11, _ref12, _ref13, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -3048,7 +3049,7 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            };
+            }, hasProp = {}.hasOwnProperty;
             this.Token = function() {
                 function Token(start_mark, end_mark) {
                     this.start_mark = start_mark;
@@ -3056,8 +3057,8 @@
                 }
                 return Token;
             }();
-            this.DirectiveToken = function(_super) {
-                __extends(DirectiveToken, _super);
+            this.DirectiveToken = function(superClass) {
+                extend(DirectiveToken, superClass);
                 DirectiveToken.prototype.id = "<directive>";
                 function DirectiveToken(name, value, start_mark, end_mark) {
                     this.name = name;
@@ -3067,26 +3068,24 @@
                 }
                 return DirectiveToken;
             }(this.Token);
-            this.DocumentStartToken = function(_super) {
-                __extends(DocumentStartToken, _super);
+            this.DocumentStartToken = function(superClass) {
+                extend(DocumentStartToken, superClass);
                 function DocumentStartToken() {
-                    _ref = DocumentStartToken.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return DocumentStartToken.__super__.constructor.apply(this, arguments);
                 }
                 DocumentStartToken.prototype.id = "<document start>";
                 return DocumentStartToken;
             }(this.Token);
-            this.DocumentEndToken = function(_super) {
-                __extends(DocumentEndToken, _super);
+            this.DocumentEndToken = function(superClass) {
+                extend(DocumentEndToken, superClass);
                 function DocumentEndToken() {
-                    _ref1 = DocumentEndToken.__super__.constructor.apply(this, arguments);
-                    return _ref1;
+                    return DocumentEndToken.__super__.constructor.apply(this, arguments);
                 }
                 DocumentEndToken.prototype.id = "<document end>";
                 return DocumentEndToken;
             }(this.Token);
-            this.StreamStartToken = function(_super) {
-                __extends(StreamStartToken, _super);
+            this.StreamStartToken = function(superClass) {
+                extend(StreamStartToken, superClass);
                 StreamStartToken.prototype.id = "<stream start>";
                 function StreamStartToken(start_mark, end_mark, encoding) {
                     this.start_mark = start_mark;
@@ -3095,116 +3094,104 @@
                 }
                 return StreamStartToken;
             }(this.Token);
-            this.StreamEndToken = function(_super) {
-                __extends(StreamEndToken, _super);
+            this.StreamEndToken = function(superClass) {
+                extend(StreamEndToken, superClass);
                 function StreamEndToken() {
-                    _ref2 = StreamEndToken.__super__.constructor.apply(this, arguments);
-                    return _ref2;
+                    return StreamEndToken.__super__.constructor.apply(this, arguments);
                 }
                 StreamEndToken.prototype.id = "<stream end>";
                 return StreamEndToken;
             }(this.Token);
-            this.BlockSequenceStartToken = function(_super) {
-                __extends(BlockSequenceStartToken, _super);
+            this.BlockSequenceStartToken = function(superClass) {
+                extend(BlockSequenceStartToken, superClass);
                 function BlockSequenceStartToken() {
-                    _ref3 = BlockSequenceStartToken.__super__.constructor.apply(this, arguments);
-                    return _ref3;
+                    return BlockSequenceStartToken.__super__.constructor.apply(this, arguments);
                 }
                 BlockSequenceStartToken.prototype.id = "<block sequence start>";
                 return BlockSequenceStartToken;
             }(this.Token);
-            this.BlockMappingStartToken = function(_super) {
-                __extends(BlockMappingStartToken, _super);
+            this.BlockMappingStartToken = function(superClass) {
+                extend(BlockMappingStartToken, superClass);
                 function BlockMappingStartToken() {
-                    _ref4 = BlockMappingStartToken.__super__.constructor.apply(this, arguments);
-                    return _ref4;
+                    return BlockMappingStartToken.__super__.constructor.apply(this, arguments);
                 }
                 BlockMappingStartToken.prototype.id = "<block mapping end>";
                 return BlockMappingStartToken;
             }(this.Token);
-            this.BlockEndToken = function(_super) {
-                __extends(BlockEndToken, _super);
+            this.BlockEndToken = function(superClass) {
+                extend(BlockEndToken, superClass);
                 function BlockEndToken() {
-                    _ref5 = BlockEndToken.__super__.constructor.apply(this, arguments);
-                    return _ref5;
+                    return BlockEndToken.__super__.constructor.apply(this, arguments);
                 }
                 BlockEndToken.prototype.id = "<block end>";
                 return BlockEndToken;
             }(this.Token);
-            this.FlowSequenceStartToken = function(_super) {
-                __extends(FlowSequenceStartToken, _super);
+            this.FlowSequenceStartToken = function(superClass) {
+                extend(FlowSequenceStartToken, superClass);
                 function FlowSequenceStartToken() {
-                    _ref6 = FlowSequenceStartToken.__super__.constructor.apply(this, arguments);
-                    return _ref6;
+                    return FlowSequenceStartToken.__super__.constructor.apply(this, arguments);
                 }
                 FlowSequenceStartToken.prototype.id = "[";
                 return FlowSequenceStartToken;
             }(this.Token);
-            this.FlowMappingStartToken = function(_super) {
-                __extends(FlowMappingStartToken, _super);
+            this.FlowMappingStartToken = function(superClass) {
+                extend(FlowMappingStartToken, superClass);
                 function FlowMappingStartToken() {
-                    _ref7 = FlowMappingStartToken.__super__.constructor.apply(this, arguments);
-                    return _ref7;
+                    return FlowMappingStartToken.__super__.constructor.apply(this, arguments);
                 }
                 FlowMappingStartToken.prototype.id = "{";
                 return FlowMappingStartToken;
             }(this.Token);
-            this.FlowSequenceEndToken = function(_super) {
-                __extends(FlowSequenceEndToken, _super);
+            this.FlowSequenceEndToken = function(superClass) {
+                extend(FlowSequenceEndToken, superClass);
                 function FlowSequenceEndToken() {
-                    _ref8 = FlowSequenceEndToken.__super__.constructor.apply(this, arguments);
-                    return _ref8;
+                    return FlowSequenceEndToken.__super__.constructor.apply(this, arguments);
                 }
                 FlowSequenceEndToken.prototype.id = "]";
                 return FlowSequenceEndToken;
             }(this.Token);
-            this.FlowMappingEndToken = function(_super) {
-                __extends(FlowMappingEndToken, _super);
+            this.FlowMappingEndToken = function(superClass) {
+                extend(FlowMappingEndToken, superClass);
                 function FlowMappingEndToken() {
-                    _ref9 = FlowMappingEndToken.__super__.constructor.apply(this, arguments);
-                    return _ref9;
+                    return FlowMappingEndToken.__super__.constructor.apply(this, arguments);
                 }
                 FlowMappingEndToken.prototype.id = "}";
                 return FlowMappingEndToken;
             }(this.Token);
-            this.KeyToken = function(_super) {
-                __extends(KeyToken, _super);
+            this.KeyToken = function(superClass) {
+                extend(KeyToken, superClass);
                 function KeyToken() {
-                    _ref10 = KeyToken.__super__.constructor.apply(this, arguments);
-                    return _ref10;
+                    return KeyToken.__super__.constructor.apply(this, arguments);
                 }
                 KeyToken.prototype.id = "?";
                 return KeyToken;
             }(this.Token);
-            this.ValueToken = function(_super) {
-                __extends(ValueToken, _super);
+            this.ValueToken = function(superClass) {
+                extend(ValueToken, superClass);
                 function ValueToken() {
-                    _ref11 = ValueToken.__super__.constructor.apply(this, arguments);
-                    return _ref11;
+                    return ValueToken.__super__.constructor.apply(this, arguments);
                 }
                 ValueToken.prototype.id = ":";
                 return ValueToken;
             }(this.Token);
-            this.BlockEntryToken = function(_super) {
-                __extends(BlockEntryToken, _super);
+            this.BlockEntryToken = function(superClass) {
+                extend(BlockEntryToken, superClass);
                 function BlockEntryToken() {
-                    _ref12 = BlockEntryToken.__super__.constructor.apply(this, arguments);
-                    return _ref12;
+                    return BlockEntryToken.__super__.constructor.apply(this, arguments);
                 }
                 BlockEntryToken.prototype.id = "-";
                 return BlockEntryToken;
             }(this.Token);
-            this.FlowEntryToken = function(_super) {
-                __extends(FlowEntryToken, _super);
+            this.FlowEntryToken = function(superClass) {
+                extend(FlowEntryToken, superClass);
                 function FlowEntryToken() {
-                    _ref13 = FlowEntryToken.__super__.constructor.apply(this, arguments);
-                    return _ref13;
+                    return FlowEntryToken.__super__.constructor.apply(this, arguments);
                 }
                 FlowEntryToken.prototype.id = ",";
                 return FlowEntryToken;
             }(this.Token);
-            this.AliasToken = function(_super) {
-                __extends(AliasToken, _super);
+            this.AliasToken = function(superClass) {
+                extend(AliasToken, superClass);
                 AliasToken.prototype.id = "<alias>";
                 function AliasToken(value, start_mark, end_mark) {
                     this.value = value;
@@ -3213,8 +3200,8 @@
                 }
                 return AliasToken;
             }(this.Token);
-            this.AnchorToken = function(_super) {
-                __extends(AnchorToken, _super);
+            this.AnchorToken = function(superClass) {
+                extend(AnchorToken, superClass);
                 AnchorToken.prototype.id = "<anchor>";
                 function AnchorToken(value, start_mark, end_mark) {
                     this.value = value;
@@ -3223,8 +3210,8 @@
                 }
                 return AnchorToken;
             }(this.Token);
-            this.TagToken = function(_super) {
-                __extends(TagToken, _super);
+            this.TagToken = function(superClass) {
+                extend(TagToken, superClass);
                 TagToken.prototype.id = "<tag>";
                 function TagToken(value, start_mark, end_mark) {
                     this.value = value;
@@ -3233,8 +3220,8 @@
                 }
                 return TagToken;
             }(this.Token);
-            this.ScalarToken = function(_super) {
-                __extends(ScalarToken, _super);
+            this.ScalarToken = function(superClass) {
+                extend(ScalarToken, superClass);
                 ScalarToken.prototype.id = "<scalar>";
                 function ScalarToken(value, plain, start_mark, end_mark, style) {
                     this.value = value;
@@ -3251,9 +3238,9 @@
         "0": [ "./scanner" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var MarkedYAMLError, SimpleKey, tokens, util, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var MarkedYAMLError, SimpleKey, tokens, util, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -3262,7 +3249,7 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            }, __slice = [].slice, __indexOf = [].indexOf || function(item) {
+            }, hasProp = {}.hasOwnProperty, slice = [].slice, indexOf = [].indexOf || function(item) {
                 for (var i = 0, l = this.length; i < l; i++) {
                     if (i in this && this[i] === item) return i;
                 }
@@ -3271,22 +3258,21 @@
             MarkedYAMLError = require("./errors").MarkedYAMLError;
             tokens = require("./tokens");
             util = require("./util");
-            this.ScannerError = function(_super) {
-                __extends(ScannerError, _super);
+            this.ScannerError = function(superClass) {
+                extend(ScannerError, superClass);
                 function ScannerError() {
-                    _ref = ScannerError.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return ScannerError.__super__.constructor.apply(this, arguments);
                 }
                 return ScannerError;
             }(MarkedYAMLError);
             SimpleKey = function() {
-                function SimpleKey(token_number, required, index, line, column, mark) {
-                    this.token_number = token_number;
-                    this.required = required;
+                function SimpleKey(token_number1, required1, index, line, column1, mark1) {
+                    this.token_number = token_number1;
+                    this.required = required1;
                     this.index = index;
                     this.line = line;
-                    this.column = column;
-                    this.mark = mark;
+                    this.column = column1;
+                    this.mark = mark1;
                 }
                 return SimpleKey;
             }();
@@ -3331,8 +3317,8 @@
                     this.possible_simple_keys = {};
                 }
                 Scanner.prototype.check_token = function() {
-                    var choice, choices, _i, _len;
-                    choices = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+                    var choice, choices, i, len;
+                    choices = 1 <= arguments.length ? slice.call(arguments, 0) : [];
                     while (this.need_more_tokens()) {
                         this.fetch_more_tokens();
                     }
@@ -3340,8 +3326,8 @@
                         if (choices.length === 0) {
                             return true;
                         }
-                        for (_i = 0, _len = choices.length; _i < _len; _i++) {
-                            choice = choices[_i];
+                        for (i = 0, len = choices.length; i < len; i++) {
+                            choice = choices[i];
                             if (this.tokens[0] instanceof choice) {
                                 return true;
                             }
@@ -3448,12 +3434,12 @@
                     throw new exports.ScannerError("while scanning for the next token", null, "found character " + char + " that cannot start any token", this.get_mark());
                 };
                 Scanner.prototype.next_possible_simple_key = function() {
-                    var key, level, min_token_number, _ref1;
+                    var key, level, min_token_number, ref;
                     min_token_number = null;
-                    _ref1 = this.possible_simple_keys;
-                    for (level in _ref1) {
-                        if (!__hasProp.call(_ref1, level)) continue;
-                        key = _ref1[level];
+                    ref = this.possible_simple_keys;
+                    for (level in ref) {
+                        if (!hasProp.call(ref, level)) continue;
+                        key = ref[level];
                         if (min_token_number === null || key.token_number < min_token_number) {
                             min_token_number = key.token_number;
                         }
@@ -3461,22 +3447,22 @@
                     return min_token_number;
                 };
                 Scanner.prototype.stale_possible_simple_keys = function() {
-                    var key, level, _ref1, _results;
-                    _ref1 = this.possible_simple_keys;
-                    _results = [];
-                    for (level in _ref1) {
-                        if (!__hasProp.call(_ref1, level)) continue;
-                        key = _ref1[level];
+                    var key, level, ref, results;
+                    ref = this.possible_simple_keys;
+                    results = [];
+                    for (level in ref) {
+                        if (!hasProp.call(ref, level)) continue;
+                        key = ref[level];
                         if (key.line === this.line && this.index - key.index <= 1024) {
                             continue;
                         }
                         if (!key.required) {
-                            _results.push(delete this.possible_simple_keys[level]);
+                            results.push(delete this.possible_simple_keys[level]);
                         } else {
                             throw new exports.ScannerError("while scanning a simple key", key.mark, "could not find expected ':'", this.get_mark());
                         }
                     }
-                    return _results;
+                    return results;
                 };
                 Scanner.prototype.save_possible_simple_key = function() {
                     var required, token_number;
@@ -3503,17 +3489,17 @@
                     }
                 };
                 Scanner.prototype.unwind_indent = function(column) {
-                    var mark, _results;
+                    var mark, results;
                     if (this.flow_level !== 0) {
                         return;
                     }
-                    _results = [];
+                    results = [];
                     while (this.indent > column) {
                         mark = this.get_mark();
                         this.indent = this.indents.pop();
-                        _results.push(this.tokens.push(new tokens.BlockEndToken(mark, mark)));
+                        results.push(this.tokens.push(new tokens.BlockEndToken(mark, mark)));
                     }
-                    return _results;
+                    return results;
                 };
                 Scanner.prototype.add_indent = function(column) {
                     if (!(column > this.indent)) {
@@ -3708,72 +3694,72 @@
                     return false;
                 };
                 Scanner.prototype.check_document_start = function() {
-                    var _ref1;
-                    if (this.column === 0 && this.prefix(3) === "---" && (_ref1 = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0)) {
+                    var ref;
+                    if (this.column === 0 && this.prefix(3) === "---" && (ref = this.peek(3), indexOf.call(C_LB + C_WS + "\0", ref) >= 0)) {
                         return true;
                     }
                     return false;
                 };
                 Scanner.prototype.check_document_end = function() {
-                    var _ref1;
-                    if (this.column === 0 && this.prefix(3) === "..." && (_ref1 = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0)) {
+                    var ref;
+                    if (this.column === 0 && this.prefix(3) === "..." && (ref = this.peek(3), indexOf.call(C_LB + C_WS + "\0", ref) >= 0)) {
                         return true;
                     }
                     return false;
                 };
                 Scanner.prototype.check_block_entry = function() {
-                    var _ref1;
-                    return _ref1 = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0;
+                    var ref;
+                    return ref = this.peek(1), indexOf.call(C_LB + C_WS + "\0", ref) >= 0;
                 };
                 Scanner.prototype.check_key = function() {
-                    var _ref1;
+                    var ref;
                     if (this.flow_level !== 0) {
                         return true;
                     }
-                    return _ref1 = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0;
+                    return ref = this.peek(1), indexOf.call(C_LB + C_WS + "\0", ref) >= 0;
                 };
                 Scanner.prototype.check_value = function() {
-                    var _ref1;
+                    var ref;
                     if (this.flow_level !== 0) {
                         return true;
                     }
-                    return _ref1 = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0;
+                    return ref = this.peek(1), indexOf.call(C_LB + C_WS + "\0", ref) >= 0;
                 };
                 Scanner.prototype.check_plain = function() {
-                    var char, _ref1;
+                    var char, ref;
                     char = this.peek();
-                    return __indexOf.call(C_LB + C_WS + "\0-?:,[]{}#&*!|>'\"%@`", char) < 0 || (_ref1 = this.peek(1), __indexOf.call(C_LB + C_WS + "\0", _ref1) < 0) && (char === "-" || this.flow_level === 0 && __indexOf.call("?:", char) >= 0);
+                    return indexOf.call(C_LB + C_WS + "\0-?:,[]{}#&*!|>'\"%@`", char) < 0 || (ref = this.peek(1), indexOf.call(C_LB + C_WS + "\0", ref) < 0) && (char === "-" || this.flow_level === 0 && indexOf.call("?:", char) >= 0);
                 };
                 Scanner.prototype.scan_to_next_token = function() {
-                    var found, _ref1, _results;
+                    var found, ref, results;
                     if (this.index === 0 && this.peek() === "﻿") {
                         this.forward();
                     }
                     found = false;
-                    _results = [];
+                    results = [];
                     while (!found) {
                         while (this.peek() === " ") {
                             this.forward();
                         }
                         if (this.peek() === "#") {
-                            while (_ref1 = this.peek(), __indexOf.call(C_LB + "\0", _ref1) < 0) {
+                            while (ref = this.peek(), indexOf.call(C_LB + "\0", ref) < 0) {
                                 this.forward();
                             }
                         }
                         if (this.scan_line_break()) {
                             if (this.flow_level === 0) {
-                                _results.push(this.allow_simple_key = true);
+                                results.push(this.allow_simple_key = true);
                             } else {
-                                _results.push(void 0);
+                                results.push(void 0);
                             }
                         } else {
-                            _results.push(found = true);
+                            results.push(found = true);
                         }
                     }
-                    return _results;
+                    return results;
                 };
                 Scanner.prototype.scan_directive = function() {
-                    var end_mark, name, start_mark, value, _ref1;
+                    var end_mark, name, ref, start_mark, value;
                     start_mark = this.get_mark();
                     this.forward();
                     name = this.scan_directive_name(start_mark);
@@ -3786,7 +3772,7 @@
                         end_mark = this.get_mark();
                     } else {
                         end_mark = this.get_mark();
-                        while (_ref1 = this.peek(), __indexOf.call(C_LB + "\0", _ref1) < 0) {
+                        while (ref = this.peek(), indexOf.call(C_LB + "\0", ref) < 0) {
                             this.forward();
                         }
                     }
@@ -3797,7 +3783,7 @@
                     var char, length, value;
                     length = 0;
                     char = this.peek(length);
-                    while ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || __indexOf.call("-_", char) >= 0) {
+                    while ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || indexOf.call("-_", char) >= 0) {
                         length++;
                         char = peek(length);
                     }
@@ -3805,11 +3791,11 @@
                     value = this.prefix(length);
                     this.forward(length);
                     char = this.peek();
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected alphanumeric or numeric character but found " + char, __indexOf.call(C_LB + "\0 ", char) < 0 ? this.get_mark() : void 0);
+                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected alphanumeric or numeric character but found " + char, indexOf.call(C_LB + "\0 ", char) < 0 ? this.get_mark() : void 0);
                     return value;
                 };
                 Scanner.prototype.scan_yaml_directive_value = function(start_mark) {
-                    var major, minor, _ref1;
+                    var major, minor, ref;
                     while (this.peek() === " ") {
                         this.forward();
                     }
@@ -3817,15 +3803,15 @@
                     throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit or '.' but found " + this.peek(), this.peek() !== "." ? this.get_mark() : void 0);
                     this.forward();
                     minor = this.scan_yaml_directive_number(start_mark);
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit or ' ' but found " + this.peek(), (_ref1 = this.peek(), __indexOf.call(C_LB + "\0 ", _ref1) < 0) ? this.get_mark() : void 0);
+                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit or ' ' but found " + this.peek(), (ref = this.peek(), indexOf.call(C_LB + "\0 ", ref) < 0) ? this.get_mark() : void 0);
                     return [ major, minor ];
                 };
                 Scanner.prototype.scan_yaml_directive_number = function(start_mark) {
-                    var char, length, value, _ref1;
+                    var char, length, ref, value;
                     char = this.peek();
                     throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit but found " + char, !("0" <= char && char <= "9") ? this.get_mark() : void 0);
                     length = 0;
-                    while ("0" <= (_ref1 = this.peek(length)) && _ref1 <= "9") {
+                    while ("0" <= (ref = this.peek(length)) && ref <= "9") {
                         length++;
                     }
                     value = parseInt(this.prefix(length));
@@ -3855,21 +3841,21 @@
                     var char, value;
                     value = this.scan_tag_uri("directive", start_mark);
                     char = this.peek();
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected ' ' but found " + char, __indexOf.call(C_LB + "\0 ", char) < 0 ? this.get_mark() : void 0);
+                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected ' ' but found " + char, indexOf.call(C_LB + "\0 ", char) < 0 ? this.get_mark() : void 0);
                     return value;
                 };
                 Scanner.prototype.scan_directive_ignored_line = function(start_mark) {
-                    var char, _ref1;
+                    var char, ref;
                     while (this.peek() === " ") {
                         this.forward();
                     }
                     if (this.peek() === "#") {
-                        while (_ref1 = this.peek(), __indexOf.call(C_LB + "\0", _ref1) < 0) {
+                        while (ref = this.peek(), indexOf.call(C_LB + "\0", ref) < 0) {
                             this.forward();
                         }
                     }
                     char = this.peek();
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected a comment or a line break but found " + char, __indexOf.call(C_LB + "\0", char) < 0 ? this.get_mark() : void 0);
+                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected a comment or a line break but found " + char, indexOf.call(C_LB + "\0", char) < 0 ? this.get_mark() : void 0);
                     return this.scan_line_break();
                 };
                 Scanner.prototype.scan_anchor = function(TokenClass) {
@@ -3884,7 +3870,7 @@
                     this.forward();
                     length = 0;
                     char = this.peek(length);
-                    while ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || __indexOf.call("-_", char) >= 0) {
+                    while ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || indexOf.call("-_", char) >= 0) {
                         length++;
                         char = this.peek(length);
                     }
@@ -3894,7 +3880,7 @@
                     value = this.prefix(length);
                     this.forward(length);
                     char = this.peek();
-                    if (__indexOf.call(C_LB + C_WS + "\0" + "?:,]}%@`", char) < 0) {
+                    if (indexOf.call(C_LB + C_WS + "\0" + "?:,]}%@`", char) < 0) {
                         throw new exports.ScannerError("while scanning an " + name, start_mark, "expected alphabetic or numeric character but found '" + char + "'", this.get_mark());
                     }
                     return new TokenClass(value, start_mark, this.get_mark());
@@ -3911,14 +3897,14 @@
                             throw new exports.ScannerError("while parsing a tag", start_mark, "expected '>' but found " + this.peek(), this.get_mark());
                         }
                         this.forward();
-                    } else if (__indexOf.call(C_LB + C_WS + "\0", char) >= 0) {
+                    } else if (indexOf.call(C_LB + C_WS + "\0", char) >= 0) {
                         handle = null;
                         suffix = "!";
                         this.forward();
                     } else {
                         length = 1;
                         use_handle = false;
-                        while (__indexOf.call(C_LB + "\0 ", char) < 0) {
+                        while (indexOf.call(C_LB + "\0 ", char) < 0) {
                             if (char === "!") {
                                 use_handle = true;
                                 break;
@@ -3935,44 +3921,44 @@
                         suffix = this.scan_tag_uri("tag", start_mark);
                     }
                     char = this.peek();
-                    if (__indexOf.call(C_LB + "\0 ", char) < 0) {
+                    if (indexOf.call(C_LB + "\0 ", char) < 0) {
                         throw new exports.ScannerError("while scanning a tag", start_mark, "expected ' ' but found " + char, this.get_mark());
                     }
                     return new tokens.TagToken([ handle, suffix ], start_mark, this.get_mark());
                 };
                 Scanner.prototype.scan_block_scalar = function(style) {
-                    var breaks, chomping, chunks, end_mark, folded, increment, indent, leading_non_space, length, line_break, max_indent, min_indent, start_mark, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7;
+                    var breaks, chomping, chunks, end_mark, folded, increment, indent, leading_non_space, length, line_break, max_indent, min_indent, ref, ref1, ref2, ref3, ref4, ref5, ref6, start_mark;
                     folded = style === ">";
                     chunks = [];
                     start_mark = this.get_mark();
                     this.forward();
-                    _ref1 = this.scan_block_scalar_indicators(start_mark), chomping = _ref1[0], increment = _ref1[1];
+                    ref = this.scan_block_scalar_indicators(start_mark), chomping = ref[0], increment = ref[1];
                     this.scan_block_scalar_ignored_line(start_mark);
                     min_indent = this.indent + 1;
                     if (min_indent < 1) {
                         min_indent = 1;
                     }
                     if (increment == null) {
-                        _ref2 = this.scan_block_scalar_indentation(), breaks = _ref2[0], max_indent = _ref2[1], end_mark = _ref2[2];
+                        ref1 = this.scan_block_scalar_indentation(), breaks = ref1[0], max_indent = ref1[1], end_mark = ref1[2];
                         indent = Math.max(min_indent, max_indent);
                     } else {
                         indent = min_indent + increment - 1;
-                        _ref3 = this.scan_block_scalar_breaks(indent), breaks = _ref3[0], end_mark = _ref3[1];
+                        ref2 = this.scan_block_scalar_breaks(indent), breaks = ref2[0], end_mark = ref2[1];
                     }
                     line_break = "";
                     while (this.column === indent && this.peek() !== "\0") {
                         chunks = chunks.concat(breaks);
-                        leading_non_space = (_ref4 = this.peek(), __indexOf.call(" 	", _ref4) < 0);
+                        leading_non_space = (ref3 = this.peek(), indexOf.call(" 	", ref3) < 0);
                         length = 0;
-                        while (_ref5 = this.peek(length), __indexOf.call(C_LB + "\0", _ref5) < 0) {
+                        while (ref4 = this.peek(length), indexOf.call(C_LB + "\0", ref4) < 0) {
                             length++;
                         }
                         chunks.push(this.prefix(length));
                         this.forward(length);
                         line_break = this.scan_line_break();
-                        _ref6 = this.scan_block_scalar_breaks(indent), breaks = _ref6[0], end_mark = _ref6[1];
+                        ref5 = this.scan_block_scalar_breaks(indent), breaks = ref5[0], end_mark = ref5[1];
                         if (this.column === indent && this.peek() !== "\0") {
-                            if (folded && line_break === "\n" && leading_non_space && (_ref7 = this.peek(), __indexOf.call(" 	", _ref7) < 0)) {
+                            if (folded && line_break === "\n" && leading_non_space && (ref6 = this.peek(), indexOf.call(" 	", ref6) < 0)) {
                                 if (util.is_empty(breaks)) {
                                     chunks.push(" ");
                                 }
@@ -3996,57 +3982,57 @@
                     chomping = null;
                     increment = null;
                     char = this.peek();
-                    if (__indexOf.call("+-", char) >= 0) {
+                    if (indexOf.call("+-", char) >= 0) {
                         chomping = char === "+";
                         this.forward();
                         char = this.peek();
-                        if (__indexOf.call(C_NUMBERS, char) >= 0) {
+                        if (indexOf.call(C_NUMBERS, char) >= 0) {
                             increment = parseInt(char);
                             if (increment === 0) {
                                 throw new exports.ScannerError("while scanning a block scalar", start_mark, "expected indentation indicator in the range 1-9 but found 0", this.get_mark());
                             }
                             this.forward();
                         }
-                    } else if (__indexOf.call(C_NUMBERS, char) >= 0) {
+                    } else if (indexOf.call(C_NUMBERS, char) >= 0) {
                         increment = parseInt(char);
                         if (increment === 0) {
                             throw new exports.ScannerError("while scanning a block scalar", start_mark, "expected indentation indicator in the range 1-9 but found 0", this.get_mark());
                         }
                         this.forward();
                         char = this.peek();
-                        if (__indexOf.call("+-", char) >= 0) {
+                        if (indexOf.call("+-", char) >= 0) {
                             chomping = char === "+";
                             this.forward();
                         }
                     }
                     char = this.peek();
-                    if (__indexOf.call(C_LB + "\0 ", char) < 0) {
+                    if (indexOf.call(C_LB + "\0 ", char) < 0) {
                         throw new exports.ScannerError("while scanning a block scalar", start_mark, "expected chomping or indentation indicators, but found " + char, this.get_mark());
                     }
                     return [ chomping, increment ];
                 };
                 Scanner.prototype.scan_block_scalar_ignored_line = function(start_mark) {
-                    var char, _ref1;
+                    var char, ref;
                     while (this.peek() === " ") {
                         this.forward();
                     }
                     if (this.peek() === "#") {
-                        while (_ref1 = this.peek(), __indexOf.call(C_LB + "\0", _ref1) < 0) {
+                        while (ref = this.peek(), indexOf.call(C_LB + "\0", ref) < 0) {
                             this.forward();
                         }
                     }
                     char = this.peek();
-                    if (__indexOf.call(C_LB + "\0", char) < 0) {
+                    if (indexOf.call(C_LB + "\0", char) < 0) {
                         throw new exports.ScannerError("while scanning a block scalar", start_mark, "expected a comment or a line break but found " + char, this.get_mark());
                     }
                     return this.scan_line_break();
                 };
                 Scanner.prototype.scan_block_scalar_indentation = function() {
-                    var chunks, end_mark, max_indent, _ref1;
+                    var chunks, end_mark, max_indent, ref;
                     chunks = [];
                     max_indent = 0;
                     end_mark = this.get_mark();
-                    while (_ref1 = this.peek(), __indexOf.call(C_LB + " ", _ref1) >= 0) {
+                    while (ref = this.peek(), indexOf.call(C_LB + " ", ref) >= 0) {
                         if (this.peek() !== " ") {
                             chunks.push(this.scan_line_break());
                             end_mark = this.get_mark();
@@ -4060,13 +4046,13 @@
                     return [ chunks, max_indent, end_mark ];
                 };
                 Scanner.prototype.scan_block_scalar_breaks = function(indent) {
-                    var chunks, end_mark, _ref1;
+                    var chunks, end_mark, ref;
                     chunks = [];
                     end_mark = this.get_mark();
                     while (this.column < indent && this.peek() === " ") {
                         this.forward();
                     }
-                    while (_ref1 = this.peek(), __indexOf.call(C_LB, _ref1) >= 0) {
+                    while (ref = this.peek(), indexOf.call(C_LB, ref) >= 0) {
                         chunks.push(this.scan_line_break());
                         end_mark = this.get_mark();
                         while (this.column < indent && this.peek() === " ") {
@@ -4091,11 +4077,11 @@
                     return new tokens.ScalarToken(chunks.join(""), false, start_mark, this.get_mark(), style);
                 };
                 Scanner.prototype.scan_flow_scalar_non_spaces = function(double, start_mark) {
-                    var char, chunks, code, k, length, _i, _ref1, _ref2;
+                    var char, chunks, code, i, k, length, ref, ref1, ref2;
                     chunks = [];
                     while (true) {
                         length = 0;
-                        while (_ref1 = this.peek(length), __indexOf.call(C_LB + C_WS + "'\"\\\0", _ref1) < 0) {
+                        while (ref = this.peek(length), indexOf.call(C_LB + C_WS + "'\"\\\0", ref) < 0) {
                             length++;
                         }
                         if (length !== 0) {
@@ -4106,7 +4092,7 @@
                         if (!double && char === "'" && this.peek(1) === "'") {
                             chunks.push("'");
                             this.forward(2);
-                        } else if (double && char === "'" || !double && __indexOf.call('"\\', char) >= 0) {
+                        } else if (double && char === "'" || !double && indexOf.call('"\\', char) >= 0) {
                             chunks.push(char);
                             this.forward();
                         } else if (double && char === "\\") {
@@ -4118,15 +4104,15 @@
                             } else if (char in ESCAPE_CODES) {
                                 length = ESCAPE_CODES[char];
                                 this.forward();
-                                for (k = _i = 0; 0 <= length ? _i < length : _i > length; k = 0 <= length ? ++_i : --_i) {
-                                    if (_ref2 = this.peek(k), __indexOf.call(C_NUMBERS + "ABCDEFabcdef", _ref2) < 0) {
-                                        throw new exports.ScannerError("while scanning a double-quoted scalar", start_mark, "expected escape sequence of " + length + " hexadecimal numbers, but " + "found " + this.peek(k), this.get_mark());
+                                for (k = i = 0, ref1 = length; 0 <= ref1 ? i < ref1 : i > ref1; k = 0 <= ref1 ? ++i : --i) {
+                                    if (ref2 = this.peek(k), indexOf.call(C_NUMBERS + "ABCDEFabcdef", ref2) < 0) {
+                                        throw new exports.ScannerError("while scanning a double-quoted scalar", start_mark, "expected escape sequence of " + length + " hexadecimal numbers, but found " + this.peek(k), this.get_mark());
                                     }
                                 }
                                 code = parseInt(this.prefix(length), 16);
                                 chunks.push(String.fromCharCode(code));
                                 this.forward(length);
-                            } else if (__indexOf.call(C_LB, char) >= 0) {
+                            } else if (indexOf.call(C_LB, char) >= 0) {
                                 this.scan_line_break();
                                 chunks = chunks.concat(this.scan_flow_scalar_breaks(double, start_mark));
                             } else {
@@ -4138,10 +4124,10 @@
                     }
                 };
                 Scanner.prototype.scan_flow_scalar_spaces = function(double, start_mark) {
-                    var breaks, char, chunks, length, line_break, whitespaces, _ref1;
+                    var breaks, char, chunks, length, line_break, ref, whitespaces;
                     chunks = [];
                     length = 0;
-                    while (_ref1 = this.peek(length), __indexOf.call(C_WS, _ref1) >= 0) {
+                    while (ref = this.peek(length), indexOf.call(C_WS, ref) >= 0) {
                         length++;
                     }
                     whitespaces = this.prefix(length);
@@ -4150,7 +4136,7 @@
                     if (char === "\0") {
                         throw new exports.ScannerError("while scanning a quoted scalar", start_mark, "found unexpected end of stream", this.get_mark());
                     }
-                    if (__indexOf.call(C_LB, char) >= 0) {
+                    if (indexOf.call(C_LB, char) >= 0) {
                         line_break = this.scan_line_break();
                         breaks = this.scan_flow_scalar_breaks(double, start_mark);
                         if (line_break !== "\n") {
@@ -4165,17 +4151,17 @@
                     return chunks;
                 };
                 Scanner.prototype.scan_flow_scalar_breaks = function(double, start_mark) {
-                    var chunks, prefix, _ref1, _ref2, _ref3;
+                    var chunks, prefix, ref, ref1, ref2;
                     chunks = [];
                     while (true) {
                         prefix = this.prefix(3);
-                        if (prefix === "---" || prefix === "..." && (_ref1 = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0)) {
+                        if (prefix === "---" || prefix === "..." && (ref = this.peek(3), indexOf.call(C_LB + C_WS + "\0", ref) >= 0)) {
                             throw new exports.ScannerError("while scanning a quoted scalar", start_mark, "found unexpected document separator", this.get_mark());
                         }
-                        while (_ref2 = this.peek(), __indexOf.call(C_WS, _ref2) >= 0) {
+                        while (ref1 = this.peek(), indexOf.call(C_WS, ref1) >= 0) {
                             this.forward();
                         }
-                        if (_ref3 = this.peek(), __indexOf.call(C_LB, _ref3) >= 0) {
+                        if (ref2 = this.peek(), indexOf.call(C_LB, ref2) >= 0) {
                             chunks.push(this.scan_line_break());
                         } else {
                             return chunks;
@@ -4183,7 +4169,7 @@
                     }
                 };
                 Scanner.prototype.scan_plain = function() {
-                    var char, chunks, end_mark, indent, length, spaces, start_mark, _ref1, _ref2;
+                    var char, chunks, end_mark, indent, length, ref, ref1, spaces, start_mark;
                     chunks = [];
                     start_mark = end_mark = this.get_mark();
                     indent = this.indent + 1;
@@ -4195,12 +4181,12 @@
                         }
                         while (true) {
                             char = this.peek(length);
-                            if (__indexOf.call(C_LB + C_WS + "\0", char) >= 0 || this.flow_level === 0 && char === ":" && (_ref1 = this.peek(length + 1), __indexOf.call(C_LB + C_WS + "\0", _ref1) >= 0) || this.flow_level !== 0 && __indexOf.call(",:?[]{}", char) >= 0) {
+                            if (indexOf.call(C_LB + C_WS + "\0", char) >= 0 || this.flow_level === 0 && char === ":" && (ref = this.peek(length + 1), indexOf.call(C_LB + C_WS + "\0", ref) >= 0) || this.flow_level !== 0 && indexOf.call(",:?[]{}", char) >= 0) {
                                 break;
                             }
                             length++;
                         }
-                        if (this.flow_level !== 0 && char === ":" && (_ref2 = this.peek(length + 1), __indexOf.call(C_LB + C_WS + "\0,[]{}", _ref2) < 0)) {
+                        if (this.flow_level !== 0 && char === ":" && (ref1 = this.peek(length + 1), indexOf.call(C_LB + C_WS + "\0,[]{}", ref1) < 0)) {
                             this.forward(length);
                             throw new exports.ScannerError("while scanning a plain scalar", start_mark, "found unexpected ':'", this.get_mark(), "Please check http://pyyaml.org/wiki/YAMLColonInFlowContext");
                         }
@@ -4220,30 +4206,30 @@
                     return new tokens.ScalarToken(chunks.join(""), true, start_mark, end_mark);
                 };
                 Scanner.prototype.scan_plain_spaces = function(indent, start_mark) {
-                    var breaks, char, chunks, length, line_break, prefix, whitespaces, _ref1, _ref2, _ref3, _ref4;
+                    var breaks, char, chunks, length, line_break, prefix, ref, ref1, ref2, ref3, whitespaces;
                     chunks = [];
                     length = 0;
-                    while (_ref1 = this.peek(length), __indexOf.call(" ", _ref1) >= 0) {
+                    while (ref = this.peek(length), indexOf.call(" ", ref) >= 0) {
                         length++;
                     }
                     whitespaces = this.prefix(length);
                     this.forward(length);
                     char = this.peek();
-                    if (__indexOf.call(C_LB, char) >= 0) {
+                    if (indexOf.call(C_LB, char) >= 0) {
                         line_break = this.scan_line_break();
                         this.allow_simple_key = true;
                         prefix = this.prefix(3);
-                        if (prefix === "---" || prefix === "..." && (_ref2 = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref2) >= 0)) {
+                        if (prefix === "---" || prefix === "..." && (ref1 = this.peek(3), indexOf.call(C_LB + C_WS + "\0", ref1) >= 0)) {
                             return;
                         }
                         breaks = [];
-                        while (_ref4 = this.peek(), __indexOf.call(C_LB + " ", _ref4) >= 0) {
+                        while (ref3 = this.peek(), indexOf.call(C_LB + " ", ref3) >= 0) {
                             if (this.peek() === " ") {
                                 this.forward();
                             } else {
                                 breaks.push(this.scan_line_break());
                                 prefix = this.prefix(3);
-                                if (prefix === "---" || prefix === "..." && (_ref3 = this.peek(3), __indexOf.call(C_LB + C_WS + "\0", _ref3) >= 0)) {
+                                if (prefix === "---" || prefix === "..." && (ref2 = this.peek(3), indexOf.call(C_LB + C_WS + "\0", ref2) >= 0)) {
                                     return;
                                 }
                             }
@@ -4268,7 +4254,7 @@
                     length = 1;
                     char = this.peek(length);
                     if (char !== " ") {
-                        while ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || __indexOf.call("-_", char) >= 0) {
+                        while ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || indexOf.call("-_", char) >= 0) {
                             length++;
                             char = this.peek(length);
                         }
@@ -4287,7 +4273,7 @@
                     chunks = [];
                     length = 0;
                     char = this.peek(length);
-                    while ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || __indexOf.call("-;/?:@&=+$,_.!~*'()[]%", char) >= 0) {
+                    while ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || indexOf.call("-;/?:@&=+$,_.!~*'()[]%", char) >= 0) {
                         if (char === "%") {
                             chunks.push(this.prefix(length));
                             this.forward(length);
@@ -4309,13 +4295,13 @@
                     return chunks.join("");
                 };
                 Scanner.prototype.scan_uri_escapes = function(name, start_mark) {
-                    var bytes, k, mark, _i;
+                    var bytes, i, k, mark;
                     bytes = [];
                     mark = this.get_mark();
                     while (this.peek() === "%") {
                         this.forward();
-                        for (k = _i = 0; _i <= 2; k = ++_i) {
-                            throw new exports.ScannerError("while scanning a " + name, start_mark, "expected URI escape sequence of 2 hexadecimal numbers but found          " + this.peek(k), this.get_mark());
+                        for (k = i = 0; i <= 2; k = ++i) {
+                            throw new exports.ScannerError("while scanning a " + name, start_mark, "expected URI escape sequence of 2 hexadecimal numbers but found " + this.peek(k), this.get_mark());
                         }
                         bytes.push(String.fromCharCode(parseInt(this.prefix(2), 16)));
                         this.forward(2);
@@ -4325,14 +4311,14 @@
                 Scanner.prototype.scan_line_break = function() {
                     var char;
                     char = this.peek();
-                    if (__indexOf.call("\r\n", char) >= 0) {
+                    if (indexOf.call("\r\n", char) >= 0) {
                         if (this.prefix(2) === "\r\n") {
                             this.forward(2);
                         } else {
                             this.forward();
                         }
                         return "\n";
-                    } else if (__indexOf.call("\u2028\u2029", char) >= 0) {
+                    } else if (indexOf.call("\u2028\u2029", char) >= 0) {
                         this.forward();
                         return char;
                     }
@@ -4346,9 +4332,9 @@
         "0": [ "./parser" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var MarkedYAMLError, events, tokens, _ref, __hasProp = {}.hasOwnProperty, __extends = function(child, parent) {
+            var MarkedYAMLError, events, tokens, extend = function(child, parent) {
                 for (var key in parent) {
-                    if (__hasProp.call(parent, key)) child[key] = parent[key];
+                    if (hasProp.call(parent, key)) child[key] = parent[key];
                 }
                 function ctor() {
                     this.constructor = child;
@@ -4357,15 +4343,14 @@
                 child.prototype = new ctor;
                 child.__super__ = parent.prototype;
                 return child;
-            }, __slice = [].slice;
+            }, hasProp = {}.hasOwnProperty, slice = [].slice;
             events = require("./events");
             MarkedYAMLError = require("./errors").MarkedYAMLError;
             tokens = require("./tokens");
-            this.ParserError = function(_super) {
-                __extends(ParserError, _super);
+            this.ParserError = function(superClass) {
+                extend(ParserError, superClass);
                 function ParserError() {
-                    _ref = ParserError.__super__.constructor.apply(this, arguments);
-                    return _ref;
+                    return ParserError.__super__.constructor.apply(this, arguments);
                 }
                 return ParserError;
             }(MarkedYAMLError);
@@ -4388,8 +4373,8 @@
                     return this.state = null;
                 };
                 Parser.prototype.check_event = function() {
-                    var choice, choices, _i, _len;
-                    choices = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+                    var choice, choices, i, len;
+                    choices = 1 <= arguments.length ? slice.call(arguments, 0) : [];
                     if (this.current_event === null) {
                         if (this.state != null) {
                             this.current_event = this[this.state]();
@@ -4399,8 +4384,8 @@
                         if (choices.length === 0) {
                             return true;
                         }
-                        for (_i = 0, _len = choices.length; _i < _len; _i++) {
-                            choice = choices[_i];
+                        for (i = 0, len = choices.length; i < len; i++) {
+                            choice = choices[i];
                             if (this.current_event instanceof choice) {
                                 return true;
                             }
@@ -4445,13 +4430,13 @@
                     }
                 };
                 Parser.prototype.parse_document_start = function() {
-                    var end_mark, event, start_mark, tags, token, version, _ref1;
+                    var end_mark, event, ref, start_mark, tags, token, version;
                     while (this.check_token(tokens.DocumentEndToken)) {
                         this.get_token();
                     }
                     if (!this.check_token(tokens.StreamEndToken)) {
                         start_mark = this.peek_token().start_mark;
-                        _ref1 = this.process_directives(), version = _ref1[0], tags = _ref1[1];
+                        ref = this.process_directives(), version = ref[0], tags = ref[1];
                         if (!this.check_token(tokens.DocumentStartToken)) {
                             throw new exports.ParserError("expected '<document start>', but found " + this.peek_token().id, this.peek_token().start_mark);
                         }
@@ -4498,7 +4483,7 @@
                     }
                 };
                 Parser.prototype.process_directives = function() {
-                    var handle, major, minor, prefix, tag_handles_copy, token, value, _ref1, _ref2, _ref3;
+                    var handle, major, minor, prefix, ref, ref1, ref2, tag_handles_copy, token, value;
                     this.yaml_version = null;
                     this.tag_handles = {};
                     while (this.check_token(tokens.DirectiveToken)) {
@@ -4507,13 +4492,13 @@
                             if (this.yaml_version !== null) {
                                 throw new exports.ParserError(null, null, "found duplicate YAML directive", token.start_mark);
                             }
-                            _ref1 = token.value, major = _ref1[0], minor = _ref1[1];
+                            ref = token.value, major = ref[0], minor = ref[1];
                             if (major !== 1) {
                                 throw new exports.ParserError(null, null, "found incompatible YAML document (version 1.* is required)", token.start_mark);
                             }
                             this.yaml_version = token.value;
                         } else if (token.name === "TAG") {
-                            _ref2 = this.tag_handles, handle = _ref2[0], prefix = _ref2[1];
+                            ref1 = this.tag_handles, handle = ref1[0], prefix = ref1[1];
                             if (handle in this.tag_handles) {
                                 throw new exports.ParserError(null, null, "duplicate tag handle " + handle, token.start_mark);
                             }
@@ -4521,10 +4506,10 @@
                         }
                     }
                     tag_handles_copy = null;
-                    _ref3 = this.tag_handles;
-                    for (handle in _ref3) {
-                        if (!__hasProp.call(_ref3, handle)) continue;
-                        prefix = _ref3[handle];
+                    ref2 = this.tag_handles;
+                    for (handle in ref2) {
+                        if (!hasProp.call(ref2, handle)) continue;
+                        prefix = ref2[handle];
                         if (tag_handles_copy == null) {
                             tag_handles_copy = {};
                         }
@@ -4532,7 +4517,7 @@
                     }
                     value = [ this.yaml_version, tag_handles_copy ];
                     for (handle in DEFAULT_TAGS) {
-                        if (!__hasProp.call(DEFAULT_TAGS, handle)) continue;
+                        if (!hasProp.call(DEFAULT_TAGS, handle)) continue;
                         prefix = DEFAULT_TAGS[handle];
                         if (!(prefix in this.tag_handles)) {
                             this.tag_handles[handle] = prefix;
@@ -4884,7 +4869,7 @@
         "0": [ "./loader" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var composer, constructor, parser, reader, resolver, scanner, util, __slice = [].slice;
+            var composer, constructor, parser, reader, resolver, scanner, util, slice = [].slice;
             util = require("./util");
             reader = require("./reader");
             scanner = require("./scanner");
@@ -4915,21 +4900,21 @@
                 components = [ Reader, Scanner, Parser, Composer, Resolver, Constructor ];
                 return Loader = function() {
                     var component;
-                    util.extend.apply(util, [ Loader.prototype ].concat(__slice.call(function() {
-                        var _i, _len, _results;
-                        _results = [];
-                        for (_i = 0, _len = components.length; _i < _len; _i++) {
-                            component = components[_i];
-                            _results.push(component.prototype);
+                    util.extend.apply(util, [ Loader.prototype ].concat(slice.call(function() {
+                        var i, len, results;
+                        results = [];
+                        for (i = 0, len = components.length; i < len; i++) {
+                            component = components[i];
+                            results.push(component.prototype);
                         }
-                        return _results;
+                        return results;
                     }())));
                     function Loader(stream) {
-                        var _i, _len, _ref;
+                        var i, len, ref;
                         components[0].call(this, stream);
-                        _ref = components.slice(1);
-                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                            component = _ref[_i];
+                        ref = components.slice(1);
+                        for (i = 0, len = ref.length; i < len; i++) {
+                            component = ref[i];
                             component.call(this);
                         }
                     }
@@ -4958,28 +4943,28 @@
             tokens = require("./tokens");
             util = require("./util");
             this.scan = function(stream, Loader) {
-                var _loader, _results;
+                var _loader, results;
                 if (Loader == null) {
                     Loader = loader.Loader;
                 }
                 _loader = new Loader(stream);
-                _results = [];
+                results = [];
                 while (_loader.check_token()) {
-                    _results.push(_loader.get_token());
+                    results.push(_loader.get_token());
                 }
-                return _results;
+                return results;
             };
             this.parse = function(stream, Loader) {
-                var _loader, _results;
+                var _loader, results;
                 if (Loader == null) {
                     Loader = loader.Loader;
                 }
                 _loader = new Loader(stream);
-                _results = [];
+                results = [];
                 while (_loader.check_event()) {
-                    _results.push(_loader.get_event());
+                    results.push(_loader.get_event());
                 }
-                return _results;
+                return results;
             };
             this.compose = function(stream, Loader) {
                 var _loader;
@@ -4990,16 +4975,16 @@
                 return _loader.get_single_node();
             };
             this.compose_all = function(stream, Loader) {
-                var _loader, _results;
+                var _loader, results;
                 if (Loader == null) {
                     Loader = loader.Loader;
                 }
                 _loader = new Loader(stream);
-                _results = [];
+                results = [];
                 while (_loader.check_node()) {
-                    _results.push(_loader.get_node());
+                    results.push(_loader.get_node());
                 }
-                return _results;
+                return results;
             };
             this.load = function(stream, Loader) {
                 var _loader;
@@ -5010,19 +4995,19 @@
                 return _loader.get_single_data();
             };
             this.load_all = function(stream, Loader) {
-                var _loader, _results;
+                var _loader, results;
                 if (Loader == null) {
                     Loader = loader.Loader;
                 }
                 _loader = new Loader(stream);
-                _results = [];
+                results = [];
                 while (_loader.check_data()) {
-                    _results.push(_loader.get_data());
+                    results.push(_loader.get_data());
                 }
-                return _results;
+                return results;
             };
             this.emit = function(events, stream, Dumper, options) {
-                var dest, event, _dumper, _i, _len;
+                var _dumper, dest, event, i, len;
                 if (Dumper == null) {
                     Dumper = dumper.Dumper;
                 }
@@ -5032,8 +5017,8 @@
                 dest = stream || new util.StringStream;
                 _dumper = new Dumper(dest, options);
                 try {
-                    for (_i = 0, _len = events.length; _i < _len; _i++) {
-                        event = events[_i];
+                    for (i = 0, len = events.length; i < len; i++) {
+                        event = events[i];
                         _dumper.emit(event);
                     }
                 } finally {
@@ -5051,7 +5036,7 @@
                 return exports.serialize_all([ node ], stream, Dumper, options);
             };
             this.serialize_all = function(nodes, stream, Dumper, options) {
-                var dest, node, _dumper, _i, _len;
+                var _dumper, dest, i, len, node;
                 if (Dumper == null) {
                     Dumper = dumper.Dumper;
                 }
@@ -5062,8 +5047,8 @@
                 _dumper = new Dumper(dest, options);
                 try {
                     _dumper.open();
-                    for (_i = 0, _len = nodes.length; _i < _len; _i++) {
-                        node = nodes[_i];
+                    for (i = 0, len = nodes.length; i < len; i++) {
+                        node = nodes[i];
                         _dumper.serialize(node);
                     }
                     _dumper.close();
@@ -5082,7 +5067,7 @@
                 return exports.dump_all([ data ], stream, Dumper, options);
             };
             this.dump_all = function(documents, stream, Dumper, options) {
-                var dest, document, _dumper, _i, _len;
+                var _dumper, dest, document, i, len;
                 if (Dumper == null) {
                     Dumper = dumper.Dumper;
                 }
@@ -5093,8 +5078,8 @@
                 _dumper = new Dumper(dest, options);
                 try {
                     _dumper.open();
-                    for (_i = 0, _len = documents.length; _i < _len; _i++) {
-                        document = documents[_i];
+                    for (i = 0, len = documents.length; i < len; i++) {
+                        document = documents[i];
                         _dumper.represent(document);
                     }
                     _dumper.close();

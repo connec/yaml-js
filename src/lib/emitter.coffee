@@ -113,7 +113,7 @@ class @Emitter
   need_more_events: ->
     return true if @events.length is 0
 
-    event = events[0]
+    event = @events[0]
     if      event instanceof events.DocumentStartEvent then @need_events 1
     else if event instanceof events.SequenceStartEvent then @need_events 2
     else if event instanceof events.MappingStartEvent  then @need_events 3
@@ -126,7 +126,7 @@ class @Emitter
         level++
       else if event instanceof events.DocumentEndEvent or event instanceof events.CollectionEndEvent
         level--
-      else if event instanceof StreamEndEvent
+      else if event instanceof events.StreamEndEvent
         level = -1
       return false if level < 0
     @events.length < count + 1
