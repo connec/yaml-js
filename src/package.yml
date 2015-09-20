@@ -8,5 +8,5 @@ repository:
 devDependencies:
   coffee-script: 1.9.x
   plantation:    0.0.15
-  squash:        0.0.12
+  squash:        0.0.13
 license:         WTFPL
