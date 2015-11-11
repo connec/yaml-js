@@ -37,15 +37,15 @@ How Do I Use It?
 var yaml = require('yaml-js');
 
 console.log(yaml.load('--- \n' +
-    'phrase1: \n' +
-    '  - hello \n' +
-    '  - &world world \n' +
-    'phrase2: \n' + 
-    '  - goodbye \n' +
-    '  - *world \n' +
-    'phrase3: > \n' +
-    '  What is up \n' +
-    '  in this place.\n'
+  'phrase1: \n' +
+  '  - hello \n' +
+  '  - &world world \n' +
+  'phrase2: \n' + 
+  '  - goodbye \n' +
+  '  - *world \n' +
+  'phrase3: > \n' +
+  '  What is up \n' +
+  '  in this place.\n'
 ));
 
 /*
@@ -62,9 +62,9 @@ console.log(yaml.load('--- \n' +
 var yaml = require('yaml-js');
 
 console.log(yaml.dump({
-    phrase1: ['hello', 'world'],
-    phrase2: ['goodbye', 'world'],
-    phrase3: 'What is up in this place.'
+  phrase1: ['hello', 'world'],
+  phrase2: ['goodbye', 'world'],
+  phrase3: 'What is up in this place.'
 }));
 
 /*
