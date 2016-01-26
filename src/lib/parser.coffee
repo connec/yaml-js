@@ -160,7 +160,7 @@ class @Parser
           token.start_mark if major isnt 1
         @yaml_version = token.value
       else if token.name is 'TAG'
-        [handle, prefix] = @tag_handles
+        [handle, prefix] = token.value
         throw new exports.ParserError null, null, \
           "duplicate tag handle #{handle}", token.start_mark \
           if handle of @tag_handles

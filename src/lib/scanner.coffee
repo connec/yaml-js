@@ -720,16 +720,16 @@ class @Scanner
     while '0' <= char <= '9' or 'A' <= char <= 'Z' or 'a' <= char <= 'z' \
         or char in '-_'
       length++
-      char = peek length
-    throw new exports.ScannerError 'while scanning a directive', start_mark,
-      "expected alphanumeric or numeric character but found #{char}",
+      char = @peek length
+    throw new exports.ScannerError 'while scanning a directive', start_mark, \
+      "expected alphanumeric or numeric character but found #{char}", \
       @get_mark() if length is 0
 
     value = @prefix length
     @forward length
     char = @peek()
-    throw new exports.ScannerError 'while scanning a directive', start_mark,
-      "expected alphanumeric or numeric character but found #{char}",
+    throw new exports.ScannerError 'while scanning a directive', start_mark, \
+      "expected alphanumeric or numeric character but found #{char}", \
       @get_mark() if char not in C_LB + '\x00 '
 
     return value
@@ -740,13 +740,13 @@ class @Scanner
   scan_yaml_directive_value: (start_mark) ->
     @forward() while @peek() == ' '
     major = @scan_yaml_directive_number start_mark
-    throw new exports.ScannerError 'while scanning a directive', start_mark,
+    throw new exports.ScannerError 'while scanning a directive', start_mark, \
       "expected a digit or '.' but found #{@peek()}", @get_mark() \
       if @peek() != '.'
 
     @forward()
     minor = @scan_yaml_directive_number start_mark
-    throw new exports.ScannerError 'while scanning a directive', start_mark,
+    throw new exports.ScannerError 'while scanning a directive', start_mark, \
       "expected a digit or ' ' but found #{@peek()}", @get_mark() \
       if @peek() not in C_LB + '\x00 '
 
@@ -757,7 +757,7 @@ class @Scanner
   ###
   scan_yaml_directive_number: (start_mark) ->
     char = @peek()
-    throw new exports.ScannerError 'while scanning a directive', start_mark,
+    throw new exports.ScannerError 'while scanning a directive', start_mark, \
       "expected a digit but found #{char}", @get_mark() \
       unless '0' <= char <= '9'
 
@@ -786,7 +786,7 @@ class @Scanner
   scan_tag_directive_handle: (start_mark) ->
     value = @scan_tag_handle 'directive', start_mark
     char = @peek()
-    throw new exports.ScannerError 'while scanning a directive', start_mark,
+    throw new exports.ScannerError 'while scanning a directive', start_mark, \
       "expected ' ' but found #{char}", @get_mark() if char isnt ' '
     return value
 
@@ -796,7 +796,7 @@ class @Scanner
   scan_tag_directive_prefix: (start_mark) ->
     value = @scan_tag_uri 'directive', start_mark
     char = @peek()
-    throw new exports.ScannerError 'while scanning a directive', start_mark,
+    throw new exports.ScannerError 'while scanning a directive', start_mark, \
       "expected ' ' but found #{char}", @get_mark() \
       if char not in C_LB + '\x00 '
     return value
@@ -810,7 +810,7 @@ class @Scanner
       @forward() while @peek() not in C_LB + '\x00'
 
     char = @peek()
-    throw new exports.ScannerError 'while scanning a directive', start_mark,
+    throw new exports.ScannerError 'while scanning a directive', start_mark, \
       "expected a comment or a line break but found #{char}", @get_mark() \
       if char not in C_LB + '\x00'
 
