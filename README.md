@@ -68,17 +68,17 @@ console.log(yaml.dump({
 
 | Method          | Description                                                                                     |
 |-----------------|-------------------------------------------------------------------------------------------------|
+| **`load`**      | Parse the first YAML document in a stream and produce the corresponding Javascript object.      |
+| **`dump`**      | Serialize a Javascript object into a YAML stream.                                               |
+| `load_all`      | Parse all YAML documents in a stream and produce the corresponing Javascript objects.           |
+| `dump_all`      | Serialize a sequence of Javascript objects into a YAML stream.                                  |
 | `scan`          | Scan a YAML stream and produce tokens.                                                          |
 | `parse`         | Parse a YAML stream and produce events.                                                         |
 | `compose`       | Parse the first YAML document in a stream and produce the corresponding representation tree.    |
 | `compose_all`   | Parse all YAML documents in a stream and produce corresponding representation trees.            |
-| `load`          | Parse the first YAML document in a stream and produce the corresponding Javascript object.      |
-| `load_all`      | Parse all YAML documents in a stream and produce the corresponing Javascript objects.           |
 | `emit`          | Emit YAML parsing events into a stream.                                                         |
 | `serialize`     | Serialize a representation tree into a YAML stream.                                             |
 | `serialize_all` | Serialize a sequence of representation trees into a YAML stream.                                |
-| `dump`          | Serialize a Javascript object into a YAML stream.                                               |
-| `dump_all`      | Serialize a sequence of Javascript objects into a YAML stream.                                  |
 
 License
 ---
