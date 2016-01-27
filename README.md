@@ -29,52 +29,39 @@ How Do I Get It?
 How Do I Use It?
 ---
 
-### In node (CoffeeScript):
+```javascript
+// Server (e.g. node.js)
+var yaml = require('yaml-js');
 
-**Load**
+// Browser
+// <script src='yaml.min.js'></script>
 
-```coffee
-yaml = require 'yaml-js'
-console.log yaml.load '''
-  ---
-  phrase1:
-    - hello
-    - &world world
-  phrase2:
-    - goodbye
-    - *world
-  phrase3: >
-    What is up
-    in this place.
-'''
-# { phrase1: [ 'hello', 'world' ],
-#   phrase2: [ 'goodbye', 'world' ],
-#   phrase3: 'What is up in this place.' }
-```
+// Loading
+console.log(yaml.load(
+  '---\n' +
+  'phrase1:\n' +
+  '  - hello\n' +
+  '  - &world world\n' +
+  'phrase2:\n' +
+  '  - goodbye\n' +
+  '  - *world\n' +
+  'phrase3: >\n' +
+  '  What is up\n' +
+  '  in this place.'
+));
+// { phrase1: [ 'hello', 'world' ],
+//   phrase2: [ 'goodbye', 'world' ],
+//   phrase3: 'What is up in this place.' }
 
-**Dump**
-
-```coffee
-yaml = require 'yaml-js'
-console.log yaml.dump
-  phrase1: [ 'hello',   'world' ]
-  phrase2: [ 'goodbye', 'world' ]
+// Dumping
+console.log(yaml.dump({
+  phrase1: [ 'hello',   'world' ],
+  phrase2: [ 'goodbye', 'world' ],
   phrase3: 'What is up in this place.'
-# phrase1: [hello, world]
-# phrase2: [goodbye, world]
-# phrase3: What is up in this place.
-```
-
-### In the browser:
-
-```html
-<script src='yaml.min.js'></script>
-<script>
-  console.log(yaml.load('hello: world'));
-  // { 'hello' : 'world' }
-  console.log(yaml.dump({ hello: 'world' }));
-  // 'hello: world\n'
-</script>
+}));
+// phrase1: [hello, world]
+// phrase2: [goodbye, world]
+// phrase3: What is up in this place.
 ```
 
 ### API summary
