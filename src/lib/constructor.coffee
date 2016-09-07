@@ -2,47 +2,114 @@
 nodes             = require './nodes'
 util              = require './util'
 
+###
+Thrown for errors encountered during construction.
+###
 class @ConstructorError extends MarkedYAMLError
 
+###
+The constructor class handles the construction of Javascript objects from representation trees
+({Node}s).
+
+This uses the methods from {Composer} to process the representation stream, and provides a similar
+stream-like interface to Javascript objects via {BaseConstructor#check_node},
+{BaseConstructor#get_node}, and {BaseConstructor#get_single_node}.
+###
 class @BaseConstructor
 
+  ###
+  @property {Object} A map from a YAML tag to a constructor function for data with that tag.
+  @private
+  ###
   yaml_constructors      : {}
+
+  ###
+  @property {Object} A map from a YAML tag prefix to a constructor function for data with that tag
+                     prefix.
+  @private
+  ###
   yaml_multi_constructors: {}
 
+  ###
+  Add a constructor function for a specific tag.
+
+  The constructor will be used to turn {Node Nodes} with the given tag into a Javascript object.
+
+  @param tag {String} The tag for which the constructor should apply.
+  @param constructor {Function<Node,any>} A function that turns a {Node} with the given tag into a
+    Javascript object.
+  @return {Function<Node,Any>} Returns the supplied `constructor`.
+  ###
   @add_constructor: (tag, constructor) ->
     unless @::hasOwnProperty 'yaml_constructors'
       @::yaml_constructors = util.extend {}, @::yaml_constructors
     @::yaml_constructors[tag] = constructor
 
+  ###
+  Add a constructor function for a tag prefix.
+
+  The constructor will be used to turn {Node Nodes} with the given tag prefix into a Javascript
+  object.
+
+  @param tag_prefix {String} The tag prefix for which the constructor should apply.
+  @param multi_constructor {Function<Node,any>} A function that turns a {Node} with the given tag
+    prefix into a Javascript object.
+  @return {Function<Node,Any>} Returns the supplied `multi_constructor`.
+  ###
   @add_multi_constructor: (tag_prefix, multi_constructor) ->
     unless @::hasOwnProperty 'yaml_multi_constructors'
       @::yaml_multi_constructors = util.extend {}, @::yaml_multi_constructors
     @::yaml_multi_constructors[tag_prefix] = multi_constructor
 
+  ###
+  Construct a new `Constructor` instance.
+  ###
   constructor: ->
+    # @param {Object} A map from {Node#unique_id} to the constructed Javascript object for the node.
     @constructed_objects   = {}
+
+    # @param {Array<String>} An array of {Node#unique_id}s that are being constructed.
     @constructing_nodes    = []
+
+    # @param {Function<any>} An array of functions to be exectied after docmuent construction.
     @deferred_constructors = []
 
   ###
-  Are there more documents available?
+  Checks if a document can be constructed from the representation stream.
+
+  So long as the representation stream hasn't ended, another document can be constructed.
+
+  @return {Boolean} True if a document can be constructed, false otherwise.
   ###
   check_data: -> @check_node()
 
   ###
-  Construct and return the next document.
+  Construct a document from the remaining representation stream.
+
+  {Constructor#check_data} must be called before calling this method.
+
+  @return {any} The next document in the stream. Returns `undefined` if the stream has ended.
   ###
   get_data: ->
     return @construct_document @get_node() if @check_node()
 
   ###
-  Ensure that the stream contains a single document and construct it.
+  Construct a single document from the entire representation stream.
+
+  @throw {ComposerError} if there's more than one document is in the stream.
+
+  @return {Node} The single document in the stream.
   ###
   get_single_data: ->
     node = @get_single_node()
     return @construct_document node if node?
     return null
 
+  ###
+  Construct a document node
+
+  @private
+  ###
   construct_document: (node) ->
     data = @construct_object node
     while not util.is_empty @deferred_constructors
