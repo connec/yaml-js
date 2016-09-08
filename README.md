@@ -1,6 +1,8 @@
 yaml-js
 ===
 
+[![NPM](https://nodei.co/npm/yaml-js.png)](https://nodei.co/npm/yaml-js/)
+
 yaml-js is a YAML loader and dumper, ported pretty much line-for-line from
 [PyYAML](http://pyyaml.org/).  The goal for the project is to maintain a reliable and
 specification-complete YAML processor in pure Javascript, with CoffeeScript source code.  You can
