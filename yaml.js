@@ -3780,13 +3780,17 @@
                     char = this.peek(length);
                     while ("0" <= char && char <= "9" || "A" <= char && char <= "Z" || "a" <= char && char <= "z" || indexOf.call("-_", char) >= 0) {
                         length++;
-                        char = peek(length);
+                        char = this.peek(length);
                     }
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected alphanumeric or numeric character but found " + char, length === 0 ? this.get_mark() : void 0);
+                    if (length === 0) {
+                        throw new exports.ScannerError("while scanning a directive", start_mark, "expected alphanumeric or numeric character but found " + char, this.get_mark());
+                    }
                     value = this.prefix(length);
                     this.forward(length);
                     char = this.peek();
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected alphanumeric or numeric character but found " + char, indexOf.call(C_LB + "\0 ", char) < 0 ? this.get_mark() : void 0);
+                    if (indexOf.call(C_LB + "\0 ", char) < 0) {
+                        throw new exports.ScannerError("while scanning a directive", start_mark, "expected alphanumeric or numeric character but found " + char, this.get_mark());
+                    }
                     return value;
                 };
                 Scanner.prototype.scan_yaml_directive_value = function(start_mark) {
@@ -3795,16 +3799,22 @@
                         this.forward();
                     }
                     major = this.scan_yaml_directive_number(start_mark);
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit or '.' but found " + this.peek(), this.peek() !== "." ? this.get_mark() : void 0);
+                    if (this.peek() !== ".") {
+                        throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit or '.' but found " + this.peek(), this.get_mark());
+                    }
                     this.forward();
                     minor = this.scan_yaml_directive_number(start_mark);
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit or ' ' but found " + this.peek(), (ref = this.peek(), indexOf.call(C_LB + "\0 ", ref) < 0) ? this.get_mark() : void 0);
+                    if (ref = this.peek(), indexOf.call(C_LB + "\0 ", ref) < 0) {
+                        throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit or ' ' but found " + this.peek(), this.get_mark());
+                    }
                     return [ major, minor ];
                 };
                 Scanner.prototype.scan_yaml_directive_number = function(start_mark) {
                     var char, length, ref, value;
                     char = this.peek();
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit but found " + char, !("0" <= char && char <= "9") ? this.get_mark() : void 0);
+                    if (!("0" <= char && char <= "9")) {
+                        throw new exports.ScannerError("while scanning a directive", start_mark, "expected a digit but found " + char, this.get_mark());
+                    }
                     length = 0;
                     while ("0" <= (ref = this.peek(length)) && ref <= "9") {
                         length++;
@@ -3829,14 +3839,18 @@
                     var char, value;
                     value = this.scan_tag_handle("directive", start_mark);
                     char = this.peek();
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected ' ' but found " + char, char !== " " ? this.get_mark() : void 0);
+                    if (char !== " ") {
+                        throw new exports.ScannerError("while scanning a directive", start_mark, "expected ' ' but found " + char, this.get_mark());
+                    }
                     return value;
                 };
                 Scanner.prototype.scan_tag_directive_prefix = function(start_mark) {
                     var char, value;
                     value = this.scan_tag_uri("directive", start_mark);
                     char = this.peek();
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected ' ' but found " + char, indexOf.call(C_LB + "\0 ", char) < 0 ? this.get_mark() : void 0);
+                    if (indexOf.call(C_LB + "\0 ", char) < 0) {
+                        throw new exports.ScannerError("while scanning a directive", start_mark, "expected ' ' but found " + char, this.get_mark());
+                    }
                     return value;
                 };
                 Scanner.prototype.scan_directive_ignored_line = function(start_mark) {
@@ -3850,7 +3864,9 @@
                         }
                     }
                     char = this.peek();
-                    throw new exports.ScannerError("while scanning a directive", start_mark, "expected a comment or a line break but found " + char, indexOf.call(C_LB + "\0", char) < 0 ? this.get_mark() : void 0);
+                    if (indexOf.call(C_LB + "\0", char) < 0) {
+                        throw new exports.ScannerError("while scanning a directive", start_mark, "expected a comment or a line break but found " + char, this.get_mark());
+                    }
                     return this.scan_line_break();
                 };
                 Scanner.prototype.scan_anchor = function(TokenClass) {
@@ -4493,7 +4509,7 @@
                             }
                             this.yaml_version = token.value;
                         } else if (token.name === "TAG") {
-                            ref1 = this.tag_handles, handle = ref1[0], prefix = ref1[1];
+                            ref1 = token.value, handle = ref1[0], prefix = ref1[1];
                             if (handle in this.tag_handles) {
                                 throw new exports.ParserError(null, null, "duplicate tag handle " + handle, token.start_mark);
                             }
