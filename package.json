@@ -14,7 +14,7 @@
     "plantation": "0.0.15",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
-    "squash": "0.0.13"
+    "squash": "0.0.14"
   },
   "license": "WTFPL"
 }
