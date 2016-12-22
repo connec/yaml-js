@@ -8,11 +8,15 @@ class @StringStream
   write: (chunk) ->
     @string += chunk
 
-@clone = (obj) =>
-  @extend {}, obj
+@clone = (obj) ->
+  Object.assign {}, obj
 
 @extend = (destination, sources...) ->
-  destination[k] = v for k, v of source for source in sources
+  for source in sources
+    while source != Object.prototype
+      for name in Object.getOwnPropertyNames source when name isnt 'constructor'
+        destination[name] ?= source[name]
+      source = Object.getPrototypeOf source
   destination
 
 @is_empty = (obj) ->

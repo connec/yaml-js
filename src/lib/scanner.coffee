@@ -45,10 +45,12 @@ class @Scanner
     'u': 4
     'U': 8
 
+  constructor: @::initialise
+
   ###
   Initialise the Scanner
   ###
-  constructor: ->
+  initialise: ->
     # Have we reached the end of the stream?
     @done = no
 

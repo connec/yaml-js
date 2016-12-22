@@ -10,7 +10,9 @@ class @Parser
     '!' : '!',
     '!!': 'tag:yaml.org,2002:'
   
-  constructor: ->
+  constructor: @::initialise
+
+  initialise: ->
     @current_event = null
     @yaml_version = null
     @tag_handles = {}

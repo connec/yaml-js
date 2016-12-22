@@ -3,7 +3,8 @@ class @Token
 
 class @DirectiveToken extends @Token
   id: '<directive>'
-  constructor: (@name, @value, @start_mark, @end_mark) ->
+  constructor: (@name, @value, start_mark, end_mark) ->
+    super start_mark, end_mark
 
 class @DocumentStartToken extends @Token
   id: '<document start>'
@@ -13,7 +14,8 @@ class @DocumentEndToken extends @Token
 
 class @StreamStartToken extends @Token
   id: '<stream start>'
-  constructor: (@start_mark, @end_mark, @encoding) ->
+  constructor: (start_mark, end_mark, @encoding) ->
+    super start_mark, end_mark
 
 class @StreamEndToken extends @Token
   id: '<stream end>'
@@ -53,16 +55,20 @@ class @FlowEntryToken extends @Token
 
 class @AliasToken extends @Token
   id: '<alias>'
-  constructor: (@value, @start_mark, @end_mark) ->
+  constructor: (@value, start_mark, end_mark) ->
+    super start_mark, end_mark
 
 class @AnchorToken extends @Token
   id: '<anchor>'
-  constructor: (@value, @start_mark, @end_mark) ->
+  constructor: (@value, start_mark, end_mark) ->
+    super start_mark, end_mark
 
 class @TagToken extends @Token
   id: '<tag>'
-  constructor: (@value, @start_mark, @end_mark) ->
+  constructor: (@value, start_mark, end_mark) ->
+    super start_mark, end_mark
 
 class @ScalarToken extends @Token
   id: '<scalar>'
-  constructor: (@value, @plain, @start_mark, @end_mark, @style) ->
+  constructor: (@value, @plain, start_mark, end_mark, @style) ->
+    super start_mark, end_mark

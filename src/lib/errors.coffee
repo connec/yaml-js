@@ -36,7 +36,8 @@ class @YAMLError extends Error
     super()
 
     # Hack to get the stack on the error somehow
-    @stack = @toString() + '\n' + (new Error).stack.split('\n')[1..].join('\n')
+    Object.defineProperty @, 'stack', get: ->
+      @toString() + '\n' + (new Error).stack.split('\n')[1..].join('\n')
 
   toString: ->
     @message

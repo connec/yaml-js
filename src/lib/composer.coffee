@@ -19,7 +19,12 @@ class @Composer
   ###
   Construct a new `Composer` instance.
   ###
-  constructor: ->
+  constructor: @::initialise
+
+  ###
+  Initialise a new `Composer` instance.
+  ###
+  initialise: ->
     # @property {Object} A mapping from anchor names to nodes.
     @anchors = {}
 
