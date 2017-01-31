@@ -28,7 +28,9 @@ class @BaseRepresenter
     @::yaml_multi_representers_types.push data_type
     @::yaml_multi_representers_handlers.push handler
 
-  constructor: ({ @default_style, @default_flow_style } = {}) ->
+  constructor: @::initialise
+
+  initialise: ({ @default_style, @default_flow_style } = {}) ->
     @represented_objects = {}
     @object_keeper       = []
     @alias_key           = null

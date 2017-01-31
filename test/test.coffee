@@ -41,4 +41,4 @@ describe 'dump (formatting)', ->
   for { input, output }, i in examples then do (input, output, i) ->
     for [ options, result ], j in output then do (options, result, j) ->
       it "input #{i} options #{j}", ->
-        expect_equal yaml.dump(yaml.load(input), null, null, options), result
+        expect_equal yaml.dump(yaml.load(input), undefined, undefined, options), result

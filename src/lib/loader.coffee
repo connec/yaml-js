@@ -14,7 +14,7 @@ constructor = require './constructor'
     util.extend @prototype, (component.prototype for component in components)...
 
     constructor: (stream) ->
-      components[0].call @, stream
-      component.call @ for component in components[1..]
+      components[0]::initialise.call @, stream
+      component::initialise.call @ for component in components[1..]
 
 @Loader = @make_loader()

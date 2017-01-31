@@ -15,11 +15,13 @@ class @BaseResolver
   
   @add_implicit_resolver: (tag, regexp, first = [null]) ->
     unless @::hasOwnProperty 'yaml_implicit_resolvers'
-      @::yaml_implicit_resolvers = util.extend {}, @::yaml_implicit_resolvers
+      @::yaml_implicit_resolvers = util.clone @::yaml_implicit_resolvers
     for char in first
       (@::yaml_implicit_resolvers[char] ?= []).push [tag, regexp]
   
-  constructor: ->
+  constructor: @::initialise
+
+  initialise: ->
     @resolver_exact_paths  = []
     @resolver_prefix_paths = []
   

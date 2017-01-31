@@ -42,7 +42,7 @@ class @BaseConstructor
   ###
   @add_constructor: (tag, constructor) ->
     unless @::hasOwnProperty 'yaml_constructors'
-      @::yaml_constructors = util.extend {}, @::yaml_constructors
+      @::yaml_constructors = util.clone @::yaml_constructors
     @::yaml_constructors[tag] = constructor
 
   ###
@@ -58,13 +58,18 @@ class @BaseConstructor
   ###
   @add_multi_constructor: (tag_prefix, multi_constructor) ->
     unless @::hasOwnProperty 'yaml_multi_constructors'
-      @::yaml_multi_constructors = util.extend {}, @::yaml_multi_constructors
+      @::yaml_multi_constructors = util.clone @::yaml_multi_constructors
     @::yaml_multi_constructors[tag_prefix] = multi_constructor
 
   ###
   Construct a new `Constructor` instance.
   ###
-  constructor: ->
+  constructor: @::initialise
+
+  ###
+  Initialise a new `Constructor` instance.
+  ###
+  initialise: ->
     # @param {Object} A map from {Node#unique_id} to the constructed Javascript object for the node.
     @constructed_objects   = {}
 
