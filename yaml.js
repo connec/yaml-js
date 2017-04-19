@@ -897,7 +897,7 @@
                     if (value === ".inf") {
                         return sign * Infinity;
                     } else if (value === ".nan") {
-                        return 0 / 0;
+                        return NaN;
                     } else if (indexOf.call(value, ":") >= 0) {
                         digits = function() {
                             var i, len, ref1, results;
@@ -930,8 +930,8 @@
                             return atob(value);
                         }
                         return (new Buffer(value, "base64")).toString("ascii");
-                    } catch (error1) {
-                        error = error1;
+                    } catch (_error) {
+                        error = _error;
                         throw new exports.ConstructorError(null, null, "failed to decode base64 data: " + error, node.start_mark);
                     }
                 };
@@ -2967,13 +2967,13 @@
                     ReaderError.__super__.constructor.call(this);
                 }
                 ReaderError.prototype.toString = function() {
-                    return "unacceptable character " + this.character.charCodeAt() + ": " + this.reason + "\n  position " + this.position;
+                    return "unacceptable character #" + this.character.charCodeAt(0).toString(16) + ": " + this.reason + "\n  position " + this.position;
                 };
                 return ReaderError;
             }(YAMLError);
             this.Reader = function() {
                 var NON_PRINTABLE;
-                NON_PRINTABLE = /[^\x09\x0A\x0D\x20-\x7E\x85\xA0-\uD7FF\uE000-\uFFFD]/;
+                NON_PRINTABLE = /[^\x09\x0A\x0D\x20-\x7E\x85\xA0-\uFFFD]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/;
                 function Reader(string) {
                     this.string = string;
                     this.line = 0;
@@ -3022,7 +3022,7 @@
                     if (match) {
                         character = match[0];
                         position = this.string.length - this.index + match.index;
-                        throw new exports.ReaderError(position, character.charCodeAt(), "special characters are not allowed");
+                        throw new exports.ReaderError(position, character, "special characters are not allowed");
                     }
                 };
                 return Reader;
@@ -4940,18 +4940,18 @@
     }, 0, function(global, module, exports, require, window) {
         (function() {
             var composer, constructor, dumper, errors, events, fs, loader, nodes, parser, reader, resolver, scanner, tokens, util;
-            composer = this.composer = require("./composer");
-            constructor = this.constructor = require("./constructor");
-            dumper = this.dumper = require("./dumper");
-            errors = this.errors = require("./errors");
-            events = this.events = require("./events");
-            loader = this.loader = require("./loader");
-            nodes = this.nodes = require("./nodes");
-            parser = this.parser = require("./parser");
-            reader = this.reader = require("./reader");
-            resolver = this.resolver = require("./resolver");
-            scanner = this.scanner = require("./scanner");
-            tokens = this.tokens = require("./tokens");
+            composer = require("./composer");
+            constructor = require("./constructor");
+            dumper = require("./dumper");
+            errors = require("./errors");
+            events = require("./events");
+            loader = require("./loader");
+            nodes = require("./nodes");
+            parser = require("./parser");
+            reader = require("./reader");
+            resolver = require("./resolver");
+            scanner = require("./scanner");
+            tokens = require("./tokens");
             util = require("./util");
             this.scan = function(stream, Loader) {
                 var _loader, results;
