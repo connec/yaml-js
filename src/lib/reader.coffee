@@ -6,7 +6,7 @@ class @ReaderError extends YAMLError
 
   toString: ->
     """
-    unacceptable character #{@character.charCodeAt()}: #{@reason}
+    unacceptable character ##{@character.charCodeAt(0).toString 16}: #{@reason}
       position #{@position}
     """
 
@@ -49,6 +49,5 @@ class @Reader
     match = NON_PRINTABLE.exec @string
     if match
       character = match[0]
-      position = (@string.length - @index) + match.index
-      throw new exports.ReaderError position, character.charCodeAt(),
-        'special characters are not allowed'
+      position  = (@string.length - @index) + match.index
+      throw new exports.ReaderError position, character, 'special characters are not allowed'
