@@ -16,7 +16,11 @@ Reader:
   add '\x00' to the end
 ###
 class @Reader
-  NON_PRINTABLE = /[^\x09\x0A\x0D\x20-\x7E\x85\xA0-\uD7FF\uE000-\uFFFD]/
+  NON_PRINTABLE = ///
+    [^\x09\x0A\x0D\x20-\x7E\x85\xA0-\uFFFD] # Invalid single characters
+  | [\uD800-\uDBFF](?![\uDC00-\uDFFF])      # Missing or invalid low surrogate
+  | (?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]   # Missing or invalid high surrogate
+  ///
 
   constructor: (@string) ->
     @line = 0
