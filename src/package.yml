@@ -1,5 +1,5 @@
 name:            yaml-js
-version:         0.1.4
+version:         0.1.5
 description:     Pure Javascript YAML loader and dumper, ported from PyYAML
 main:            ./lib/yaml
 repository:
