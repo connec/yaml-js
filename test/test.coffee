@@ -1,4 +1,5 @@
 yaml = require '..'
+require '../register'
 
 spec =
   generic:    require './yaml-spec/spec'

@@ -114,11 +114,3 @@ If stream is falsey, return the produced string instead.
   finally
     _dumper.dispose()
   stream or dest.string
-
-###
-Register .yml and .yaml requires with yaml-js
-###
-if require?.extensions
-  fs = require 'fs'
-  require.extensions['.yml'] = require.extensions['.yaml'] = (module, filename) ->
-    module.exports = exports.load_all fs.readFileSync filename, 'utf8'

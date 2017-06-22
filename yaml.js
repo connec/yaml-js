@@ -897,7 +897,7 @@
                     if (value === ".inf") {
                         return sign * Infinity;
                     } else if (value === ".nan") {
-                        return NaN;
+                        return 0 / 0;
                     } else if (indexOf.call(value, ":") >= 0) {
                         digits = function() {
                             var i, len, ref1, results;
@@ -930,8 +930,8 @@
                             return atob(value);
                         }
                         return (new Buffer(value, "base64")).toString("ascii");
-                    } catch (_error) {
-                        error = _error;
+                    } catch (error1) {
+                        error = error1;
                         throw new exports.ConstructorError(null, null, "failed to decode base64 data: " + error, node.start_mark);
                     }
                 };
@@ -4939,19 +4939,19 @@
         "": [ "yaml" ]
     }, 0, function(global, module, exports, require, window) {
         (function() {
-            var composer, constructor, dumper, errors, events, fs, loader, nodes, parser, reader, resolver, scanner, tokens, util;
-            composer = require("./composer");
-            constructor = require("./constructor");
-            dumper = require("./dumper");
-            errors = require("./errors");
-            events = require("./events");
-            loader = require("./loader");
-            nodes = require("./nodes");
-            parser = require("./parser");
-            reader = require("./reader");
-            resolver = require("./resolver");
-            scanner = require("./scanner");
-            tokens = require("./tokens");
+            var composer, constructor, dumper, errors, events, loader, nodes, parser, reader, resolver, scanner, tokens, util;
+            composer = this.composer = require("./composer");
+            constructor = this.constructor = require("./constructor");
+            dumper = this.dumper = require("./dumper");
+            errors = this.errors = require("./errors");
+            events = this.events = require("./events");
+            loader = this.loader = require("./loader");
+            nodes = this.nodes = require("./nodes");
+            parser = this.parser = require("./parser");
+            reader = this.reader = require("./reader");
+            resolver = this.resolver = require("./resolver");
+            scanner = this.scanner = require("./scanner");
+            tokens = this.tokens = require("./tokens");
             util = require("./util");
             this.scan = function(stream, Loader) {
                 var _loader, results;
@@ -5099,12 +5099,6 @@
                 }
                 return stream || dest.string;
             };
-            if (typeof require !== "undefined" && require !== null ? require.extensions : void 0) {
-                fs = require("fs");
-                require.extensions[".yml"] = require.extensions[".yaml"] = function(module, filename) {
-                    return module.exports = exports.load_all(fs.readFileSync(filename, "utf8"));
-                };
-            }
         }).call(this);
     });
     root["yaml"] = require_from(null, "")("yaml");
