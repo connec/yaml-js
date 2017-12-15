@@ -7,9 +7,9 @@ repository:
   url:           http://github.com/connec/yaml-js.git
 devDependencies:
   chai:          ^2.3.0
-  coffee-script: ^1.9.0
+  coffeescript:  ^1.9.0
   mocha:         ^2.5.3
-  plantation:    0.0.16
+  plantation:    0.0.17
   sinon:         ^1.17.6
   sinon-chai:    ^2.8.0
   squash:        0.0.14
