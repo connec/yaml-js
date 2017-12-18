@@ -22,7 +22,9 @@ class @Reader
   | (?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]   # Missing or invalid high surrogate
   ///
 
-  constructor: (@string) ->
+  constructor: @::initialise
+
+  initialise: (@string) ->
     @line = 0
     @column = 0
     @index = 0

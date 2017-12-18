@@ -61,10 +61,12 @@ class @BaseConstructor
       @::yaml_multi_constructors = util.extend {}, @::yaml_multi_constructors
     @::yaml_multi_constructors[tag_prefix] = multi_constructor
 
+  constructor: @::initialise
+
   ###
-  Construct a new `Constructor` instance.
+  Initialise a new instance.
   ###
-  constructor: ->
+  initialise: ->
     # @param {Object} A map from {Node#unique_id} to the constructed Javascript object for the node.
     @constructed_objects   = {}
 

@@ -16,10 +16,12 @@ interface to representation trees via {Composer#check_node}, {Composer#get_node}
 ###
 class @Composer
 
+  constructor: @::initialise
+
   ###
-  Construct a new `Composer` instance.
+  Initialise a `Composer` instance.
   ###
-  constructor: ->
+  initialise: ->
     # @property {Object} A mapping from anchor names to nodes.
     @anchors = {}
 

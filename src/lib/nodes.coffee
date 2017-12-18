@@ -6,12 +6,12 @@ class @Node
 
 class @ScalarNode extends @Node
   id: 'scalar'
-  constructor: (@tag, @value, @start_mark, @end_mark, @style) ->
-    super
+  constructor: (tag, value, start_mark, end_mark, @style) ->
+    super tag, value, start_mark, end_mark
 
 class @CollectionNode extends @Node
-  constructor: (@tag, @value, @start_mark, @end_mark, @flow_style) ->
-    super
+  constructor: (tag, value, start_mark, end_mark, @flow_style) ->
+    super tag, value, start_mark, end_mark
 
 class @SequenceNode extends @CollectionNode
   id: 'sequence'

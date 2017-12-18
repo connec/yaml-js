@@ -9,10 +9,12 @@ class @StringStream
     @string += chunk
 
 @clone = (obj) =>
-  @extend {}, obj
+  Object.assign {}, obj
 
 @extend = (destination, sources...) ->
-  destination[k] = v for k, v of source for source in sources
+  for source in sources then while source != Object.prototype
+    destination[name] ?= source[name] for name in Object.getOwnPropertyNames source
+    source = Object.getPrototypeOf source
   destination
 
 @is_empty = (obj) ->

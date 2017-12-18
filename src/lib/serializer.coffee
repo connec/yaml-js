@@ -6,7 +6,9 @@ util        = require './util'
 class @SerializerError extends YAMLError
 
 class @Serializer
-  constructor: ({ @encoding, @explicit_start, @explicit_end, @version, @tags } = {}) ->
+  constructor: @::initialise
+
+  initialise: ({ @encoding, @explicit_start, @explicit_end, @version, @tags } = {}) ->
     @serialized_nodes = {}
     @anchors          = {}
     @last_anchor_id   = 0

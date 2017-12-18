@@ -37,7 +37,9 @@ class @Emitter
     '\u2028':   'L'
     '\u2029':   'P'
 
-  constructor: (@stream, options) ->
+  constructor: @::initialise
+
+  initialise: (@stream, options) ->
     # Encoding can be overriden by STREAM-START
     @encoding = null
 

@@ -32,11 +32,12 @@ class @Mark
     return if snippet then where else "#{where}:\n#{snippet}"
 
 class @YAMLError extends Error
-  constructor: (@message) ->
-    super()
+  constructor: (message) ->
+    super message
 
     # Hack to get the stack on the error somehow
-    @stack = @toString() + '\n' + (new Error).stack.split('\n')[1..].join('\n')
+    Object.defineProperty @, 'stack', get: ->
+      @toString() + '\n' + (new Error).stack.split('\n')[1..].join '\n'
 
   toString: ->
     @message

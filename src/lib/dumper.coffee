@@ -11,7 +11,7 @@ resolver    = require './resolver'
     util.extend @prototype, (component.prototype for component in components)...
 
     constructor: (stream, options = {}) ->
-      components[0].call @, stream, options
-      component.call @, options for component in components[1..]
+      components[0]::initialise.call @, stream, options
+      component::initialise.call @, options for component in components[1..]
 
 @Dumper = @make_dumper()
