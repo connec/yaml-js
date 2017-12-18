@@ -7,6 +7,9 @@
     "type": "git",
     "url": "http://github.com/connec/yaml-js.git"
   },
+  "engines": {
+    "node": ">=8"
+  },
   "devDependencies": {
     "chai": "^2.3.0",
     "coffeescript": "connec/coffeescript##4827",
