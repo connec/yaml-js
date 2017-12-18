@@ -1,6 +1,6 @@
 {
   "name": "yaml-js",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Pure Javascript YAML loader and dumper, ported from PyYAML",
   "main": "./lib/yaml",
   "repository": {
