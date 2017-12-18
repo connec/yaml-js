@@ -5,7 +5,7 @@ tokens            = require './tokens'
 class @ParserError extends MarkedYAMLError
 
 class @Parser
-  
+
   DEFAULT_TAGS =
     '!' : '!',
     '!!': 'tag:yaml.org,2002:'
@@ -19,14 +19,14 @@ class @Parser
     @states = []
     @marks = []
     @state = 'parse_stream_start'
-  
+
   ###
   Reset the state attributes.
   ###
   dispose: ->
     @states = []
     @state = null
-  
+
   ###
   Check the type of the next event.
   ###
@@ -38,14 +38,14 @@ class @Parser
       for choice in choices
         return true if @current_event instanceof choice
     return false
-  
+
   ###
   Get the next event.
   ###
   peek_event: ->
     @current_event = @[@state]() if @current_event is null and @state?
     return @current_event
-  
+
   ###
   Get the event and proceed further.
   ###
@@ -54,23 +54,23 @@ class @Parser
     event = @current_event
     @current_event = null
     return event
-  
+
   # stream ::= STREAM-START implicit_document? explicit_document* STREAM-END
   # implicit_document ::= block_node DOCUMENT-END*
   # explicit_document ::= DIRECTIVE* DOCUMENT-START block_node? DOCUMENT-END*
-  
+
   ###
   Parse the stream start.
   ###
   parse_stream_start: ->
     token = @get_token()
     event = new events.StreamStartEvent token.start_mark, token.end_mark
-    
+
     # Prepare the next state,
     @state = 'parse_implicit_document_start'
-    
+
     return event
-  
+
   ###
   Parse an implicit document.
   ###
@@ -81,22 +81,22 @@ class @Parser
       token = @peek_token()
       start_mark = end_mark = token.start_mark
       event = new events.DocumentStartEvent start_mark, end_mark, false
-      
+
       # Prepare the next state
       @states.push 'parse_document_end'
       @state = 'parse_block_node'
-      
+
       return event
     else
       return @parse_document_start()
-  
+
   ###
   Parse an explicit document.
   ###
   parse_document_start: ->
     # Parse any extra document end indicators
     @get_token() while @check_token tokens.DocumentEndToken
-    
+
     if not @check_token tokens.StreamEndToken
       start_mark = @peek_token().start_mark
       [version, tags] = @process_directives()
@@ -119,7 +119,7 @@ class @Parser
         unless @marks.length is 0
       @state = null
     return event
-  
+
   ###
   Parse the document end.
   ###
@@ -132,12 +132,12 @@ class @Parser
       end_mark = token.end_mark
       explicit = yes
     event = new events.DocumentEndEvent start_mark, end_mark, explicit
-    
+
     # Prepare next state.
     @state = 'parse_document_start'
-    
+
     return event
-  
+
   parse_document_content: ->
     if @check_token tokens.DirectiveToken, tokens.DocumentStartToken, \
         tokens.DocumentEndToken, tokens.StreamEndToken
@@ -146,7 +146,7 @@ class @Parser
       return event
     else
       return @parse_block_node()
-  
+
   process_directives: ->
     @yaml_version = null
     @tag_handles = {}
@@ -167,18 +167,18 @@ class @Parser
           "duplicate tag handle #{handle}", token.start_mark \
           if handle of @tag_handles
         @tag_handles[handle] = prefix
-    
+
     tag_handles_copy = null
     for own handle, prefix of @tag_handles
       tag_handles_copy ?= {}
       tag_handles_copy[handle] = prefix
     value = [@yaml_version, tag_handles_copy]
-    
+
     for own handle, prefix of DEFAULT_TAGS
       @tag_handles[handle] = prefix if prefix not of @tag_handles
-    
+
     return value
-  
+
   # block_node_or_indentless_sequence ::= ALIAS
   #   | properties (block_content | indentless_sequence)?
   #   | block_content
@@ -194,14 +194,14 @@ class @Parser
   # flow_content ::= flow_collection | SCALAR
   # block_collection ::= block_sequence | block_mapping
   # flow_collection ::= flow_sequence | flow_mapping
-  
+
   parse_block_node: -> @parse_node true
-  
+
   parse_flow_node: -> @parse_node()
-  
+
   parse_block_node_or_indentless_sequence: ->
     @parse_node true, true
-  
+
   parse_node: (block = false, indentless_sequence = false) ->
     if @check_token tokens.AliasToken
       token = @get_token()
@@ -240,7 +240,7 @@ class @Parser
           tag = @tag_handles[handle] + suffix
         else
           tag = suffix
-      
+
       start_mark = end_mark = @peek_token().start_mark if start_mark is null
       event = null
       implicit = tag is null or tag is '!'
@@ -297,15 +297,15 @@ class @Parser
             start_mark, "expected the node content, but found #{token.id}",
             token.start_mark
     return event
-  
+
   # block_sequence ::= BLOCK-SEQUENCE-START (BLOCK-ENTRY block_node?)*
   #   BLOCK-END
-  
+
   parse_block_sequence_first_entry: ->
     token = @get_token()
     @marks.push token.start_mark
     return @parse_block_sequence_entry()
-  
+
   parse_block_sequence_entry: ->
     if @check_token tokens.BlockEntryToken
       token = @get_token()
@@ -325,9 +325,9 @@ class @Parser
     @state = @states.pop()
     @marks.pop()
     return event
-  
+
   # indentless_sequence ::= (BLOCK-ENTRY block_node?)+
-  
+
   parse_indentless_sequence_entry: ->
     if @check_token tokens.BlockEntryToken
       token = @get_token()
@@ -342,16 +342,16 @@ class @Parser
     event = new events.SequenceEndEvent token.start_mark, token.start_mark
     @state = @states.pop()
     return event
-  
+
   # block_mapping ::= BLOCK-MAPPING-START
   #   ((KEY block_node_or_indentless_sequence?)?
   #   (VALUE block_node_or_indentless_sequence?)?)* BLOCK-END
-  
+
   parse_block_mapping_first_key: ->
     token = @get_token()
     @marks.push token.start_mark
     return @parse_block_mapping_key()
-  
+
   parse_block_mapping_key: ->
     if @check_token tokens.KeyToken
       token = @get_token()
@@ -372,7 +372,7 @@ class @Parser
     @state = @states.pop()
     @marks.pop()
     return event
-  
+
   parse_block_mapping_value: ->
     if @check_token tokens.ValueToken
       token = @get_token()
@@ -387,21 +387,21 @@ class @Parser
       @state = 'parse_block_mapping_key'
       token = @peek_token()
       return @process_empty_scalar token.start_mark
-  
+
   # flow_sequence ::= FLOW-SEQUENCE-START
   #   (flow_sequence_entry FLOW-ENTRY)* flow_sequence_entry? FLOW-SEQUENCE-END
   # flow_sequence_entry ::= flow_node | KEY flow_node? (VALUE flow_node?)?
-  # 
+  #
   # Note that while production rules for both flow_sequence_entry and
   # flow_mapping_entry are equal, their interpretations are different.  For
   # `flow_sequence_entry`, the part `KEY flow_node? (VALUE flow_node?)?`
   # generate an inline mapping (set syntax).
-  
+
   parse_flow_sequence_first_entry: ->
     token = @get_token()
     @marks.push token.start_mark
     return @parse_flow_sequence_entry yes
-  
+
   parse_flow_sequence_entry: (first = no) ->
     if not @check_token tokens.FlowSequenceEndToken
       if not first
@@ -426,7 +426,7 @@ class @Parser
     @state = @states.pop()
     @marks.pop()
     return event
-  
+
   parse_flow_sequence_entry_mapping_key: ->
     token = @get_token()
     if not @check_token tokens.ValueToken, tokens.FlowEntryToken, \
@@ -436,7 +436,7 @@ class @Parser
     else
       @state = 'parse_flow_sequence_entry_mapping_value'
       return @process_empty_scalar token.end_mark
-  
+
   parse_flow_sequence_entry_mapping_value: ->
     if @check_token tokens.ValueToken
       token = @get_token()
@@ -450,21 +450,21 @@ class @Parser
       @state = 'parse_flow_sequence_entry_mapping_end'
       token = @peek_token()
       return @process_empty_scalar token.start_mark
-  
+
   parse_flow_sequence_entry_mapping_end: ->
     @state = 'parse_flow_sequence_entry'
     token = @peek_token()
     return new events.MappingEndEvent token.start_mark, token.start_mark
-  
+
   # flow_mapping ::= FLOW-MAPPING-START (flow_mapping_entry FLOW-ENTRY)*
   #   flow_mapping_entry? FLOW-MAPPING-END
   # flow_mapping_entry ::= flow_node | KEY flow_node? (VALUE flow_node?)?
-  
+
   parse_flow_mapping_first_key: ->
     token = @get_token()
     @marks.push token.start_mark
     return @parse_flow_mapping_key yes
-  
+
   parse_flow_mapping_key: (first = no) ->
     if not @check_token tokens.FlowMappingEndToken
       if not first
@@ -492,7 +492,7 @@ class @Parser
     @state = @states.pop()
     @marks.pop()
     return event
-  
+
   parse_flow_mapping_value: ->
     if @check_token tokens.ValueToken
       token = @get_token()
@@ -506,10 +506,10 @@ class @Parser
       @state = 'parse_flow_mapping_key'
       token = @peek_token()
       return @process_empty_scalar token.start_mark
-  
+
   parse_flow_mapping_empty_value: ->
     @state = 'parse_flow_mapping_key'
     return @process_empty_scalar @peek_token().start_mark
-  
+
   process_empty_scalar: (mark) ->
     return new events.ScalarEvent null, null, [true, false], '', mark, mark
