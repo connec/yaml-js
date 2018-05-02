@@ -113,7 +113,7 @@ class @BaseRepresenter
         best_style = false
       value.push [ node_key, node_value ]
 
-    node.flow_style = @default_flow_style ? best_style unless flow_style
+    node.flow_style = @default_flow_style ? best_style unless flow_style?
     node
 
   ignore_aliases: (data) ->
