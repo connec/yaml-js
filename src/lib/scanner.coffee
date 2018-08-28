@@ -39,6 +39,7 @@ class @Scanner
     '_' : '\xA0'
     'L' : '\u2028'
     'P' : '\u2029'
+    '/' : '/'
 
   ESCAPE_CODES =
     'x': 2
