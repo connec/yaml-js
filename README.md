@@ -1,27 +1,23 @@
+⚠️Abandoned
+---
+
+This project is now abandoned and the repository archived.
+
+Fun history fact: when I made the port there wasn't another pure JS YAML parser - the [initial commit](https://github.com/connec/yaml-js/commit/5b493a680e20d15ef2139ac7b8f1096c185cca51) for this repo was just a couple of days before the [initial release of js-yaml](https://www.npmjs.com/package/js-yaml/v/0.2.0)!
+
 yaml-js
 ===
-
-[![NPM](https://nodei.co/npm/yaml-js.png)](https://nodei.co/npm/yaml-js/)
 
 yaml-js is a YAML loader and dumper, ported pretty much line-for-line from
 [PyYAML](http://pyyaml.org/).  The goal for the project is to maintain a reliable and
 specification-complete YAML processor in pure Javascript, with CoffeeScript source code.  You can
-try it out [here](http://connec.github.com/yaml-js/).
-
-Current Status
----
-
-The library is being actively maintained for issues, and rather less actively developed for new/improved features.
+try it out [here](http://connec.github.io/yaml-js/).
 
 Loading is stable and well-used, and passes the [yaml-spec](https://github.com/connec/yaml-spec)
-test suite, which fairly thoroughly covers the YAML 'core' schema (if you notice anything missing,
-create an issue).
+test suite, which fairly thoroughly covers the YAML 'core' schema.
 
 Dumping is present but very lightly tested (auto-tests only, no significant usage).  The output
 should therefore be correct YAML, however formatting is currently entirely untested.
-
-If you use the library and find any bugs, or have any suggestions, don't hesitate to create an
-[issue](https://github.com/connec/yaml-js/issues).
 
 How Do I Get It?
 ---
