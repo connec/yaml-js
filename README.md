@@ -2,6 +2,7 @@
 ---
 
 This project is now abandoned and the repository archived.
+The license should allow you to fork and do whatever you want, in case you cannot migrate to a different YAML library.
 
 Fun history fact: when I made the port there wasn't another pure JS YAML parser - the [initial commit](https://github.com/connec/yaml-js/commit/5b493a680e20d15ef2139ac7b8f1096c185cca51) for this repo was just a couple of days before the [initial release of js-yaml](https://www.npmjs.com/package/js-yaml/v/0.2.0)!
 
