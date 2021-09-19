@@ -12,12 +12,13 @@
   },
   "devDependencies": {
     "chai": "^2.3.0",
-    "coffeescript": "connec/coffeescript##4827",
+    "coffeescript": "^2.5.1",
     "mocha": "^2.5.3",
     "plantation": "0.0.17",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
-    "squash": "0.0.18"
+    "squash": "0.0.18",
+    "yaml-js": "."
   },
   "license": "WTFPL"
 }
